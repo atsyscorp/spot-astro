@@ -1,0 +1,15 @@
+---
+interface Props {
+  n: string;
+  rotulo: string;
+  id: string;
+  class?: string;
+}
+const { n, rotulo, id, class: clase } = Astro.props;
+const conMargen = Astro.slots.has('margen');
+---
+<section class:list={['sesion', clase]} id={id} data-sesion={n}>
+  <p class="sesion__rail"><b>{n}</b><span>{rotulo}</span></p>
+  <div class="sesion__cuerpo"><slot /></div>
+  {conMargen && <aside class="sesion__margen"><slot name="margen" /></aside>}
+</section>

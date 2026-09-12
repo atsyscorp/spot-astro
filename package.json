@@ -1,0 +1,21 @@
+{
+  "name": "spotlatam",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "deploy": "astro build && netlify deploy --dir=dist --prod",
+    "login": "netlify login"
+  },
+  "dependencies": {
+    "astro": "^5.15.6",
+    "@astrojs/sitemap": "^3.7.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17"
+  }
+}

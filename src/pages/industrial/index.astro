@@ -1,0 +1,178 @@
+---
+import Mundo from '../../layouts/Mundo.astro';
+import Sesion from '../../components/Sesion.astro';
+import { metodo, marca, practicas } from '../../data/spot';
+import { huecosIndustrial } from '../../data/pendiente';
+
+const practica = practicas.find((p) => p.pista === 'b')!;
+---
+<Mundo
+  pista="b"
+  nombre="Industrial"
+  titulo="Industrial — Spot"
+  descripcion="Proyectos estratégicos para el sector industrial. Soluciones donde la estrategia es crítica. El mismo método que dirige nuestras experiencias corporativas."
+>
+  <Sesion n="I" rotulo="La práctica" id="practica">
+    <h1 class="titular">Proyectos donde la estrategia <em>es crítica.</em></h1>
+    <p class="plomo practica__plomo">{practica.cuerpo}</p>
+    <p class="plomo">
+      La Pista B atiende al sector industrial con el mismo principio que rige
+      toda la casa: primero el pensamiento, después el concepto, y sólo al
+      final la ejecución. Cambia el terreno, no el criterio.
+    </p>
+  </Sesion>
+
+  <Sesion n="II" rotulo="El método" id="metodo">
+    <h2 class="subtitular">El método no cambia de pista.</h2>
+    <p class="plomo metodo__plomo">
+      Las cinco estaciones que dirigen un summit dirigen también un proyecto
+      industrial. Lo que cambia es qué se mide al final.
+    </p>
+    <ol class="metodo">
+      {metodo.map((m) => (
+        <li class="paso">
+          <span class="paso__n">{m.n}</span>
+          <h3 class="paso__titulo">{m.titulo}</h3>
+          <p class="paso__cuerpo">{m.cuerpo}</p>
+        </li>
+      ))}
+    </ol>
+  </Sesion>
+
+  <Sesion n="III" rotulo="En preparación" id="en-preparacion" class="sesion--pendiente">
+    <h2 class="subtitular">Cuatro entradas de este programa <em>todavía no se han impreso.</em></h2>
+    <p class="plomo">
+      Están declaradas, no disimuladas. Cada una dice qué va en su sitio y en qué
+      formato se entrega. Aquí no se publica nada que no se pueda sostener.
+    </p>
+    <ol class="huecos">
+      {huecosIndustrial.map((h) => (
+        <li class="hueco">
+          <h3 class="hueco__titulo">{h.titulo}</h3>
+          <p class="hueco__requiere">{h.requiere}</p>
+          <p class="nota hueco__formato">{h.formato}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="renglones" aria-hidden="true">
+      <i style="--w:100%"></i><i style="--w:88%"></i><i style="--w:47%"></i>
+    </div>
+    <p slot="margen">Cada entrada ocupará su sitio en cuanto exista, sin rehacer el programa.</p>
+  </Sesion>
+
+  <Sesion n="IV" rotulo="Hablemos" id="hablemos">
+    <h2 class="titular">Hablemos.</h2>
+    <p class="plomo">
+      Si su operación tiene una decisión pendiente y no un pliego de compras,
+      esta es la conversación correcta.
+    </p>
+    <ul class="contacto">
+      {marca.correos.map((c) => (
+        <li><a class="contacto__enlace" href={`mailto:${c}`}>{c}</a></li>
+      ))}
+      <li><a class="contacto__enlace" href={`tel:${marca.telefonoHref}`}>{marca.telefono}</a></li>
+    </ul>
+  </Sesion>
+</Mundo>
+
+<style>
+  .practica__plomo { margin-top: var(--s3); font-family: var(--display); font-style: italic; color: var(--live); font-variation-settings: 'opsz' 28; }
+  .practica__plomo + .plomo { margin-top: var(--s3); }
+  .metodo__plomo { margin-top: var(--s2); }
+
+  .metodo {
+    margin-top: var(--s4);
+    position: relative;
+    padding-left: var(--s4);
+  }
+  .metodo::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 0.7rem;
+    bottom: 0.9rem;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--live), var(--foil-faint));
+  }
+  .paso { position: relative; display: grid; gap: 0.3rem; padding-block: var(--s2) var(--s3); }
+  .paso::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--s4) + 2px);
+    top: 0.95rem;
+    width: 7px; height: 7px;
+    background: var(--stock);
+    border: 1px solid var(--live);
+    border-radius: 50%;
+  }
+  .paso__n { font-family: var(--display); font-style: italic; font-size: var(--t-menudo); letter-spacing: 0.12em; color: var(--foil); }
+  .paso__titulo { font-size: var(--t-menor); line-height: 1.15; }
+  .paso__cuerpo { max-width: 52ch; }
+
+  /* Las entradas sin contenido se imprimen como entradas del programa: título
+     en tinta apagada, lo que falta, y el formato de entrega al margen. Debajo,
+     los renglones que todavía no se han impreso. La ausencia se dibuja con el
+     mismo cuidado que lo escrito. */
+  .huecos {
+    margin-top: var(--s4);
+    counter-reset: hueco;
+  }
+  .hueco {
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    gap: 0.3rem var(--s3);
+    padding-block: var(--s3);
+    border-top: 1px solid var(--rule);
+    counter-increment: hueco;
+  }
+  .hueco::before {
+    content: counter(hueco, upper-roman);
+    grid-row: span 3;
+    font-family: var(--display);
+    font-size: var(--t-sub);
+    line-height: 1.2;
+    color: var(--foil);
+    font-variation-settings: 'opsz' 18;
+  }
+  .hueco__titulo {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: var(--t-menor);
+    line-height: 1.15;
+    color: var(--ink-quiet);
+    font-variation-settings: 'opsz' 28;
+  }
+  .hueco__requiere { max-width: 56ch; color: var(--ink-body); }
+  .hueco__formato { max-width: 56ch; }
+
+  .renglones {
+    margin-top: var(--s4);
+    display: grid;
+    gap: 0.95rem;
+    max-width: 32rem;
+  }
+  .renglones i {
+    display: block;
+    width: var(--w);
+    height: 1px;
+    background: var(--foil-faint);
+  }
+
+  @media (max-width: 52rem) {
+    .hueco { grid-template-columns: 1.75rem minmax(0, 1fr); }
+  }
+
+  .contacto { margin-top: var(--s3); display: grid; gap: var(--s1); }
+  .contacto__enlace {
+    font-family: var(--display);
+    font-size: var(--t-entrada);
+    text-decoration: none;
+    border-bottom: 1px solid var(--foil-dim);
+    color: var(--ink);
+    font-variation-settings: 'opsz' 28;
+  }
+  .contacto__enlace:hover { color: var(--live); border-bottom-color: var(--live); }
+
+  h1.titular em { font-style: italic; color: var(--live); }
+  h2.subtitular em { font-style: italic; color: var(--ink); }
+</style>

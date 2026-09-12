@@ -1,0 +1,67 @@
+---
+import '../styles/fonts.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+
+interface Props {
+  titulo: string;
+  descripcion: string;
+  pista?: 'a' | 'b' | null;
+}
+const { titulo, descripcion, pista = null } = Astro.props;
+const url = new URL(Astro.url.pathname, Astro.site ?? 'https://spotlatam.com');
+---
+<!doctype html>
+<html lang="es" data-pista={pista ?? undefined}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo}</title>
+    <meta name="description" content={descripcion} />
+    <link rel="canonical" href={url.href} />
+    <meta name="theme-color" content="#0A0A0A" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Spot" />
+    <meta property="og:locale" content="es_LA" />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:url" content={url.href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/bodoni-moda-normal-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-normal-latin.woff2" crossorigin />
+  </head>
+  <body>
+    <!--
+      DIRECCIÓN · Programa de Sala · seed d87d24e2
+
+      THESIS: Spot imprime su pensamiento como el programa de mano de un summit
+      — sesiones numeradas, raíl de latón, notas curatoriales al margen. Rechaza
+      el reel de eventos a sangre con titular serif encima que ship esta categoría.
+
+      OWN-WORLD: cartulina negra #0A0A0A; tinta hueso #C9C4BA; lámina de latón
+      #B8935A como única estructura; menta #10E6B3 reservada a lo vivo, nunca a
+      lo decorativo. Bodoni Moda de display con óptica variable, Archivo de
+      texto con cifras tabulares. Filetes hairline, jamás tarjetas.
+
+      STORY: el visitante entiende que aquí se piensa antes de producir, cree
+      que la ejecución impecable es consecuencia y no promesa, y entra por una
+      de las dos pistas del programa.
+
+      FIRST VIEWPORT: portada. Pliegue de latón de borde a borde por el centro
+      exacto; el anillo a 58vh sentado encima, tapándolo salvo en su hueco, con
+      la apertura al oeste sobre el eje; a la izquierda TRACK A EXPERIENCIAS, a
+      la derecha TRACK B INDUSTRIAL. Posarse enciende el campo de color de esa
+      media página entera y la mitad correspondiente del anillo. La acción es la
+      media pantalla, no un botón.
+
+      FORM: Programa de Sala, candidato 1 de la lista ordenada, elegido por el
+      usuario en la carta IMPECCABLE'S PICK. Seed d87d24e2, ronda de re-roll 1.
+
+      FINISH: unreviewed and undocumented is unfinished; this build ends with the
+      finish review, the verdict, DESIGN.md, and every shipping raster carrying
+      its provenance.
+    -->
+    <slot />
+  </body>
+</html>

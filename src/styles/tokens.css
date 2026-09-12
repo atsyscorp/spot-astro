@@ -1,0 +1,94 @@
+/* ==========================================================================
+   Programa de Sala — sistema
+   El artefacto: el programa de mano de un summit, impreso sobre cartulina
+   negra con lámina de latón. La tinta es hueso; el latón es la estructura;
+   el menta es lo único que no es tinta —  es luz, y por eso sólo marca lo
+   vivo: la pista actual, el foco, el enlace.
+   ========================================================================== */
+
+:root {
+  /* Cartulina */
+  --stock:        #0A0A0A;
+  --stock-deep:   #060606;
+
+  /* Tintas */
+  --ink:          #EDE9E1;  /* titulares impresos */
+  --ink-anillo:   #B5B0A6;  /* el anillo de la portada, un punto bajo la tinta */
+  --ink-body:     #C9C4BA;  /* cuerpo */
+  --ink-quiet:    #948E82;  /* notas al margen, cálida — nunca gris neutro */
+
+  /* Lámina */
+  --foil:         #B8935A;
+  --foil-dim:     #6A5436;
+  --foil-faint:   #2E2519;
+
+  /* Luz */
+  --live:         #10E6B3;
+
+  /* Pistas */
+  --track-a:      var(--live);
+  --track-a-field:#07211B;
+  --track-b:      var(--foil);
+  --track-b-field:#211A0E;
+
+  /* Filetes */
+  --rule:         #2A2724;
+  --hair:         1px;
+
+
+  /* Escala tipográfica. Un papel por oficio; si un tamaño nuevo no tiene
+     oficio, no entra. */
+  --t-display:    clamp(2rem, 5.2vw, 3.75rem);   /* titular de sesión */
+  --t-portada:    clamp(2rem, 4.6vw, 3.4rem);    /* nombre de pista en la portada */
+  --t-lema:       clamp(1.5rem, 3.2vw, 2.6rem);  /* lema y principio que manda */
+  --t-rail-letra: clamp(1.75rem, 3.4vw, 2.75rem);/* letra de pista al margen */
+  --t-titulo:     clamp(1.5rem, 3.1vw, 2.25rem); /* subtitular y entrada mayor */
+  --t-entrada:    clamp(1.35rem, 2.5vw, 1.8rem); /* entrada de programa */
+  --t-menor:      clamp(1.15rem, 2.1vw, 1.5rem); /* estación y paso */
+  --t-marca:      1.5rem;      /* logotipo y numeral de raíl */
+  --t-sub:        1.125rem;    /* rótulo de cinta, numeral de entrada */
+  --t-nota:       1rem;        /* nota curatorial */
+  --t-lead:       1.1875rem;   /* entradilla */
+  --t-cuerpo:     1.0625rem;   /* cuerpo */
+  --t-chico:      0.9375rem;   /* cuerpo menor */
+  --t-menudo:     0.875rem;    /* apoyo */
+  --t-rotulo:     0.6875rem;   /* rótulo versalita */
+  --t-micro:      0.625rem;    /* escala declarada, marcador vertical */
+
+  /* Tipografía */
+  --display: 'Bodoni Moda', 'Didot', 'Bodoni MT', Georgia, 'Times New Roman', serif;
+  --text:    'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  /* Compás vertical: un solo ritmo en toda la obra */
+  --step: 0.5rem;
+  --s1:  calc(var(--step) * 1);    /*  8px */
+  --s2:  calc(var(--step) * 2);    /* 16px */
+  --s3:  calc(var(--step) * 3);    /* 24px */
+  --s4:  calc(var(--step) * 5);    /* 40px */
+  --s5:  calc(var(--step) * 8);    /* 64px */
+  --s6:  calc(var(--step) * 13);   /* 104px */
+
+  /* Retícula del programa: raíl de sesión + columna de lectura + margen */
+  --rail:   9rem;
+  --measure: 34rem;      /* ~68ch en el cuerpo */
+  --gutter: clamp(1.25rem, 4vw, 4.5rem);
+  --page:   78rem;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* La Pista B se imprime con la otra tinta: el latón es su luz.
+   Un mundo, una tinta — el sistema no cambia, cambia el color que vive. */
+[data-pista='b'] {
+  --live: #CDA96E;
+  --foil: #9C8358;
+}

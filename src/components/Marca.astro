@@ -1,0 +1,43 @@
+---
+/* El logotipo: «spot» con el anillo ocupando el lugar de la o. */
+import Anillo from './Anillo.astro';
+interface Props { href?: string | null; class?: string }
+const { href = '/', class: clase = '' } = Astro.props;
+---
+{href ? (
+  <a class:list={['marca', clase]} href={href} aria-label="Spot — portada">
+    <span aria-hidden="true">sp</span>
+    <Anillo class="marca__anillo" />
+    <span aria-hidden="true">t</span>
+  </a>
+) : (
+  <span class:list={['marca', clase]} aria-label="Spot" role="img">
+    <span aria-hidden="true">sp</span>
+    <Anillo class="marca__anillo" />
+    <span aria-hidden="true">t</span>
+  </span>
+)}
+
+<style is:global>
+  .marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.07em;
+    font-family: var(--text);
+    font-weight: 400;
+    font-size: var(--t-marca);
+    letter-spacing: 0.015em;
+    line-height: 1;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .marca__anillo {
+    width: 0.62em;
+    height: 0.62em;
+    color: var(--ink);
+    transform: translateY(0.035em);
+    transition: color 200ms var(--ease);
+  }
+  a.marca:hover { color: var(--ink); }
+  a.marca:hover .marca__anillo { color: var(--live); }
+</style>

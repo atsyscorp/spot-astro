@@ -1,0 +1,29 @@
+---
+/* El símbolo de marca. Geometría medida sobre CirculoBlanco.png:
+   radio exterior 50, grosor 12.2, apertura 16.8° centrada al oeste.
+   Ver brand/README.md. Hereda el color del contexto. */
+interface Props {
+  class?: string;
+  titulo?: string | null;
+}
+const { class: clase, titulo = null } = Astro.props;
+---
+<svg
+  class:list={['anillo', clase]}
+  viewBox="0 0 100 100"
+  role={titulo ? 'img' : 'presentation'}
+  aria-hidden={titulo ? undefined : 'true'}
+>
+  {titulo && <title>{titulo}</title>}
+  <path
+    d="M 6.57 43.587 A 43.9 43.9 0 1 1 6.57 56.413"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="12.2"
+    stroke-linecap="butt"
+  />
+</svg>
+
+<style is:global>
+  .anillo { display: block; }
+</style>

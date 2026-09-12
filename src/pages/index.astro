@@ -1,0 +1,467 @@
+---
+import Base from '../layouts/Base.astro';
+import Anillo from '../components/Anillo.astro';
+import Marca from '../components/Marca.astro';
+import { marca } from '../data/spot';
+
+const pistas = [
+  {
+    letra: 'A',
+    id: 'a',
+    nombre: 'Experiencias',
+    linea: 'Summits, congresos y encuentros ejecutivos donde la estrategia antecede a la producción.',
+    href: '/experiencias/',
+  },
+  {
+    letra: 'B',
+    id: 'b',
+    nombre: 'Industrial',
+    linea: 'Proyectos estratégicos para el sector industrial. Soluciones donde la estrategia es crítica.',
+    href: '/industrial/',
+  },
+];
+---
+<Base
+  titulo="Spot — Strategy, made tangible."
+  descripcion="Spot diseña decisiones que se recuerdan. Dos pistas: experiencias corporativas estratégicas y soluciones industriales. Cambridge · Bogotá · México."
+>
+  <script is:inline>
+    /* La entrada se toca una sola vez por sesión: volver a la puerta desde un
+       mundo no vuelve a hacer esperar. Sin JS no hay animación y todo se ve. */
+    try {
+      if (!sessionStorage.getItem('spot:entrada')) {
+        document.documentElement.setAttribute('data-entrada', '');
+        sessionStorage.setItem('spot:entrada', '1');
+      }
+    } catch (e) {}
+  </script>
+
+  <main class="portada">
+    <div class="campos" aria-hidden="true">
+      <span class="campo campo--a"></span>
+      <span class="campo campo--b"></span>
+    </div>
+    <div class="pliegue" aria-hidden="true"></div>
+
+    <header class="portada__cabecera">
+      <Marca href={null} />
+      <p class="medida portada__territorios">{marca.territorios.join(' · ')}</p>
+    </header>
+
+    <div class="portada__titulo">
+      <div class="anillos" aria-hidden="true">
+        <Anillo class="anillos__base" />
+        <Anillo class="anillos__mitad anillos__mitad--a" />
+        <Anillo class="anillos__mitad anillos__mitad--b" />
+      </div>
+      <h1 class="lema">Strategy, <em>made tangible.</em></h1>
+    </div>
+
+    <ul class="pistas">
+      {pistas.map((p) => (
+        <li class="pista" data-pista={p.id}>
+          <a class="pista__enlace" href={p.href} aria-label={`Pista ${p.letra} · ${p.nombre}`}>
+            <span class="pista__rail" aria-hidden="true">
+              <b>{p.letra}</b><i>Pista</i>
+            </span>
+            <span class="pista__texto">
+              <span class="pista__nombre">{p.nombre}</span>
+              <span class="pista__linea">{p.linea}</span>
+              <span class="pista__entrar">
+                <span>Entrar</span>
+                <span class="pista__filete" aria-hidden="true"></span>
+              </span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <footer class="portada__pie">
+      <p class="nota">{marca.cierre.join(' ')}</p>
+      <p class="portada__contacto">
+        <a href={`mailto:${marca.correos[0]}`}>{marca.correos[0]}</a>
+        <span aria-hidden="true">·</span>
+        <a href={`tel:${marca.telefonoHref}`}>{marca.telefono}</a>
+      </p>
+    </footer>
+  </main>
+</Base>
+
+<style>
+  /* --------------------------------------------------------------------------
+     La entrada. Un spot es un foco, y un foco entra desenfocado y cierra.
+     El orden es el de la portada impresa: el filete de cabecera, el anillo
+     enfocando, el pliegue bajando, el lema, las dos pistas, el pie.
+
+     Todo cuelga de --entrada-escala. 1 = 2,4 s en total. Subirlo a 4 da algo
+     menos de 10 s. Es el único número que hay que tocar.
+
+     Nada de esto esconde contenido: cada animación arranca desde el estado
+     visible con `backwards`, así que si el navegador no anima, o el visitante
+     pidió menos movimiento, la portada ya está puesta.
+     -------------------------------------------------------------------------- */
+  .portada {
+    --entrada-escala: 1;
+    --e: calc(1ms * var(--entrada-escala));
+  }
+
+  @keyframes enfoque {
+    from { opacity: 0; filter: blur(22px); transform: scale(1.03); }
+    to   { opacity: 1; filter: blur(0); transform: none; }
+  }
+  @keyframes enfoque-corto {
+    from { opacity: 0; filter: blur(9px); transform: translateY(10px); }
+    to   { opacity: 1; filter: blur(0); transform: none; }
+  }
+  @keyframes baja-pliegue {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+  }
+  @keyframes tiende-filete {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+
+  :root[data-entrada] .portada__cabecera {
+    animation: tiende-filete calc(640 * var(--e)) var(--ease) backwards;
+    transform-origin: left;
+  }
+  :root[data-entrada] .anillos {
+    /* Curva propia: --ease cierra el desenfoque en 250 ms y no se ve. Un foco
+       tarda en cerrar, y ese es el gesto que la portada vende. */
+    animation: enfoque calc(1150 * var(--e)) calc(120 * var(--e))
+               cubic-bezier(0.4, 0.05, 0.2, 1) backwards;
+  }
+  :root[data-entrada] .pliegue {
+    animation: baja-pliegue calc(900 * var(--e)) calc(760 * var(--e)) var(--ease) backwards;
+    transform-origin: top;
+  }
+  :root[data-entrada] .lema {
+    animation: enfoque calc(820 * var(--e)) calc(1000 * var(--e)) var(--ease) backwards;
+  }
+  :root[data-entrada] .pista[data-pista='a'] .pista__texto {
+    animation: enfoque-corto calc(700 * var(--e)) calc(1300 * var(--e)) var(--ease) backwards;
+  }
+  :root[data-entrada] .pista[data-pista='b'] .pista__texto {
+    animation: enfoque-corto calc(700 * var(--e)) calc(1440 * var(--e)) var(--ease) backwards;
+  }
+  :root[data-entrada] .pista[data-pista='a'] .pista__rail {
+    animation: enfoque-corto calc(640 * var(--e)) calc(1560 * var(--e)) var(--ease) backwards;
+  }
+  :root[data-entrada] .pista[data-pista='b'] .pista__rail {
+    animation: enfoque-corto calc(640 * var(--e)) calc(1680 * var(--e)) var(--ease) backwards;
+  }
+  :root[data-entrada] .portada__pie {
+    animation: enfoque-corto calc(700 * var(--e)) calc(1760 * var(--e)) var(--ease) backwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root[data-entrada] .portada__cabecera,
+    :root[data-entrada] .anillos,
+    :root[data-entrada] .pliegue,
+    :root[data-entrada] .lema,
+    :root[data-entrada] .pista[data-pista='a'] .pista__texto,
+    :root[data-entrada] .pista[data-pista='b'] .pista__texto,
+    :root[data-entrada] .pista[data-pista='a'] .pista__rail,
+    :root[data-entrada] .pista[data-pista='b'] .pista__rail,
+    :root[data-entrada] .portada__pie { animation: none; }
+  }
+
+  .portada {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+    padding: var(--s3) var(--gutter) var(--s3);
+    gap: clamp(var(--s2), 2.2vh, var(--s4));
+    overflow-x: clip;
+  }
+
+  /* El campo de pista: media página entera, encendida detrás de todo. */
+  .campos {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .campo {
+    display: block;
+    opacity: 0;
+    transition: opacity 520ms var(--ease);
+  }
+  .campo--a { background: var(--track-a-field); }
+  .campo--b { background: var(--track-b-field); }
+
+  .portada:has(.pista[data-pista='a']:hover) .campo--a,
+  .portada:has(.pista[data-pista='a']:focus-within) .campo--a,
+  .portada:has(.pista[data-pista='b']:hover) .campo--b,
+  .portada:has(.pista[data-pista='b']:focus-within) .campo--b { opacity: 1; }
+
+  /* El pliegue del programa: una lámina de latón por el centro exacto,
+     de borde a borde. El anillo se sienta encima y lo tapa donde lo cruza. */
+  .pliegue {
+    position: absolute;
+    inset-block: 0;
+    left: 50%;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--foil-dim) 7%,
+      var(--foil-dim) 93%,
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .portada__cabecera,
+  .portada__titulo,
+  .pistas,
+  .portada__pie { z-index: 1; }
+
+  .portada__cabecera {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--s1) var(--s3);
+    padding-bottom: var(--s2);
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .portada__territorios { margin: 0; }
+
+  /* ----- El anillo manda: 52vh, sentado sobre el pliegue ----- */
+  .portada__titulo {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    gap: clamp(var(--s2), 2.6vh, var(--s4));
+    position: relative;
+  }
+
+  .anillos {
+    position: relative;
+    width: clamp(11rem, min(58vh, 42vw), 28rem);
+    aspect-ratio: 1;
+    view-transition-name: anillo;
+  }
+  .anillos > :global(svg) { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .anillos :global(.anillos__base) { color: var(--ink-anillo); }
+  .anillos :global(.anillos__mitad) {
+    opacity: 0;
+    transition: opacity 420ms var(--ease);
+  }
+  .anillos :global(.anillos__mitad--a) { color: var(--track-a); clip-path: inset(0 50% 0 0); }
+  .anillos :global(.anillos__mitad--b) { color: var(--track-b); clip-path: inset(0 0 0 50%); }
+
+  .lema {
+    font-size: var(--t-lema);
+    line-height: 1.1;
+    letter-spacing: -0.018em;
+    text-align: center;
+    font-variation-settings: 'opsz' 72;
+  }
+  .lema em { font-style: italic; color: var(--live); }
+
+  /* ----- Las dos pistas del día ----- */
+  .pistas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+  }
+  .pista__linea { font-size: var(--t-menudo); }
+
+  .pista { display: grid; }
+  .pista__enlace {
+    display: grid;
+    align-content: end;
+    column-gap: clamp(var(--s2), 2.4vw, var(--s4));
+    padding: var(--s2) clamp(var(--s2), 3vw, var(--s4));
+    text-decoration: none;
+    color: var(--ink-body);
+    min-height: 100%;
+    transition: background-color 420ms var(--ease), color 240ms var(--ease);
+  }
+  .pista__texto { display: grid; gap: var(--s1); min-width: 0; }
+
+  /* El marcador de pista vive en el margen exterior, como el raíl de sesión
+     del programa. Nunca apilado encima del titular. */
+  .pista__rail {
+    display: grid;
+    justify-items: center;
+    gap: 0.35rem;
+    align-self: end;
+    padding-bottom: 0.4rem;
+  }
+  .pista__rail b {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: var(--t-rail-letra);
+    line-height: 0.82;
+    color: var(--foil);
+    font-variation-settings: 'opsz' 44;
+    transition: color 240ms var(--ease);
+  }
+  .pista__rail i {
+    font-style: normal;
+    font-size: var(--t-micro);
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--ink-quiet);
+    writing-mode: vertical-rl;
+  }
+
+  .pista[data-pista='a'] .pista__enlace {
+    grid-template-columns: auto minmax(0, 1fr);
+    text-align: right;
+  }
+  .pista[data-pista='a'] .pista__texto { justify-items: end; }
+  .pista[data-pista='b'] .pista__enlace {
+    grid-template-columns: minmax(0, 1fr) auto;
+    text-align: left;
+  }
+  .pista[data-pista='b'] .pista__rail { grid-column: 2; grid-row: 1; }
+  .pista[data-pista='b'] .pista__texto { grid-column: 1; grid-row: 1; justify-items: start; }
+  .pista__nombre {
+    font-family: var(--display);
+    font-size: var(--t-portada);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-variation-settings: 'opsz' 88;
+  }
+  .pista__linea {
+    max-width: min(26rem, 100%);
+    font-size: var(--t-chico);
+    line-height: 1.5;
+    color: var(--ink-quiet);
+    transition: color 240ms var(--ease);
+  }
+  .pista__entrar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9em;
+    margin-top: var(--s2);
+    font-size: var(--t-rotulo);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .pista__filete {
+    display: block;
+    width: 5.5rem;
+    height: 1px;
+    background: var(--foil-dim);
+    transform: scaleX(0.45);
+    transition: transform 380ms var(--ease), background-color 260ms var(--ease);
+  }
+  .pista[data-pista='a'] .pista__filete { transform-origin: right; }
+  .pista[data-pista='b'] .pista__filete { transform-origin: left; }
+  .pista[data-pista='a'] .pista__entrar { flex-direction: row-reverse; }
+
+  .pista:hover .pista__linea,
+  .pista:focus-within .pista__linea { color: var(--ink-body); }
+  .pista[data-pista='a']:hover .pista__entrar,
+  .pista[data-pista='a']:focus-within .pista__entrar { color: var(--track-a); }
+  .pista[data-pista='b']:hover .pista__entrar,
+  .pista[data-pista='b']:focus-within .pista__entrar { color: var(--track-b); }
+  .pista[data-pista='a']:hover .pista__rail b,
+  .pista[data-pista='a']:focus-within .pista__rail b { color: var(--track-a); }
+  .pista[data-pista='b']:hover .pista__rail b,
+  .pista[data-pista='b']:focus-within .pista__rail b { color: var(--track-b); }
+  .pista:hover .pista__filete,
+  .pista:focus-within .pista__filete { transform: scaleX(1); }
+  .pista[data-pista='a']:hover .pista__filete,
+  .pista[data-pista='a']:focus-within .pista__filete { background: var(--track-a); }
+  .pista[data-pista='b']:hover .pista__filete,
+  .pista[data-pista='b']:focus-within .pista__filete { background: var(--track-b); }
+
+  .portada__pie {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s3);
+    flex-wrap: wrap;
+    padding-top: var(--s2);
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .portada__pie .nota { margin: 0; }
+  .portada__contacto {
+    margin: 0;
+    display: flex;
+    gap: 0.75em;
+    font-size: var(--t-menudo);
+    color: var(--ink-quiet);
+  }
+
+  @media (max-width: 52rem) {
+    /* En móvil el pliegue sigue siendo el de la portada: cruza el anillo y
+       muere donde empiezan las pistas, que ya se separan con su propio filete. */
+    .pliegue {
+      inset-block: 0 auto;
+      height: 52%;
+      background: linear-gradient(to bottom, transparent, var(--foil-dim) 12%, var(--foil-dim) 82%, transparent);
+    }
+    .campos { display: none; }
+    .pista[data-pista='a']:hover .pista__enlace,
+    .pista[data-pista='a']:focus-within .pista__enlace { background: var(--track-a-field); }
+    .pista[data-pista='b']:hover .pista__enlace,
+    .pista[data-pista='b']:focus-within .pista__enlace { background: var(--track-b-field); }
+    .pista__filete { transform-origin: left; }
+    .pista[data-pista='a'] .pista__filete { transform-origin: left; }
+    .portada { gap: var(--s3); }
+    .anillos { width: min(64vw, 17rem); }
+    .portada__territorios { font-size: var(--t-micro); letter-spacing: 0.16em; }
+    .pistas { grid-template-columns: 1fr; }
+    .pista + .pista { border-top: 1px solid var(--rule); }
+    .pista[data-pista='a'] .pista__enlace,
+    .pista[data-pista='b'] .pista__enlace { text-align: left; justify-items: start; }
+    .pista[data-pista='a'] .pista__enlace,
+    .pista[data-pista='b'] .pista__enlace {
+      grid-template-columns: 2.25rem minmax(0, 1fr);
+      text-align: left;
+    }
+    .pista[data-pista='b'] .pista__rail { grid-column: 1; }
+    .pista[data-pista='b'] .pista__texto { grid-column: 2; }
+    .pista[data-pista='a'] .pista__texto,
+    .pista[data-pista='b'] .pista__texto { justify-items: start; }
+    .pista__rail { align-self: start; padding-bottom: 0; padding-top: 0.15rem; }
+    .pista__rail i { display: none; }
+    .pista__enlace {
+      padding-block: var(--s3);
+      padding-inline: var(--s2);
+      margin-inline: calc(var(--s2) * -1);
+      gap: var(--s1);
+    }
+    .pista[data-pista='a'] .pista__entrar { flex-direction: row; }
+    .pista__entrar { justify-self: start; }
+  }
+</style>
+
+<script>
+  /* Un solo momento de movimiento en toda la portada: las mitades del anillo
+     se encienden con la pista que el visitante está mirando. Sin JS, el anillo
+     se queda en su estado impreso y las pistas siguen funcionando. */
+  const anillos = document.querySelector('.anillos');
+  if (anillos) {
+    const mitades = {
+      a: anillos.querySelector('.anillos__mitad--a') as HTMLElement | null,
+      b: anillos.querySelector('.anillos__mitad--b') as HTMLElement | null,
+    };
+    for (const pista of document.querySelectorAll<HTMLElement>('.pista')) {
+      const id = pista.dataset.pista as 'a' | 'b' | undefined;
+      if (!id || !mitades[id]) continue;
+      const encender = (on: boolean) => { mitades[id]!.style.opacity = on ? '1' : '0'; };
+      pista.addEventListener('pointerenter', () => encender(true));
+      pista.addEventListener('pointerleave', () => encender(false));
+      pista.addEventListener('focusin', () => encender(true));
+      pista.addEventListener('focusout', () => encender(false));
+    }
+  }
+</script>

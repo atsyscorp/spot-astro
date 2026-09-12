@@ -1,0 +1,279 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--stock);
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+  scrollbar-color: var(--foil-dim) var(--stock-deep);
+}
+
+body {
+  margin: 0;
+  background: var(--stock);
+  color: var(--ink-body);
+  font-family: var(--text);
+  font-size: var(--t-cuerpo);
+  line-height: 1.62;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Superficies del navegador: también son del programa. */
+::selection { background: var(--live); color: var(--stock); }
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: var(--stock-deep); }
+::-webkit-scrollbar-thumb { background: var(--foil-faint); border: 3px solid var(--stock-deep); }
+::-webkit-scrollbar-thumb:hover { background: var(--foil-dim); }
+
+:focus-visible {
+  outline: 2px solid var(--live);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+h1, h2, h3, h4 {
+  font-family: var(--display);
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+  letter-spacing: -0.012em;
+  font-variation-settings: 'opsz' 72;
+}
+
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+a {
+  color: inherit;
+  text-decoration-color: var(--foil-dim);
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: from-font;
+  transition: color 180ms var(--ease), text-decoration-color 180ms var(--ease);
+}
+a:hover { color: var(--live); text-decoration-color: var(--live); }
+
+img, svg { display: block; max-width: 100%; }
+
+/* --------------------------------------------------------------------------
+   Retícula del programa: raíl de sesión a la izquierda, columna de lectura.
+   La rejilla es la estructura; en pantalla estrecha se escala, no se deshace.
+   -------------------------------------------------------------------------- */
+
+.hoja {
+  width: 100%;
+  max-width: var(--page);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.sesion {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  column-gap: var(--s4);
+  padding-block: var(--s6) var(--s5);
+  border-top: var(--hair) solid var(--rule);
+  position: relative;
+}
+.sesion:first-of-type { border-top: 0; }
+
+.sesion__rail {
+  grid-column: 1;
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--foil);
+  padding-top: 0.6em;
+  align-self: start;
+  position: sticky;
+  top: var(--s4);
+}
+.sesion__rail b {
+  display: block;
+  font-weight: 400;
+  font-family: var(--display);
+  font-size: var(--t-marca);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  margin-bottom: var(--s1);
+  font-variation-settings: 'opsz' 28;
+}
+
+.sesion__cuerpo { grid-column: 2; min-width: 0; }
+
+/* La marginalia del programa: notas curatoriales en el margen exterior.
+   Cuando no cabe columna, la nota cae bajo su sesión en vez de desaparecer. */
+.sesion__margen {
+  grid-column: 2;
+  min-width: 0;
+  margin-top: var(--s3);
+  padding-top: var(--s2);
+  border-top: 1px solid var(--rule);
+}
+.sesion__margen > * {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: var(--t-chico);
+  line-height: 1.5;
+  color: var(--ink-quiet);
+  font-variation-settings: 'opsz' 14;
+}
+
+@media (min-width: 72rem) {
+  .sesion { grid-template-columns: var(--rail) minmax(0, 1fr) 12rem; }
+  .sesion__margen {
+    grid-column: 3;
+    grid-row: 1;
+    margin-top: 0.55rem;
+    padding-top: 0;
+    border-top: 0;
+    padding-left: var(--s2);
+    border-left: 1px solid var(--foil-faint);
+    align-self: start;
+    position: sticky;
+    top: calc(var(--s4) + 2.5rem);
+  }
+}
+
+.titular {
+  font-size: var(--t-display);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  font-variation-settings: 'opsz' 96;
+}
+.titular em { font-style: italic; color: var(--live); }
+.subtitular em { font-style: italic; color: var(--ink); }
+
+.subtitular {
+  font-family: var(--display);
+  color: var(--ink);
+  font-size: var(--t-titulo);
+  line-height: 1.14;
+  font-variation-settings: 'opsz' 48;
+}
+
+.titular + .plomo,
+.subtitular + .plomo { margin-top: var(--s3); }
+
+.plomo {
+  max-width: var(--measure);
+  font-size: var(--t-lead);
+  line-height: 1.58;
+  color: var(--ink-body);
+}
+
+.nota {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: var(--t-nota);
+  line-height: 1.5;
+  color: var(--ink-quiet);
+  font-variation-settings: 'opsz' 16;
+}
+
+.medida {
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--foil);
+}
+
+.filete { height: var(--hair); background: var(--rule); border: 0; margin: 0; }
+.filete--latón { background: var(--foil-dim); }
+
+@media (max-width: 62rem) {
+  :root { --rail: 4.75rem; }
+  .sesion { column-gap: var(--s3); padding-block: var(--s5) var(--s4); }
+  .sesion__rail { position: static; }
+}
+
+@media (max-width: 40rem) {
+  :root { --rail: 4.25rem; }
+  .sesion__rail b { font-size: var(--t-sub); }
+  .sesion__rail {
+    font-size: var(--t-micro);
+    letter-spacing: 0.14em;
+    line-height: 1.3;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   El hilo: una lámina de latón recorre el programa entero por el raíl.
+   Cada sesión se cuelga de él con un travesaño; la que se está leyendo
+   enciende. No hay barra de navegación porque el hilo hace ese trabajo.
+   -------------------------------------------------------------------------- */
+
+.programa { position: relative; }
+.programa::before {
+  content: '';
+  position: absolute;
+  left: var(--gutter);
+  top: 0;
+  bottom: var(--s6);
+  width: 1px;
+  background: var(--foil-faint);
+  pointer-events: none;
+}
+
+.sesion__rail { padding-left: var(--s3); }
+.sesion__rail::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: calc(0.6em + 0.75rem);
+  width: var(--s3);
+  height: 1px;
+  background: var(--foil-dim);
+  transform: scaleX(0.66);
+  transform-origin: left;
+  transition: background-color 320ms var(--ease), transform 320ms var(--ease);
+}
+.sesion__rail b,
+.sesion__rail span { transition: color 320ms var(--ease); }
+
+.sesion--viva .sesion__rail::before { background: var(--live); transform: scaleX(1); }
+.sesion--viva .sesion__rail b { color: var(--live); }
+
+@media (max-width: 62rem) {
+  .programa::before { bottom: var(--s5); }
+  .sesion__rail { padding-left: var(--s2); }
+  .sesion__rail::before { width: var(--s2); top: calc(0.6em + 0.55rem); }
+}
+
+
+/* --------------------------------------------------------------------------
+   El viaje. Cruzar de la portada a un mundo no es un cambio de página: el
+   anillo de la portada se contrae hasta el logotipo de la cinta, y la hoja
+   nueva sube a su sitio. Transiciones de documento nativas; donde no existan,
+   la navegación sigue siendo una navegación.
+   -------------------------------------------------------------------------- */
+
+@view-transition { navigation: auto; }
+
+::view-transition-old(root) {
+  animation: hoja-sale 260ms var(--ease) both;
+}
+::view-transition-new(root) {
+  animation: hoja-entra 460ms var(--ease) both;
+}
+::view-transition-group(anillo) {
+  animation-duration: 620ms;
+  animation-timing-function: var(--ease);
+}
+
+@keyframes hoja-sale {
+  to { opacity: 0; transform: translateY(-10px); }
+}
+@keyframes hoja-entra {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  ::view-transition-group(anillo) { animation: none; }
+}

@@ -1,0 +1,13 @@
+# Un solo bloque: Netlify aplica el último que coincide, así que los headers
+# de la vista previa y los permanentes tienen que viajar juntos.
+/*
+  X-Robots-Tag: noindex, nofollow
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

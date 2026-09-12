@@ -1,0 +1,411 @@
+---
+import Mundo from '../../layouts/Mundo.astro';
+import Sesion from '../../components/Sesion.astro';
+import Campo from '../../components/Campo.astro';
+import {
+  tesis, principios, practicas, spotboxes, metodo,
+  peso, territorios, clientes, clientesTitular, marca,
+} from '../../data/spot';
+
+const practicasPista = practicas.filter((p) => p.pista === 'a');
+const industrial = practicas.find((p) => p.pista === 'b')!;
+---
+<Mundo
+  pista="a"
+  nombre="Experiencias"
+  titulo="Experiencias — Spot"
+  descripcion="Summits, congresos y encuentros ejecutivos donde la estrategia antecede a la producción. +5.800 líderes C-level impactados en tres mercados."
+>
+  <Sesion n="I" rotulo="La tesis" id="tesis">
+    <h1 class="titular">
+      {tesis.titular[0]}<br /><em>{tesis.titular[1]}</em>
+    </h1>
+    <p class="plomo tesis__cuerpo">{tesis.cuerpo}</p>
+
+    <p class="subtitular tesis__diagnostico">{tesis.diagnostico}</p>
+
+    <div class="cotejo">
+      <div class="cotejo__lado cotejo__lado--muerto">
+        <p class="medida cotejo__rotulo">El error común</p>
+        <ol class="cotejo__pasos">
+          {tesis.errorComun.map((p) => <li>{p}</li>)}
+        </ol>
+      </div>
+      <div class="cotejo__lado cotejo__lado--vivo">
+        <p class="medida cotejo__rotulo">El método Spot</p>
+        <ol class="cotejo__pasos">
+          {tesis.metodoSpot.map((p) => <li>{p}</li>)}
+        </ol>
+      </div>
+    </div>
+    <p slot="margen">{tesis.remate}</p>
+  </Sesion>
+
+  <Sesion n="II" rotulo="Cómo pensamos" id="principios">
+    <h2 class="subtitular">Tres principios no negociables.</h2>
+    <ol class="principios">
+      {principios.map((p) => (
+        <li class="principio">
+          <span class="principio__n">{p.n}</span>
+          <h3 class="principio__titulo">{p.titulo}</h3>
+          <p class="principio__cuerpo">{p.cuerpo}</p>
+        </li>
+      ))}
+    </ol>
+  </Sesion>
+
+  <Sesion n="III" rotulo="Prácticas" id="practicas">
+    <h2 class="subtitular">Cuatro prácticas.<br /><em>Un mismo estándar de impacto.</em></h2>
+    <ul class="practicas">
+      {practicasPista.map((p) => (
+        <li class="practica">
+          <span class="practica__n">{p.n}</span>
+          <h3 class="practica__titulo">{p.titulo}</h3>
+          <p class="practica__cuerpo">{p.cuerpo}</p>
+          <p class="nota practica__nota">{p.nota}</p>
+        </li>
+      ))}
+      <li class="practica practica--otra">
+        <span class="practica__n">{industrial.n}</span>
+        <h3 class="practica__titulo">
+          <a href="/industrial/">{industrial.titulo}</a>
+        </h3>
+        <p class="practica__cuerpo">{industrial.cuerpo}</p>
+        <p class="nota practica__nota">{industrial.nota}</p>
+        <p class="practica__cruce">Esta práctica tiene pista propia · Pista B</p>
+      </li>
+    </ul>
+    <p slot="margen">{spotboxes}</p>
+  </Sesion>
+
+  <Sesion n="IV" rotulo="Metodología" id="metodo">
+    <h2 class="subtitular">Del insight a la huella.</h2>
+    <ol class="metodo">
+      {metodo.map((m) => (
+        <li class="paso">
+          <span class="paso__n">{m.n}</span>
+          <h3 class="paso__titulo">{m.titulo}</h3>
+          <p class="paso__cuerpo">{m.cuerpo}</p>
+        </li>
+      ))}
+    </ol>
+  </Sesion>
+
+  <Sesion n="V" rotulo="El peso" id="peso">
+    <h2 class="subtitular"><em>La escala habla antes que nosotros.</em></h2>
+    <dl class="peso">
+      {peso.map((c) => (
+        <div class="cifra">
+          <Campo trazos={c.campo === 'trama' ? Math.round(c.marcas / 100) : c.marcas} />
+          <dt class="cifra__lectura">
+            <b>{c.cifra}</b> <span>{c.unidad}</span>
+          </dt>
+          <dd class="cifra__texto">
+            {c.cuerpo}
+            {c.campo === 'trama' && <em class="cifra__escala">Cada trazo · 100</em>}
+          </dd>
+        </div>
+      ))}
+    </dl>
+    <p slot="margen">Cifras declaradas en el portafolio Spot 2026.</p>
+  </Sesion>
+
+  <Sesion n="VI" rotulo="Dónde operamos" id="territorios">
+    <h2 class="subtitular">Tres territorios.<br /><em>Un mismo estándar.</em></h2>
+    <ul class="territorios">
+      {territorios.map((t) => (
+        <li class="territorio">
+          <h3 class="territorio__titulo">{t.titulo}</h3>
+          <p class="territorio__cuerpo">{t.cuerpo}</p>
+          <ul class="territorio__nombres">
+            {t.nombres.map((n) => <li>{n}</li>)}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </Sesion>
+
+  <Sesion n="VII" rotulo="Quiénes nos eligen" id="clientes">
+    <h2 class="subtitular">
+      {clientesTitular[0]}<br /><em>{clientesTitular[1]}</em>
+    </h2>
+    <ul class="clientes">
+      {clientes.map((c) => <li>{c}</li>)}
+    </ul>
+  </Sesion>
+
+  <Sesion n="VIII" rotulo="Hablemos" id="hablemos">
+    <h2 class="titular">Let's work <em>together.</em></h2>
+    <p class="plomo">
+      Cuéntenos qué decisión tiene que moverse. El resto es nuestro oficio.
+    </p>
+    <ul class="contacto">
+      {marca.correos.map((c) => (
+        <li><a class="contacto__enlace" href={`mailto:${c}`}>{c}</a></li>
+      ))}
+      <li><a class="contacto__enlace" href={`tel:${marca.telefonoHref}`}>{marca.telefono}</a></li>
+    </ul>
+  </Sesion>
+</Mundo>
+
+<style>
+  .tesis__cuerpo { margin-top: var(--s3); }
+  .tesis__diagnostico { margin-top: var(--s5); max-width: 30ch; }
+  .tesis__diagnostico + .cotejo { margin-top: var(--s4); }
+
+  /* El cotejo: dos cadenas de pasos. La de la izquierda está apagada. */
+  .cotejo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s4);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding-block: var(--s4);
+  }
+  .cotejo__rotulo { margin: 0 0 var(--s2); }
+  .cotejo__lado--muerto .cotejo__rotulo { color: var(--ink-quiet); }
+  .cotejo__pasos { display: grid; gap: var(--s3); }
+  .cotejo__pasos li {
+    position: relative;
+    padding-left: var(--s4);
+    font-family: var(--display);
+    font-size: var(--t-menor);
+    line-height: 1.2;
+    font-variation-settings: 'opsz' 24;
+  }
+  .cotejo__pasos li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: var(--s3);
+    height: 1px;
+    background: currentColor;
+    opacity: 0.5;
+  }
+  .cotejo__pasos li + li::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: calc(-1 * var(--s3));
+    height: var(--s3);
+    width: 1px;
+    background: currentColor;
+    opacity: 0.28;
+  }
+  .cotejo__lado--muerto { color: var(--ink-quiet); }
+  .cotejo__lado--vivo { color: var(--live); }
+  .cotejo__lado--vivo .cotejo__pasos li { color: var(--ink); }
+  .cotejo__lado--vivo .cotejo__pasos li::before,
+  .cotejo__lado--vivo .cotejo__pasos li::after { background: var(--live); opacity: 1; }
+
+  /* Principios: el primero manda, los otros dos lo sostienen. */
+  .principios { margin-top: var(--s4); display: grid; }
+  .principio {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    gap: var(--s1) var(--s3);
+    padding-block: var(--s3);
+    border-top: 1px solid var(--rule);
+    align-items: start;
+  }
+  .principio:first-child { border-top: 0; padding-top: 0; }
+  .principio__n {
+    grid-row: span 2;
+    font-family: var(--display);
+    font-size: var(--t-sub);
+    color: var(--foil);
+    line-height: 1.1;
+    font-variation-settings: 'opsz' 20;
+  }
+  .principio__titulo {
+    font-size: var(--t-entrada);
+    line-height: 1.16;
+    font-variation-settings: 'opsz' 40;
+  }
+  .principio:first-child .principio__titulo { font-size: var(--t-lema); }
+  .principio__cuerpo { max-width: 44ch; color: var(--ink-body); }
+
+  /* Prácticas: entradas de programa, no tarjetas. */
+  .practicas { margin-top: var(--s4); }
+  .practica {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    gap: 0.35rem var(--s3);
+    padding-block: var(--s3);
+    border-top: 1px solid var(--rule);
+  }
+  .practica__n {
+    grid-row: span 3;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: var(--t-marca);
+    color: var(--foil);
+    line-height: 1;
+    font-variation-settings: 'opsz' 24;
+  }
+  .practica__titulo {
+    font-size: var(--t-titulo);
+    line-height: 1.1;
+    font-variation-settings: 'opsz' 44;
+  }
+  .practica__titulo a { text-decoration: none; border-bottom: 1px solid var(--foil-dim); }
+  .practica__cuerpo { max-width: 48ch; }
+  .practica__nota { color: var(--foil); }
+  .practica--otra .practica__n { color: var(--track-b); }
+  .practica__cruce {
+    grid-column: 2;
+    margin: var(--s1) 0 0;
+    font-size: var(--t-rotulo);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--track-b);
+  }
+
+  /* Metodología: una sola línea continua de cinco estaciones. */
+  .metodo {
+    margin-top: var(--s4);
+    position: relative;
+    padding-left: var(--s4);
+  }
+  .metodo::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 0.7rem;
+    bottom: 0.9rem;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--live), var(--foil-dim));
+  }
+  .paso {
+    position: relative;
+    display: grid;
+    gap: 0.3rem;
+    padding-block: var(--s2) var(--s3);
+  }
+  .paso::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--s4) + 2px);
+    top: 0.95rem;
+    width: 7px;
+    height: 7px;
+    background: var(--stock);
+    border: 1px solid var(--live);
+    border-radius: 50%;
+  }
+  .paso__n {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: var(--t-menudo);
+    letter-spacing: 0.12em;
+    color: var(--foil);
+  }
+  .paso__titulo { font-size: var(--t-menor); line-height: 1.15; }
+  .paso__cuerpo { max-width: 52ch; }
+
+  /* El peso. El campo medido es la cifra: cuatro campos al mismo paso, uno
+     bajo otro, para que la longitud se compare sola. El numeral es la lectura
+     del campo, no el titular. */
+  .peso { margin: var(--s4) 0 0; display: grid; }
+  .cifra {
+    display: grid;
+    gap: var(--s2) 0;
+    align-content: start;
+    padding-block: var(--s3);
+    border-top: 1px solid var(--rule);
+  }
+  .cifra:first-child { border-top: 0; padding-top: 0; }
+  .cifra__lectura {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.2em 0.7em;
+  }
+  .cifra__lectura b {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: var(--t-titulo);
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    font-variation-settings: 'opsz' 32;
+  }
+  .cifra__lectura span {
+    font-size: var(--t-rotulo);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--foil);
+  }
+  .cifra__texto {
+    margin: 0;
+    font-size: var(--t-chico);
+    color: var(--ink-body);
+    max-width: 52ch;
+  }
+  .cifra__escala {
+    display: block;
+    margin-top: var(--s1);
+    font-style: normal;
+    font-size: var(--t-micro);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+
+  /* Territorios */
+  .territorios { margin-top: var(--s4); }
+  .territorio {
+    padding-block: var(--s3);
+    border-top: 1px solid var(--rule);
+    display: grid;
+    gap: var(--s1);
+  }
+  .territorio__titulo { font-size: var(--t-entrada); line-height: 1.15; }
+  .territorio__cuerpo { max-width: 54ch; }
+  .territorio__nombres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em 1.1em;
+    margin-top: var(--s1);
+    font-size: var(--t-menudo);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--foil);
+  }
+
+  /* Clientes en tipografía: los logotipos vectoriales no existen todavía. */
+  .clientes {
+    margin-top: var(--s4);
+    columns: 2;
+    column-gap: var(--s5);
+  }
+  .clientes li {
+    break-inside: avoid;
+    padding-block: 0.7rem;
+    border-top: 1px solid var(--rule);
+    font-size: var(--t-cuerpo);
+    color: var(--ink);
+  }
+
+  .contacto { margin-top: var(--s3); display: grid; gap: var(--s1); }
+  .contacto__enlace {
+    font-family: var(--display);
+    font-size: var(--t-entrada);
+    text-decoration: none;
+    border-bottom: 1px solid var(--foil-dim);
+    color: var(--ink);
+    font-variation-settings: 'opsz' 28;
+  }
+  .contacto__enlace:hover { color: var(--live); border-bottom-color: var(--live); }
+
+  h1.titular em { font-style: italic; color: var(--live); }
+  h2.subtitular em { font-style: italic; color: var(--ink); }
+
+  @media (max-width: 52rem) {
+    .cotejo { grid-template-columns: 1fr; gap: var(--s3); }
+    .clientes { columns: 1; }
+    .principio, .practica { grid-template-columns: 2.5rem minmax(0, 1fr); }
+  }
+</style>

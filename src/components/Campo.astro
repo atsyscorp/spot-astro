@@ -1,0 +1,48 @@
+---
+/* Campo medido. Un trazo por unidad, y todos los campos de la página comparten
+   el mismo paso: la longitud del campo ES el dato, y por eso 58 trazos y 3
+   trazos se pueden comparar de un vistazo. Cuando la escala no es 1:1 se
+   declara, porque un campo que miente deja de ser un dato. */
+interface Props {
+  trazos: number;
+}
+const { trazos } = Astro.props;
+const marcas = Array.from({ length: trazos });
+---
+<div class="campo">
+  <div class="campo__trazos" aria-hidden="true">
+    {marcas.map((_, i) => <i style={`--i:${i}`}></i>)}
+  </div>
+</div>
+
+<style>
+  .campo { display: block; }
+  .campo__trazos {
+    --paso: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--paso) - 1px);
+    align-items: flex-end;
+    height: 3.25rem;
+  }
+  .campo__trazos i {
+    display: block;
+    flex: 0 0 1px;
+    width: 1px;
+    height: 100%;
+    background: var(--foil);
+    transform-origin: bottom;
+    animation: trazo 560ms var(--ease) backwards;
+    animation-delay: calc(var(--i) * 11ms);
+  }
+  @keyframes trazo {
+    from { transform: scaleY(0.08); opacity: 0; }
+    to   { transform: scaleY(1); opacity: 1; }
+  }
+  @media (max-width: 52rem) {
+    .campo__trazos { --paso: 5px; height: 2.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .campo__trazos i { animation: none; }
+  }
+</style>
