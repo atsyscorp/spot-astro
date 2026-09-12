@@ -1,30 +1,63 @@
 ---
-/* La sala: tres fijos de una experiencia real, a sangre, entre dos sesiones
-   densas. No es decoración de relleno — lleva pie con el cliente y el evento,
-   porque una imagen sin atribución en un sitio de consultoría no prueba nada.
+/* La sala: nueve fijos de una experiencia real, en dos carriles que se
+   desplazan con el scroll. Bajando van a la derecha, subiendo a la izquierda —
+   la posición está atada al scroll, no a un reloj, así que el movimiento es
+   del visitante y no del sitio.
 
-   Los tres fotogramas están elegidos sin caras identificables. Los demás del
-   material existen, pero publicar asistentes reconocibles necesita cesión de
-   imagen y eso no se decide desde el código. */
-const fijos = [
-  { archivo: 'letras',    alt: 'Letras corpóreas del cliente montadas en la sala, con luz verde de fondo.' },
-  { archivo: 'escenario', alt: 'Escenario terminado: pantalla principal, apliques y mobiliario de coctel.' },
-  { archivo: 'camara',    alt: 'Operador montando una cámara sobre truss durante el montaje.' },
+   Los dos carriles van a distinta distancia: el de arriba recorre más que el
+   de abajo, y eso da profundidad sin cambiar de dirección.
+
+   Donde existan las animaciones ligadas al scroll (`animation-timeline: view()`)
+   no se ejecuta ni una línea de JavaScript. El script sólo entra como suplente.
+
+   Sin `loading="lazy"`: el navegador decide la carga diferida con la posición
+   SIN transformar, así que las imágenes que el desplazamiento trae a pantalla
+   no se pedían nunca y la banda se abría a agujeros. Son 208 KB en total y
+   esta banda es el descanso de la página: se cargan.
+
+   Los nueve fotogramas están elegidos sin caras identificables. Hay planos
+   buenos de equipo y de asistentes en el material, pero publicar personas
+   reconocibles necesita cesión de imagen y eso no se decide desde el código. */
+const carriles = [
+  {
+    desp: '30vw',
+    fijos: [
+      { archivo: 'letras',           alt: 'Letras corpóreas del cliente montadas en la sala, con luz verde de fondo.' },
+      { archivo: 'sala-verde',       alt: 'Sala bañada en luz verde antes de abrir, con la línea de tiempo del cliente proyectada.' },
+      { archivo: 'montaje',          alt: 'Montaje de estructuras en el salón, todavía con el mobiliario sin colocar.' },
+      { archivo: 'escenario',        alt: 'Escenario terminado: pantalla principal, apliques y mobiliario de coctel.' },
+      { archivo: 'camara',           alt: 'Operador montando una cámara sobre truss durante el montaje.' },
+    ],
+  },
+  {
+    desp: '17vw',
+    fijos: [
+      { archivo: 'cabina',           alt: 'Cabina de control con las consolas de sonido e iluminación.' },
+      { archivo: 'decada',           alt: 'Línea de tiempo del cliente proyectada a lo ancho de la pared.' },
+      { archivo: 'escenario-ancho',  alt: 'Plano abierto del escenario con la pantalla y la iluminación de realce.' },
+      { archivo: 'publico',          alt: 'Público en contraluz frente a la pantalla durante el evento.' },
+    ],
+  },
 ];
 ---
 <figure class="sala">
-  <div class="sala__tira">
-    {fijos.map((f) => (
-      <img
-        src={`/sala/${f.archivo}.webp`}
-        alt={f.alt}
-        width="848"
-        height="480"
-        loading="lazy"
-        decoding="async"
-      />
-    ))}
-  </div>
+  {carriles.map((c, i) => (
+    <div class="sala__carril" style={`--desp:${c.desp}`}>
+      <div class="sala__fila">
+        {c.fijos.map((f) => (
+          <img
+            src={`/sala/${f.archivo}.webp`}
+            alt={i === 0 ? f.alt : ''}
+            aria-hidden={i === 0 ? undefined : 'true'}
+            width="848"
+            height="480"
+            decoding="async"
+          />
+        ))}
+      </div>
+    </div>
+  ))}
+
   <figcaption class="sala__pie">
     <b>Berkley Colombia Seguros · 10 años</b>
     <span>Experiencia corporativa privada dirigida por Spot.</span>
@@ -33,25 +66,57 @@ const fijos = [
 
 <style>
   .sala {
-    /* Por encima del hilo del raíl: una banda a sangre no se deja cruzar. */
     position: relative;
     z-index: 1;
-    margin: var(--s6) calc(50% - 50vw) var(--s6);
+    margin: var(--s6) calc(50% - 50vw);
     width: 100vw;
   }
-  .sala__tira {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
+
+  .sala__carril {
+    /* `clip` en vez de `hidden`: hidden crea un contenedor de scroll y
+       `view()` se ancla a él, con lo que el carril nunca avanza. `clip`
+       recorta igual sin crear scrollport. hidden queda de reserva para
+       navegadores viejos, que además caen en el suplente de JavaScript. */
+    overflow: hidden;
+    overflow: clip;
   }
-  .sala__tira img {
-    width: 100%;
-    height: clamp(11rem, 24vw, 20rem);
+  .sala__carril + .sala__carril { margin-top: 2px; }
+
+  .sala__fila {
+    display: flex;
+    gap: 2px;
+    width: max-content;
+    /* Punto de partida: el carril entra corrido a la izquierda y el scroll lo
+       devuelve. Sin soporte de timeline se queda aquí, que es una composición
+       válida, no un estado roto. */
+    transform: translateX(calc(var(--desp) * -1));
+  }
+
+  .sala__fila img {
+    flex: 0 0 clamp(15rem, 27vw, 25rem);
+    width: clamp(15rem, 27vw, 25rem);
+    height: clamp(9.5rem, 17vw, 16rem);
     object-fit: cover;
-    filter: saturate(0.78) brightness(0.82);
+    /* Mientras una imagen no ha llegado, su hueco es una placa del sistema,
+       nunca un agujero negro en mitad de la banda. */
+    background: var(--placa);
+    filter: saturate(0.78) brightness(0.8);
     transition: filter 480ms var(--ease);
   }
-  .sala__tira img:hover { filter: saturate(0.95) brightness(1); }
+  .sala__fila img:hover { filter: saturate(0.96) brightness(1); }
+
+  @keyframes arrastra {
+    from { transform: translateX(calc(var(--desp) * -1)); }
+    to   { transform: translateX(0); }
+  }
+
+  @supports (animation-timeline: view()) {
+    .sala__fila {
+      animation: arrastra linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+  }
 
   .sala__pie {
     display: flex;
@@ -78,8 +143,47 @@ const fijos = [
 
   @media (max-width: 52rem) {
     .sala { margin-block: var(--s5); }
-    .sala__tira { grid-template-columns: 1fr; gap: 3px; }
-    .sala__tira img { height: clamp(10rem, 48vw, 16rem); }
+    .sala__fila img {
+      flex-basis: clamp(11rem, 52vw, 17rem);
+      width: clamp(11rem, 52vw, 17rem);
+      height: clamp(7rem, 32vw, 11rem);
+    }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sala__fila { animation: none; transform: none; }
+    .sala__carril { overflow-x: auto; }
   }
 </style>
+
+<script>
+  /* Suplente para navegadores sin animaciones ligadas al scroll. Mismo
+     recorrido, calculado a mano: progreso de la banda al cruzar la ventana. */
+  if (!CSS.supports('animation-timeline: view()')) {
+    const quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const filas = Array.from(document.querySelectorAll<HTMLElement>('.sala__fila'));
+
+    if (filas.length && !quieto) {
+      let pedido = 0;
+
+      const pintar = () => {
+        pedido = 0;
+        const alto = window.innerHeight;
+        for (const fila of filas) {
+          const carril = fila.parentElement!;
+          const caja = carril.getBoundingClientRect();
+          if (caja.bottom < 0 || caja.top > alto) continue;
+          // 0 cuando el carril asoma por abajo, 1 cuando termina de salir por arriba
+          const p = Math.min(1, Math.max(0, (alto - caja.top) / (alto + caja.height)));
+          const desp = getComputedStyle(fila).getPropertyValue('--desp').trim();
+          fila.style.transform = `translateX(calc(${desp} * ${p - 1}))`;
+        }
+      };
+
+      const pedir = () => { if (!pedido) pedido = requestAnimationFrame(pintar); };
+      window.addEventListener('scroll', pedir, { passive: true });
+      window.addEventListener('resize', pedir, { passive: true });
+      pintar();
+    }
+  }
+</script>
