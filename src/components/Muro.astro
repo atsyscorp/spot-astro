@@ -1,0 +1,108 @@
+---
+/* El muro: los logotipos de cliente subiendo en marquesina, cada uno en su
+   placa. Va pegado a la llamada de contacto — la prueba al lado de la acción.
+
+   Dos columnas a distinta velocidad para que no lea como una tabla que se
+   desliza. La lista se duplica y la animación recorre exactamente la mitad,
+   así que el bucle no tiene costura.
+
+   Con prefers-reduced-motion deja de correr y queda como rejilla estática:
+   la prueba se ve entera, que es lo que importa. */
+import { clientesLogos } from '../data/clientes';
+
+const mitad = Math.ceil(clientesLogos.length / 2);
+const columnas = [clientesLogos.slice(0, mitad), clientesLogos.slice(mitad)];
+---
+<div class="muro">
+  {columnas.map((col, i) => (
+    <div class="muro__columna" data-col={i}>
+      <ul class="muro__cinta">
+        {[...col, ...col].map((c, j) => (
+          <li class:list={['placa', j >= col.length && 'placa--eco']}>
+            <img
+              src={`/clientes/${c.archivo}.webp`}
+              alt={j < col.length ? c.nombre : ''}
+              aria-hidden={j >= col.length ? 'true' : undefined}
+              width={c.w}
+              height={c.h}
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</div>
+
+<style>
+  .muro {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s2);
+    height: 26rem;
+    overflow: hidden;
+    position: relative;
+    /* La marquesina se desvanece arriba y abajo: entra y sale de la penumbra,
+       no aparece cortada por un borde. */
+    mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  }
+
+  .muro__cinta {
+    display: grid;
+    gap: var(--s2);
+    animation: sube 42s linear infinite;
+    will-change: transform;
+  }
+  .muro__columna[data-col='1'] .muro__cinta { animation-duration: 54s; }
+
+  @keyframes sube {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-50%); }
+  }
+
+  .muro:hover .muro__cinta,
+  .muro:focus-within .muro__cinta { animation-play-state: paused; }
+
+  .placa {
+    display: grid;
+    place-items: center;
+    height: 6.5rem;
+    padding: var(--s2) var(--s3);
+    background: var(--placa);
+    border: 1px solid var(--foil-faint);
+    transition: border-color 320ms var(--ease), background-color 320ms var(--ease);
+  }
+  .placa:hover {
+    border-color: var(--foil-dim);
+    background: var(--placa-viva);
+  }
+  .placa img {
+    max-width: 100%;
+    max-height: 3.25rem;
+    width: auto;
+    height: auto;
+    opacity: 0.82;
+    transition: opacity 320ms var(--ease);
+  }
+  .placa:hover img { opacity: 1; }
+
+  @media (max-width: 52rem) {
+    .muro { height: 21rem; gap: var(--s1); }
+    .placa { height: 5rem; padding: var(--s1); }
+    .placa img { max-height: 2.1rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .muro {
+      height: auto;
+      overflow: visible;
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
+    .muro__cinta { animation: none; }
+    /* Sin movimiento sobra la copia que existe sólo para cerrar el bucle. */
+    .placa--eco { display: none; }
+  }
+</style>

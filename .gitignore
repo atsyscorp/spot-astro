@@ -4,3 +4,6 @@ dist/
 .DS_Store
 .impeccable/live/
 .impeccable/review/
+
+# Local Netlify folder
+.netlify

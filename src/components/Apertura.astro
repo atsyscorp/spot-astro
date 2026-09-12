@@ -1,0 +1,168 @@
+---
+/* La apertura del mundo. Antes los dos mundos empezaban en frío —raíl,
+   numeral y titular—, que es el orden del PDF, no una decisión de diseño.
+   Esto es la portadilla de la pista: la letra al margen como en la puerta,
+   la afirmación a tamaño de primer viewport, y debajo una tira de prueba
+   con filete de latón antes de que empiece el programa. */
+interface Props {
+  letra: 'A' | 'B';
+  pista: string;
+}
+const { letra, pista } = Astro.props;
+---
+<header class="apertura">
+  <p class="apertura__rail" aria-hidden="true"><b>{letra}</b><i>Pista</i></p>
+
+  <div class="apertura__cuerpo">
+    <slot name="titular" />
+    <div class="apertura__plomo"><slot name="plomo" /></div>
+  </div>
+
+  <div class="apertura__tira">
+    <slot name="tira" />
+  </div>
+
+  <a class="apertura__baja" href="#programa">
+    <span>El programa</span>
+    <svg viewBox="0 0 12 26" aria-hidden="true">
+      <path d="M6 0v20M1 15l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.1" />
+    </svg>
+    <span class="visualmente-oculto">Saltar al programa de la pista {pista}</span>
+  </a>
+</header>
+
+<style>
+  .apertura {
+    display: grid;
+    grid-template-columns: var(--rail) minmax(0, 1fr);
+    column-gap: var(--s4);
+    align-content: center;
+    min-height: min(82svh, 48rem);
+    /* El bloque va centrado, pero el relleno superior lo empuja hacia abajo:
+       la apertura respira antes de hablar. */
+    padding-block: clamp(var(--s6), 17vh, 12rem) var(--s4);
+    position: relative;
+  }
+
+  .apertura__rail {
+    grid-column: 1;
+    align-self: start;
+    display: grid;
+    justify-items: center;
+    gap: 0.4rem;
+    margin: 0;
+    padding-top: 0.5rem;
+  }
+  .apertura__rail b {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: var(--t-rail-letra);
+    line-height: 0.84;
+    color: var(--foil);
+  }
+  .apertura__rail i {
+    font-style: normal;
+    font-size: var(--t-micro);
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--ink-quiet);
+    writing-mode: vertical-rl;
+  }
+
+  .apertura__cuerpo { grid-column: 2; min-width: 0; }
+  .apertura__plomo { margin-top: var(--s3); max-width: 46ch; }
+
+  /* La tira de prueba: lo que sostiene la afirmación, antes del programa. */
+  .apertura__tira {
+    grid-column: 2;
+    margin-top: var(--s5);
+    padding-top: var(--s3);
+    border-top: 1px solid var(--foil-dim);
+  }
+
+  .apertura__baja {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: var(--s5);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9em;
+    font-size: var(--t-rotulo);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-quiet);
+    text-decoration: none;
+  }
+  .apertura__baja svg {
+    width: 0.75rem;
+    height: 1.625rem;
+    transition: transform 420ms var(--ease);
+  }
+  .apertura__baja:hover { color: var(--live); }
+  .apertura__baja:hover svg { transform: translateY(4px); }
+
+  .visualmente-oculto {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
+
+  @media (max-width: 62rem) {
+    .apertura {
+      grid-template-columns: 3.5rem minmax(0, 1fr);
+      column-gap: var(--s3);
+      min-height: auto;
+      padding-block: var(--s5) var(--s3);
+    }
+    .apertura__rail i { display: none; }
+  }
+</style>
+
+<script>
+  /* Las cifras se sortean antes de asentarse: los dígitos giran y van
+     fijándose de izquierda a derecha. Es el gesto de un marcador que cuadra,
+     no un contador que sube — la cifra no crece, se revela.
+
+     Reloj propio a 55 ms en vez de requestAnimationFrame: a 60 fps los dígitos
+     se emborronan en vez de leerse, y el navegador estrangula rAF cuando la
+     pestaña no está componiendo, lo que dejaba el número congelado a medias.
+
+     El número real está siempre en el DOM para lectores de pantalla y para
+     quien no tenga JS; lo que gira es una copia marcada como decorativa. */
+  const cifras = document.querySelectorAll<HTMLElement>('[data-cifra]');
+  const quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (cifras.length && !quieto) {
+    const DIGITOS = '0123456789';
+    const DURACION = 1500;
+    const TIC = 55;
+
+    cifras.forEach((el, i) => {
+      const definitivo = el.dataset.cifra ?? el.textContent ?? '';
+      const espera = 420 + i * 150;
+
+      window.setTimeout(() => {
+        const t0 = Date.now();
+        const reloj = window.setInterval(() => {
+          const p = Math.min(1, (Date.now() - t0) / DURACION);
+          if (p >= 1) {
+            window.clearInterval(reloj);
+            el.textContent = definitivo;
+            return;
+          }
+          // p*p: al principio casi nada se fija, al final cae de golpe
+          const fijados = Math.floor(p * p * (definitivo.length + 1));
+          let salida = '';
+          for (let k = 0; k < definitivo.length; k++) {
+            const c = definitivo[k];
+            salida += (!/[0-9]/.test(c) || k < fijados)
+              ? c
+              : DIGITOS[(Math.random() * 10) | 0];
+          }
+          el.textContent = salida;
+        }, TIC);
+      }, espera);
+    });
+  }
+</script>

@@ -9,13 +9,15 @@
 :root {
   /* Cartulina */
   --stock:        #0A0A0A;
+  --placa:        #111010;  /* la placa del muro de clientes */
+  --placa-viva:   #151413;
   --stock-deep:   #060606;
 
   /* Tintas */
   --ink:          #EDE9E1;  /* titulares impresos */
   --ink-anillo:   #B5B0A6;  /* el anillo de la portada, un punto bajo la tinta */
   --ink-body:     #C9C4BA;  /* cuerpo */
-  --ink-quiet:    #948E82;  /* notas al margen, cálida — nunca gris neutro */
+  --ink-quiet:    #A39C8E;  /* notas al margen, cálida — nunca gris neutro */
 
   /* Lámina */
   --foil:         #B8935A;
@@ -38,6 +40,7 @@
 
   /* Escala tipográfica. Un papel por oficio; si un tamaño nuevo no tiene
      oficio, no entra. */
+  --t-refran:     clamp(2.25rem, 7.4vw, 6rem);   /* el refrán a sangre */
   --t-display:    clamp(2rem, 5.2vw, 3.75rem);   /* titular de sesión */
   --t-portada:    clamp(2rem, 4.6vw, 3.4rem);    /* nombre de pista en la portada */
   --t-lema:       clamp(1.5rem, 3.2vw, 2.6rem);  /* lema y principio que manda */
@@ -56,7 +59,7 @@
   --t-micro:      0.625rem;    /* escala declarada, marcador vertical */
 
   /* Tipografía */
-  --display: 'Bodoni Moda', 'Didot', 'Bodoni MT', Georgia, 'Times New Roman', serif;
+  --display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --text:    'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   /* Compás vertical: un solo ritmo en toda la obra */

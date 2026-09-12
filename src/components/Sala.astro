@@ -1,0 +1,85 @@
+---
+/* La sala: tres fijos de una experiencia real, a sangre, entre dos sesiones
+   densas. No es decoración de relleno — lleva pie con el cliente y el evento,
+   porque una imagen sin atribución en un sitio de consultoría no prueba nada.
+
+   Los tres fotogramas están elegidos sin caras identificables. Los demás del
+   material existen, pero publicar asistentes reconocibles necesita cesión de
+   imagen y eso no se decide desde el código. */
+const fijos = [
+  { archivo: 'letras',    alt: 'Letras corpóreas del cliente montadas en la sala, con luz verde de fondo.' },
+  { archivo: 'escenario', alt: 'Escenario terminado: pantalla principal, apliques y mobiliario de coctel.' },
+  { archivo: 'camara',    alt: 'Operador montando una cámara sobre truss durante el montaje.' },
+];
+---
+<figure class="sala">
+  <div class="sala__tira">
+    {fijos.map((f) => (
+      <img
+        src={`/sala/${f.archivo}.webp`}
+        alt={f.alt}
+        width="848"
+        height="480"
+        loading="lazy"
+        decoding="async"
+      />
+    ))}
+  </div>
+  <figcaption class="sala__pie">
+    <b>Berkley Colombia Seguros · 10 años</b>
+    <span>Experiencia corporativa privada dirigida por Spot.</span>
+  </figcaption>
+</figure>
+
+<style>
+  .sala {
+    /* Por encima del hilo del raíl: una banda a sangre no se deja cruzar. */
+    position: relative;
+    z-index: 1;
+    margin: var(--s6) calc(50% - 50vw) var(--s6);
+    width: 100vw;
+  }
+  .sala__tira {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .sala__tira img {
+    width: 100%;
+    height: clamp(11rem, 24vw, 20rem);
+    object-fit: cover;
+    filter: saturate(0.78) brightness(0.82);
+    transition: filter 480ms var(--ease);
+  }
+  .sala__tira img:hover { filter: saturate(0.95) brightness(1); }
+
+  .sala__pie {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5em 1.2em;
+    max-width: var(--page);
+    margin-inline: auto;
+    padding: var(--s2) var(--gutter) 0;
+  }
+  .sala__pie b {
+    font-weight: 400;
+    font-size: var(--t-rotulo);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--foil);
+  }
+  .sala__pie span {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: var(--t-chico);
+    color: var(--ink-quiet);
+  }
+
+  @media (max-width: 52rem) {
+    .sala { margin-block: var(--s5); }
+    .sala__tira { grid-template-columns: 1fr; gap: 3px; }
+    .sala__tira img { height: clamp(10rem, 48vw, 16rem); }
+  }
+  }
+</style>

@@ -1,4 +1,19 @@
-# Marca Spot — símbolo
+# Marca Spot — logotipo y símbolo
+
+Dos activos oficiales entregados por el cliente, y son consistentes entre sí.
+
+## El logotipo
+
+`spot-wordmark-white.webp` (original: `spot-main-logo-white-1024x482.webp`), blanco
+sobre transparencia, 1024 × 482 px, recortado a la caja exacta del dibujo — la tinta
+sólo toca los bordes en un píxel por lado, así que **no está mal recortado**: no tiene
+margen y hay que dárselo por CSS.
+
+La tipografía del logotipo es una geométrica muy fina que **no es ninguna de las dos
+familias del sitio** (Source Serif 4 y Archivo). Por eso el logotipo se coloca como
+imagen y nunca se recompone con tipografía: cualquier reconstrucción sería otra marca.
+
+## El símbolo
 
 `spot-ring.svg` es la versión vectorial del símbolo, redibujada a partir de `spot-ring-white.png`
 (el original `CirculoBlanco.png` entregado por el cliente: 3536 × 3579 px, blanco sobre transparencia).
@@ -28,6 +43,21 @@ Los extremos del arco son cortes rectos radiales: `stroke-linecap: butt`, nunca 
 
 El anillo del original además queda recortado por el borde izquierdo del lienzo (la punta del arco
 a 171° caería en x = −12 px). El vector no tiene ese recorte.
+
+## El anillo del logotipo es el mismo símbolo
+
+Medido sobre la 'o' del logotipo oficial y contrastado con `CirculoBlanco.png`:
+
+| Medida | En el logotipo | En el símbolo suelto |
+|---|---|---|
+| Grosor / diámetro | 0,1196 | 0,1221 |
+| Radio interior / exterior | 0,7608 | 0,7557 |
+| Apertura angular | 16,85° | 16,80° |
+| Centro de la apertura | 179,1° | 179,4° |
+
+Coinciden dentro del margen de dos exportaciones distintas del mismo dibujo. Eso
+autoriza a usar `spot-ring.svg` a escala de viewport en la portada sabiendo que es
+el anillo de la marca, no una aproximación.
 
 ## Uso
 

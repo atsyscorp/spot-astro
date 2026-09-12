@@ -1,0 +1,80 @@
+---
+/* El refrán: la tesis vuelve a mitad de página, a sangre, sobre el verde de
+   la marca. Es el único sitio del programa donde el menta deja de ser señal y
+   pasa a ser campo — la excepción declarada a la regla de la luz.
+
+   La frase corre en horizontal porque el muro de clientes ya corre en
+   vertical; dos marquesinas en el mismo eje leerían como un tic.
+
+   Texto en cartulina sobre menta: 12,25:1. La frase se repite para cerrar el
+   bucle sin costura, y las copias van fuera del árbol de accesibilidad. */
+import Anillo from './Anillo.astro';
+
+const frase = 'Diseñamos decisiones que se recuerdan.';
+const copias = 4;
+---
+<aside class="refran">
+  <div class="refran__cinta">
+    {Array.from({ length: copias }).map((_, i) => (
+      <p class="refran__frase" aria-hidden={i > 0 ? 'true' : undefined}>
+        <span>{frase}</span>
+        <Anillo class="refran__anillo" />
+      </p>
+    ))}
+  </div>
+</aside>
+
+<style>
+  .refran {
+    /* Por encima del hilo del raíl: una banda a sangre no se deja cruzar. */
+    position: relative;
+    z-index: 1;
+    margin: var(--s6) calc(50% - 50vw);
+    width: 100vw;
+    background: var(--live);
+    color: var(--stock);
+    overflow: hidden;
+    padding-block: clamp(var(--s4), 5vw, var(--s6));
+  }
+
+  .refran__cinta {
+    display: flex;
+    width: max-content;
+    animation: corre 38s linear infinite;
+    will-change: transform;
+  }
+  @keyframes corre {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .refran:hover .refran__cinta { animation-play-state: paused; }
+
+  .refran__frase {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    margin: 0;
+    padding-right: clamp(1.5rem, 3vw, 3rem);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: var(--t-refran);
+    line-height: 1.04;
+    letter-spacing: -0.018em;
+    white-space: nowrap;
+  }
+
+  .refran__anillo {
+    width: 0.42em;
+    height: 0.42em;
+    flex: none;
+    color: var(--stock);
+    opacity: 0.55;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .refran__cinta { animation: none; width: auto; justify-content: center; }
+    .refran__frase:not(:first-child) { display: none; }
+    .refran__frase { white-space: normal; padding-right: 0; justify-content: center; text-align: center; }
+    .refran { padding-inline: var(--gutter); }
+  }
+</style>

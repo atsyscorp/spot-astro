@@ -1,0 +1,176 @@
+---
+/* La bruma: el haz del spot cayendo sobre la primera página del programa.
+   Malla de ruido con deformación de dominio, dibujada en WebGL a mano —
+   unos 3 KB, sin framework. Se apaga hacia abajo hasta fundirse con la
+   cartulina, así que ninguna sesión se lee sobre luz.
+
+   Tres salidas de seguridad: sin WebGL queda el degradado CSS estático;
+   con prefers-reduced-motion dibuja un solo fotograma y para; y fuera de
+   pantalla el bucle se detiene, no gasta batería mirando la nada. */
+interface Props { pista: 'a' | 'b' }
+const { pista } = Astro.props;
+---
+<div class="bruma" data-pista={pista} aria-hidden="true">
+  <canvas class="bruma__lienzo"></canvas>
+</div>
+
+<style>
+  .bruma {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 92svh;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    /* Reserva estática: esto es lo que se ve si WebGL no arranca. */
+    background:
+      radial-gradient(120% 78% at 38% 6%, var(--bruma-tenue) 0%, transparent 62%),
+      linear-gradient(to bottom, var(--bruma-borde) 0%, transparent 55%);
+  }
+  .bruma[data-pista='a'] { --bruma-tenue: #0B1F1A; --bruma-borde: #0D1614; }
+  .bruma[data-pista='b'] { --bruma-tenue: #1C1710; --bruma-borde: #14110C; }
+
+  .bruma__lienzo {
+    width: 100%;
+    height: 100%;
+    display: block;
+    opacity: 0;
+    transition: opacity 900ms var(--ease);
+  }
+  .bruma__lienzo[data-encendido] { opacity: 1; }
+
+  /* Corta la luz antes de que llegue al texto. */
+  .bruma::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 42%, var(--stock) 96%);
+  }
+</style>
+
+<script>
+  const capa = document.querySelector<HTMLElement>('.bruma');
+  const lienzo = capa?.querySelector<HTMLCanvasElement>('.bruma__lienzo');
+  const gl = lienzo?.getContext('webgl', { alpha: false, antialias: false, depth: false });
+
+  if (capa && lienzo && gl) {
+    const pista = capa.dataset.pista === 'b' ? 1 : 0;
+    const quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const vs = `attribute vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }`;
+
+    const fs = `
+      precision mediump float;
+      uniform vec2 uRes;
+      uniform float uT;
+      uniform float uPista;
+
+      float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
+      float ruido(vec2 p){
+        vec2 i = floor(p), f = fract(p);
+        vec2 u = f * f * (3.0 - 2.0 * f);
+        return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
+                   mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
+      }
+      float fbm(vec2 p){
+        float v = 0.0, a = 0.5;
+        for (int i = 0; i < 5; i++) { v += a * ruido(p); p *= 2.02; a *= 0.5; }
+        return v;
+      }
+
+      void main(){
+        vec2 uv = gl_FragCoord.xy / uRes;
+        vec2 p = vec2(uv.x * (uRes.x / uRes.y), uv.y) * 1.5;
+        float t = uT * 0.028;
+
+        vec2 q = vec2(fbm(p + vec2(0.0, t)), fbm(p + vec2(5.2, 1.3 - t)));
+        vec2 r = vec2(fbm(p + 2.0 * q + vec2(1.7, 9.2) + t * 0.5),
+                      fbm(p + 2.0 * q + vec2(8.3, 2.8) - t * 0.35));
+        float f = fbm(p + 2.1 * r);
+
+        vec3 cartulina = vec3(0.039, 0.039, 0.039);
+        vec3 menta     = vec3(0.063, 0.902, 0.702);
+        vec3 laton     = vec3(0.722, 0.576, 0.353);
+        vec3 viva      = mix(menta, laton, uPista);
+
+        vec3 col = cartulina;
+        col = mix(col, laton * 0.38, smoothstep(0.34, 0.95, f) * 0.19);
+        col = mix(col, viva * 0.32, smoothstep(0.52, 1.04, f * r.x * 1.9) * 0.16);
+
+        /* La luz entra por arriba y muere hacia abajo, como un haz que cae
+           sobre la primera página. Antes brillaba en el centro. */
+        float caida = smoothstep(0.02, 0.88, uv.y);
+        float viñeta = smoothstep(1.18, 0.24, length(uv - vec2(0.40, 0.74)));
+        col = mix(cartulina, col, caida * viñeta);
+
+        gl_FragColor = vec4(col, 1.0);
+      }
+    `;
+
+    const compilar = (tipo: number, src: string) => {
+      const s = gl.createShader(tipo)!;
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null;
+    };
+
+    const v = compilar(gl.VERTEX_SHADER, vs);
+    const f = compilar(gl.FRAGMENT_SHADER, fs);
+
+    if (v && f) {
+      const prog = gl.createProgram()!;
+      gl.attachShader(prog, v);
+      gl.attachShader(prog, f);
+      gl.linkProgram(prog);
+
+      if (gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+        gl.useProgram(prog);
+        const buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+        const loc = gl.getAttribLocation(prog, 'p');
+        gl.enableVertexAttribArray(loc);
+        gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+        const uRes = gl.getUniformLocation(prog, 'uRes');
+        const uT = gl.getUniformLocation(prog, 'uT');
+        gl.uniform1f(gl.getUniformLocation(prog, 'uPista'), pista);
+
+        const medir = () => {
+          const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+          const w = Math.max(1, Math.round(capa.clientWidth * dpr));
+          const h = Math.max(1, Math.round(capa.clientHeight * dpr));
+          if (lienzo.width !== w || lienzo.height !== h) {
+            lienzo.width = w; lienzo.height = h;
+            gl.viewport(0, 0, w, h);
+            gl.uniform2f(uRes, w, h);
+          }
+        };
+
+        let lazo = 0;
+        let visible = true;
+        const pintar = (ms: number) => {
+          medir();
+          gl.uniform1f(uT, ms / 1000);
+          gl.drawArrays(gl.TRIANGLES, 0, 3);
+          if (!quieto && visible) lazo = requestAnimationFrame(pintar);
+        };
+
+        pintar(0);
+        lienzo.setAttribute('data-encendido', '');
+
+        if (!quieto) {
+          const ojo = new IntersectionObserver(([e]) => {
+            visible = e.isIntersecting;
+            if (visible && !lazo) lazo = requestAnimationFrame(pintar);
+            else if (!visible && lazo) { cancelAnimationFrame(lazo); lazo = 0; }
+          });
+          ojo.observe(capa);
+          window.addEventListener('resize', medir, { passive: true });
+        }
+      }
+    }
+  }
+</script>

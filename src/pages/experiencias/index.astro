@@ -2,9 +2,13 @@
 import Mundo from '../../layouts/Mundo.astro';
 import Sesion from '../../components/Sesion.astro';
 import Campo from '../../components/Campo.astro';
+import Muro from '../../components/Muro.astro';
+import Apertura from '../../components/Apertura.astro';
+import Sala from '../../components/Sala.astro';
+import Refran from '../../components/Refran.astro';
 import {
   tesis, principios, practicas, spotboxes, metodo,
-  peso, territorios, clientes, clientesTitular, marca,
+  peso, territorios, clientesTitular, marca,
 } from '../../data/spot';
 
 const practicasPista = practicas.filter((p) => p.pista === 'a');
@@ -12,16 +16,28 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
 ---
 <Mundo
   pista="a"
+  fondo="pelicula"
   nombre="Experiencias"
   titulo="Experiencias — Spot"
   descripcion="Summits, congresos y encuentros ejecutivos donde la estrategia antecede a la producción. +5.800 líderes C-level impactados en tres mercados."
 >
-  <Sesion n="I" rotulo="La tesis" id="tesis">
-    <h1 class="titular">
+  <Apertura slot="apertura" letra="A" pista="Experiencias">
+    <h1 slot="titular" class="titular">
       {tesis.titular[0]}<br /><em>{tesis.titular[1]}</em>
     </h1>
-    <p class="plomo tesis__cuerpo">{tesis.cuerpo}</p>
+    <p slot="plomo" class="plomo">{tesis.cuerpo}</p>
+    <ul slot="tira" class="tira">
+      {peso.map((c) => (
+        <li>
+          <b data-cifra={c.cifra} aria-hidden="true">{c.cifra}</b>
+          <i class="solo-lectores">{c.cifra}</i>
+          <span>{c.unidad}</span>
+        </li>
+      ))}
+    </ul>
+  </Apertura>
 
+  <Sesion n="I" rotulo="El diagnóstico" id="tesis">
     <p class="subtitular tesis__diagnostico">{tesis.diagnostico}</p>
 
     <div class="cotejo">
@@ -78,6 +94,8 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
     <p slot="margen">{spotboxes}</p>
   </Sesion>
 
+  <Sala />
+
   <Sesion n="IV" rotulo="Metodología" id="metodo">
     <h2 class="subtitular">Del insight a la huella.</h2>
     <ol class="metodo">
@@ -125,32 +143,61 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
     </ul>
   </Sesion>
 
-  <Sesion n="VII" rotulo="Quiénes nos eligen" id="clientes">
-    <h2 class="subtitular">
-      {clientesTitular[0]}<br /><em>{clientesTitular[1]}</em>
-    </h2>
-    <ul class="clientes">
-      {clientes.map((c) => <li>{c}</li>)}
-    </ul>
+  <Refran />
+
+  <Sesion n="VII" rotulo="Hablemos" id="hablemos" class="sesion--cierre">
+    <div class="cierre">
+      <div class="cierre__decir">
+        <h2 class="titular">Let's work <em>together.</em></h2>
+        <p class="plomo">
+          Cuéntenos qué decisión tiene que moverse. El resto es nuestro oficio.
+        </p>
+        <ul class="contacto">
+          {marca.correos.map((c) => (
+            <li><a class="contacto__enlace" href={`mailto:${c}`}>{c}</a></li>
+          ))}
+          <li><a class="contacto__enlace" href={`tel:${marca.telefonoHref}`}>{marca.telefono}</a></li>
+        </ul>
+      </div>
+
+      <figure class="cierre__prueba">
+        <figcaption class="cierre__pie">
+          {clientesTitular[0]} <em>{clientesTitular[1]}</em>
+        </figcaption>
+        <Muro />
+      </figure>
+    </div>
   </Sesion>
 
-  <Sesion n="VIII" rotulo="Hablemos" id="hablemos">
-    <h2 class="titular">Let's work <em>together.</em></h2>
-    <p class="plomo">
-      Cuéntenos qué decisión tiene que moverse. El resto es nuestro oficio.
-    </p>
-    <ul class="contacto">
-      {marca.correos.map((c) => (
-        <li><a class="contacto__enlace" href={`mailto:${c}`}>{c}</a></li>
-      ))}
-      <li><a class="contacto__enlace" href={`tel:${marca.telefonoHref}`}>{marca.telefono}</a></li>
-    </ul>
-  </Sesion>
 </Mundo>
 
 <style>
-  .tesis__cuerpo { margin-top: var(--s3); }
-  .tesis__diagnostico { margin-top: var(--s5); max-width: 30ch; }
+  .tesis__diagnostico { max-width: 30ch; }
+
+  /* La tira de prueba de la apertura: las cuatro cifras en una línea. */
+  .tira {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s3) var(--s5);
+  }
+  .tira li { display: grid; gap: 0.2rem; }
+  .tira b {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: var(--t-entrada);
+    line-height: 1;
+    color: var(--ink);
+    /* Cifras de ancho fijo: si no, la línea baila mientras los dígitos giran. */
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+  .tira span {
+    font-size: var(--t-micro);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--foil);
+  }
   .tesis__diagnostico + .cotejo { margin-top: var(--s4); }
 
   /* El cotejo: dos cadenas de pasos. La de la izquierda está apagada. */
@@ -171,7 +218,7 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
     font-family: var(--display);
     font-size: var(--t-menor);
     line-height: 1.2;
-    font-variation-settings: 'opsz' 24;
+    font-variation-settings: 'opsz' 18;
   }
   .cotejo__pasos li::before {
     content: '';
@@ -216,12 +263,12 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
     font-size: var(--t-sub);
     color: var(--foil);
     line-height: 1.1;
-    font-variation-settings: 'opsz' 20;
+    font-variation-settings: 'opsz' 16;
   }
   .principio__titulo {
     font-size: var(--t-entrada);
     line-height: 1.16;
-    font-variation-settings: 'opsz' 40;
+    font-variation-settings: 'opsz' 28;
   }
   .principio:first-child .principio__titulo { font-size: var(--t-lema); }
   .principio__cuerpo { max-width: 44ch; color: var(--ink-body); }
@@ -242,12 +289,12 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
     font-size: var(--t-marca);
     color: var(--foil);
     line-height: 1;
-    font-variation-settings: 'opsz' 24;
+    font-variation-settings: 'opsz' 18;
   }
   .practica__titulo {
     font-size: var(--t-titulo);
     line-height: 1.1;
-    font-variation-settings: 'opsz' 44;
+    font-variation-settings: 'opsz' 30;
   }
   .practica__titulo a { text-decoration: none; border-bottom: 1px solid var(--foil-dim); }
   .practica__cuerpo { max-width: 48ch; }
@@ -330,7 +377,7 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
     line-height: 1;
     color: var(--ink);
     letter-spacing: -0.01em;
-    font-variation-settings: 'opsz' 32;
+    font-variation-settings: 'opsz' 23;
   }
   .cifra__lectura span {
     font-size: var(--t-rotulo);
@@ -375,18 +422,29 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
     color: var(--foil);
   }
 
-  /* Clientes en tipografía: los logotipos vectoriales no existen todavía. */
-  .clientes {
-    margin-top: var(--s4);
-    columns: 2;
-    column-gap: var(--s5);
+  /* El cierre: lo que decimos a la izquierda, quién ya nos eligió a la
+     derecha. La prueba pegada a la acción, no en una sesión aparte. */
+  .cierre {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: var(--s5);
+    align-items: start;
+    margin-top: var(--s2);
   }
-  .clientes li {
-    break-inside: avoid;
-    padding-block: 0.7rem;
-    border-top: 1px solid var(--rule);
-    font-size: var(--t-cuerpo);
+  .cierre__decir { align-self: center; }
+  .cierre__prueba { margin: 0; }
+  .cierre__pie {
+    font-family: var(--display);
+    font-size: var(--t-menor);
+    line-height: 1.2;
     color: var(--ink);
+    margin-bottom: var(--s2);
+    max-width: 26ch;
+  }
+  .cierre__pie em { font-style: italic; color: var(--live); }
+
+  @media (max-width: 62rem) {
+    .cierre { grid-template-columns: 1fr; gap: var(--s4); }
   }
 
   .contacto { margin-top: var(--s3); display: grid; gap: var(--s1); }
@@ -396,7 +454,7 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
     text-decoration: none;
     border-bottom: 1px solid var(--foil-dim);
     color: var(--ink);
-    font-variation-settings: 'opsz' 28;
+    font-variation-settings: 'opsz' 21;
   }
   .contacto__enlace:hover { color: var(--live); border-bottom-color: var(--live); }
 

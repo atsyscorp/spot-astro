@@ -8,144 +8,484 @@
         "role": "neutral",
         "displayName": "Cartulina Negra",
         "canonical": "#0A0A0A",
-        "tonalRamp": ["oklch(15% 0 0)", "oklch(26% 0 0)", "oklch(37% 0 0)", "oklch(48% 0 0)", "oklch(59% 0 0)", "oklch(70% 0 0)", "oklch(81% 0 0)", "oklch(92% 0 0)"]
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(37% 0 0)",
+          "oklch(48% 0 0)",
+          "oklch(59% 0 0)",
+          "oklch(70% 0 0)",
+          "oklch(81% 0 0)",
+          "oklch(92% 0 0)"
+        ]
       },
       "cartulina-honda": {
         "role": "neutral",
         "displayName": "Cartulina Honda",
         "canonical": "#060606",
-        "tonalRamp": ["oklch(15% 0 0)", "oklch(26% 0 0)", "oklch(37% 0 0)", "oklch(48% 0 0)", "oklch(59% 0 0)", "oklch(70% 0 0)", "oklch(81% 0 0)", "oklch(92% 0 0)"]
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(37% 0 0)",
+          "oklch(48% 0 0)",
+          "oklch(59% 0 0)",
+          "oklch(70% 0 0)",
+          "oklch(81% 0 0)",
+          "oklch(92% 0 0)"
+        ]
       },
       "tinta": {
         "role": "neutral",
         "displayName": "Tinta Hueso",
         "canonical": "#EDE9E1",
-        "tonalRamp": ["oklch(15% 0.008 90)", "oklch(26% 0.008 90)", "oklch(37% 0.008 90)", "oklch(48% 0.008 90)", "oklch(59% 0.008 90)", "oklch(70% 0.008 90)", "oklch(81% 0.008 90)", "oklch(93% 0.008 90)"]
+        "tonalRamp": [
+          "oklch(15% 0.008 90)",
+          "oklch(26% 0.008 90)",
+          "oklch(37% 0.008 90)",
+          "oklch(48% 0.008 90)",
+          "oklch(59% 0.008 90)",
+          "oklch(70% 0.008 90)",
+          "oklch(81% 0.008 90)",
+          "oklch(93% 0.008 90)"
+        ]
       },
       "tinta-anillo": {
         "role": "neutral",
         "displayName": "Tinta del Anillo",
         "canonical": "#B5B0A6",
-        "tonalRamp": ["oklch(15% 0.01 90)", "oklch(26% 0.01 90)", "oklch(37% 0.01 90)", "oklch(48% 0.01 90)", "oklch(59% 0.01 90)", "oklch(74% 0.01 90)", "oklch(83% 0.01 90)", "oklch(92% 0.01 90)"]
+        "tonalRamp": [
+          "oklch(15% 0.01 90)",
+          "oklch(26% 0.01 90)",
+          "oklch(37% 0.01 90)",
+          "oklch(48% 0.01 90)",
+          "oklch(59% 0.01 90)",
+          "oklch(74% 0.01 90)",
+          "oklch(83% 0.01 90)",
+          "oklch(92% 0.01 90)"
+        ]
       },
       "tinta-cuerpo": {
         "role": "neutral",
         "displayName": "Tinta de Cuerpo",
         "canonical": "#C9C4BA",
-        "tonalRamp": ["oklch(15% 0.012 90)", "oklch(26% 0.012 90)", "oklch(37% 0.012 90)", "oklch(48% 0.012 90)", "oklch(59% 0.012 90)", "oklch(70% 0.012 90)", "oklch(80% 0.012 90)", "oklch(92% 0.012 90)"]
+        "tonalRamp": [
+          "oklch(15% 0.012 90)",
+          "oklch(26% 0.012 90)",
+          "oklch(37% 0.012 90)",
+          "oklch(48% 0.012 90)",
+          "oklch(59% 0.012 90)",
+          "oklch(70% 0.012 90)",
+          "oklch(80% 0.012 90)",
+          "oklch(92% 0.012 90)"
+        ]
       },
       "tinta-queda": {
         "role": "neutral",
         "displayName": "Tinta Queda Cálida",
-        "canonical": "#948E82",
-        "tonalRamp": ["oklch(15% 0.015 88)", "oklch(26% 0.015 88)", "oklch(37% 0.015 88)", "oklch(48% 0.015 88)", "oklch(62% 0.015 88)", "oklch(70% 0.015 88)", "oklch(81% 0.015 88)", "oklch(92% 0.015 88)"]
+        "canonical": "#A39C8E",
+        "tonalRamp": [
+          "oklch(15% 0.016 88)",
+          "oklch(26% 0.016 88)",
+          "oklch(37% 0.016 88)",
+          "oklch(48% 0.016 88)",
+          "oklch(59% 0.016 88)",
+          "oklch(68% 0.016 88)",
+          "oklch(81% 0.016 88)",
+          "oklch(92% 0.016 88)"
+        ]
       },
       "laton": {
         "role": "secondary",
         "displayName": "Lámina de Latón",
         "canonical": "#B8935A",
-        "tonalRamp": ["oklch(15% 0.07 75)", "oklch(26% 0.07 75)", "oklch(37% 0.07 75)", "oklch(48% 0.07 75)", "oklch(59% 0.07 75)", "oklch(70% 0.07 75)", "oklch(81% 0.07 75)", "oklch(92% 0.07 75)"]
+        "tonalRamp": [
+          "oklch(15% 0.07 75)",
+          "oklch(26% 0.07 75)",
+          "oklch(37% 0.07 75)",
+          "oklch(48% 0.07 75)",
+          "oklch(59% 0.07 75)",
+          "oklch(70% 0.07 75)",
+          "oklch(81% 0.07 75)",
+          "oklch(92% 0.07 75)"
+        ]
       },
       "laton-apagado": {
         "role": "secondary",
         "displayName": "Latón Apagado",
         "canonical": "#6A5436",
-        "tonalRamp": ["oklch(15% 0.05 75)", "oklch(26% 0.05 75)", "oklch(40% 0.05 75)", "oklch(48% 0.05 75)", "oklch(59% 0.05 75)", "oklch(70% 0.05 75)", "oklch(81% 0.05 75)", "oklch(92% 0.05 75)"]
+        "tonalRamp": [
+          "oklch(15% 0.05 75)",
+          "oklch(26% 0.05 75)",
+          "oklch(40% 0.05 75)",
+          "oklch(48% 0.05 75)",
+          "oklch(59% 0.05 75)",
+          "oklch(70% 0.05 75)",
+          "oklch(81% 0.05 75)",
+          "oklch(92% 0.05 75)"
+        ]
       },
       "laton-tenue": {
         "role": "secondary",
         "displayName": "Latón Tenue",
         "canonical": "#2E2519",
-        "tonalRamp": ["oklch(15% 0.03 75)", "oklch(24% 0.03 75)", "oklch(37% 0.03 75)", "oklch(48% 0.03 75)", "oklch(59% 0.03 75)", "oklch(70% 0.03 75)", "oklch(81% 0.03 75)", "oklch(92% 0.03 75)"]
+        "tonalRamp": [
+          "oklch(15% 0.03 75)",
+          "oklch(24% 0.03 75)",
+          "oklch(37% 0.03 75)",
+          "oklch(48% 0.03 75)",
+          "oklch(59% 0.03 75)",
+          "oklch(70% 0.03 75)",
+          "oklch(81% 0.03 75)",
+          "oklch(92% 0.03 75)"
+        ]
       },
       "menta-viva": {
         "role": "primary",
         "displayName": "Menta Viva",
         "canonical": "#10E6B3",
-        "tonalRamp": ["oklch(15% 0.16 168)", "oklch(26% 0.16 168)", "oklch(37% 0.16 168)", "oklch(48% 0.16 168)", "oklch(59% 0.16 168)", "oklch(70% 0.16 168)", "oklch(82% 0.16 168)", "oklch(92% 0.16 168)"]
+        "tonalRamp": [
+          "oklch(15% 0.16 168)",
+          "oklch(26% 0.16 168)",
+          "oklch(37% 0.16 168)",
+          "oklch(48% 0.16 168)",
+          "oklch(59% 0.16 168)",
+          "oklch(70% 0.16 168)",
+          "oklch(82% 0.16 168)",
+          "oklch(92% 0.16 168)"
+        ]
       },
       "laton-vivo": {
         "role": "primary",
         "displayName": "Latón Vivo (Pista B)",
         "canonical": "#CDA96E",
-        "tonalRamp": ["oklch(15% 0.075 78)", "oklch(26% 0.075 78)", "oklch(37% 0.075 78)", "oklch(48% 0.075 78)", "oklch(59% 0.075 78)", "oklch(73% 0.075 78)", "oklch(84% 0.075 78)", "oklch(92% 0.075 78)"]
+        "tonalRamp": [
+          "oklch(15% 0.075 78)",
+          "oklch(26% 0.075 78)",
+          "oklch(37% 0.075 78)",
+          "oklch(48% 0.075 78)",
+          "oklch(59% 0.075 78)",
+          "oklch(73% 0.075 78)",
+          "oklch(84% 0.075 78)",
+          "oklch(92% 0.075 78)"
+        ]
       },
       "campo-pista-a": {
         "role": "tertiary",
         "displayName": "Campo de Pista A",
         "canonical": "#07211B",
-        "tonalRamp": ["oklch(15% 0.04 168)", "oklch(24% 0.04 168)", "oklch(37% 0.04 168)", "oklch(48% 0.04 168)", "oklch(59% 0.04 168)", "oklch(70% 0.04 168)", "oklch(81% 0.04 168)", "oklch(92% 0.04 168)"]
+        "tonalRamp": [
+          "oklch(15% 0.04 168)",
+          "oklch(24% 0.04 168)",
+          "oklch(37% 0.04 168)",
+          "oklch(48% 0.04 168)",
+          "oklch(59% 0.04 168)",
+          "oklch(70% 0.04 168)",
+          "oklch(81% 0.04 168)",
+          "oklch(92% 0.04 168)"
+        ]
       },
       "campo-pista-b": {
         "role": "tertiary",
         "displayName": "Campo de Pista B",
         "canonical": "#211A0E",
-        "tonalRamp": ["oklch(15% 0.035 78)", "oklch(24% 0.035 78)", "oklch(37% 0.035 78)", "oklch(48% 0.035 78)", "oklch(59% 0.035 78)", "oklch(70% 0.035 78)", "oklch(81% 0.035 78)", "oklch(92% 0.035 78)"]
+        "tonalRamp": [
+          "oklch(15% 0.035 78)",
+          "oklch(24% 0.035 78)",
+          "oklch(37% 0.035 78)",
+          "oklch(48% 0.035 78)",
+          "oklch(59% 0.035 78)",
+          "oklch(70% 0.035 78)",
+          "oklch(81% 0.035 78)",
+          "oklch(92% 0.035 78)"
+        ]
       },
       "filete": {
         "role": "neutral",
         "displayName": "Filete",
         "canonical": "#2A2724",
-        "tonalRamp": ["oklch(15% 0.005 75)", "oklch(25% 0.005 75)", "oklch(37% 0.005 75)", "oklch(48% 0.005 75)", "oklch(59% 0.005 75)", "oklch(70% 0.005 75)", "oklch(81% 0.005 75)", "oklch(92% 0.005 75)"]
+        "tonalRamp": [
+          "oklch(15% 0.005 75)",
+          "oklch(25% 0.005 75)",
+          "oklch(37% 0.005 75)",
+          "oklch(48% 0.005 75)",
+          "oklch(59% 0.005 75)",
+          "oklch(70% 0.005 75)",
+          "oklch(81% 0.005 75)",
+          "oklch(92% 0.005 75)"
+        ]
       }
     },
     "typographyMeta": {
-      "display": { "displayName": "Titular", "token": "--t-display", "purpose": "El h1 de cada página. Uno solo, con exactamente una cláusula en cursiva viva." },
-      "headline": { "displayName": "Subtitular", "token": "--t-titulo", "purpose": "Apertura de sesión, título de práctica y cifra del peso. La cursiva va en tinta, nunca en la luz." },
-      "title": { "displayName": "Entrada de programa", "token": "--t-entrada", "purpose": "Principio, territorio, enlace de contacto y cierre del pie: los cuatro comparten token a propósito." },
-      "numeral": { "displayName": "Numeral de sesión", "token": "--t-marca", "purpose": "El romano del raíl, que comparte tamaño con el logotipo. Se enciende cuando la sesión está viva." },
-      "lead": { "displayName": "Plomo", "token": "--t-lead", "purpose": "Primer párrafo de una sesión, acotado a 34rem (~68 caracteres)." },
-      "body": { "displayName": "Cuerpo", "token": "--t-cuerpo", "purpose": "Texto corrido con cifras tabulares globales." },
-      "note": { "displayName": "Nota", "token": "--t-nota", "purpose": "Glosa en Bodoni cursiva; en la marginalia baja a --t-chico." },
-      "label": { "displayName": "Medida", "token": "--t-rotulo", "purpose": "Rótulo en versalitas de latón: sesión, pista, unidad de cifra, rubro del cotejo." }
+      "display": {
+        "displayName": "Titular",
+        "token": "--t-display",
+        "opsz": 60,
+        "purpose": "El h1 de cada página. Uno solo, con exactamente una cláusula en cursiva viva."
+      },
+      "headline": {
+        "displayName": "Subtitular",
+        "token": "--t-titulo",
+        "opsz": 32,
+        "purpose": "Apertura de sesión, título de práctica (opsz 30) y cifra del peso (opsz 23). La cursiva va en tinta, nunca en la luz."
+      },
+      "title": {
+        "displayName": "Entrada de programa",
+        "token": "--t-entrada",
+        "opsz": 28,
+        "purpose": "Principio, territorio, enlace de contacto y cierre del pie: los cuatro comparten token a propósito."
+      },
+      "numeral": {
+        "displayName": "Numeral de sesión",
+        "token": "--t-marca",
+        "opsz": 21,
+        "purpose": "El romano del raíl. Se enciende cuando la sesión está viva."
+      },
+      "lead": {
+        "displayName": "Plomo",
+        "token": "--t-lead",
+        "purpose": "Primer párrafo de una sesión, acotado a 34rem (~68 caracteres)."
+      },
+      "body": {
+        "displayName": "Cuerpo",
+        "token": "--t-cuerpo",
+        "purpose": "Texto corrido con cifras tabulares globales."
+      },
+      "note": {
+        "displayName": "Nota",
+        "token": "--t-nota",
+        "opsz": 14,
+        "purpose": "Glosa en cursiva; en la marginalia baja a --t-chico con opsz 13."
+      },
+      "label": {
+        "displayName": "Medida",
+        "token": "--t-rotulo",
+        "purpose": "Rótulo en versalitas de latón: sesión, pista, unidad de cifra, rubro del cotejo."
+      }
+    },
+    "fontDelivery": {
+      "displayFamily": "Source Serif 4",
+      "displayAxes": "opsz 8–60, peso recortado a 400–700 (original 200–900)",
+      "displaySubset": "U+0020-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212",
+      "displayFiles": [
+        {
+          "file": "source-serif-4-normal-latin.woff2",
+          "bytes": 80664
+        },
+        {
+          "file": "source-serif-4-italic-latin.woff2",
+          "bytes": 85420
+        }
+      ],
+      "textFamily": "Archivo",
+      "textFiles": [
+        {
+          "file": "archivo-normal-latin.woff2",
+          "bytes": 34940
+        },
+        {
+          "file": "archivo-italic-latin.woff2",
+          "bytes": 39132
+        },
+        {
+          "file": "archivo-normal-latin-ext.woff2",
+          "bytes": 32672
+        },
+        {
+          "file": "archivo-italic-latin-ext.woff2",
+          "bytes": 35208
+        }
+      ],
+      "downloadedPerPage": "234 KB en cuatro ficheros (las dos caras de Source Serif 4 más los cortes latin de Archivo).",
+      "note": "Source Serif 4 no tiene latin-ext: un carácter por encima de U+00FF en display cae a Georgia, no a tofu. Precargados los dos romanos. font-display: swap. font-synthesis: none."
     },
     "typeScale": [
-      { "name": "--t-display", "value": "clamp(2rem, 5.2vw, 3.75rem)", "purpose": "Titular de sesión (.titular)." },
-      { "name": "--t-portada", "value": "clamp(2rem, 4.6vw, 3.4rem)", "purpose": "Nombre de pista en la portada." },
-      { "name": "--t-lema", "value": "clamp(1.5rem, 3.2vw, 2.6rem)", "purpose": "El lema de la portada y el principio que manda." },
-      { "name": "--t-rail-letra", "value": "clamp(1.75rem, 3.4vw, 2.75rem)", "purpose": "La letra de pista al margen de la portada." },
-      { "name": "--t-titulo", "value": "clamp(1.5rem, 3.1vw, 2.25rem)", "purpose": "Subtitular de sesión, título de práctica, cifra del peso." },
-      { "name": "--t-entrada", "value": "clamp(1.35rem, 2.5vw, 1.8rem)", "purpose": "Entrada de programa: principio, territorio, enlace de contacto, cierre del pie." },
-      { "name": "--t-menor", "value": "clamp(1.15rem, 2.1vw, 1.5rem)", "purpose": "Estación y paso: metodología, paso del cotejo, entrada no impresa." },
-      { "name": "--t-marca", "value": "1.5rem", "purpose": "Logotipo y numeral de raíl; numeral de práctica." },
-      { "name": "--t-sub", "value": "1.125rem", "purpose": "Rótulo de la cinta, numeral de principio y de hueco, numeral de raíl en móvil." },
-      { "name": "--t-lead", "value": "1.1875rem", "purpose": "Entradilla (.plomo)." },
-      { "name": "--t-cuerpo", "value": "1.0625rem", "purpose": "Cuerpo global y lista de clientes." },
-      { "name": "--t-nota", "value": "1rem", "purpose": "Nota curatorial; el rótulo de la cinta bajo 34rem." },
-      { "name": "--t-chico", "value": "0.9375rem", "purpose": "Cuerpo menor: marginalia, enlace cruzado, datos del pie, línea de pista." },
-      { "name": "--t-menudo", "value": "0.875rem", "purpose": "Apoyo: numeral de estación, nombres de territorio, contacto de portada." },
-      { "name": "--t-rotulo", "value": "0.6875rem", "purpose": "Rótulo en versalitas (.medida), unidad de cifra, ENTRAR, cruce de pista." },
-      { "name": "--t-micro", "value": "0.625rem", "purpose": "Escala declarada del campo, marcador vertical, raíl y territorios en móvil." }
+      {
+        "name": "--t-display",
+        "value": "clamp(2rem, 5.2vw, 3.75rem)",
+        "purpose": "Titular de sesión (.titular). opsz 60."
+      },
+      {
+        "name": "--t-portada",
+        "value": "clamp(2rem, 4.6vw, 3.4rem)",
+        "purpose": "Nombre de pista en la portada. opsz 55."
+      },
+      {
+        "name": "--t-lema",
+        "value": "clamp(1.5rem, 3.2vw, 2.6rem)",
+        "purpose": "El lema de la portada y el principio que manda. opsz 46."
+      },
+      {
+        "name": "--t-rail-letra",
+        "value": "clamp(1.75rem, 3.4vw, 2.75rem)",
+        "purpose": "La letra de pista al margen de la portada. opsz 30."
+      },
+      {
+        "name": "--t-titulo",
+        "value": "clamp(1.5rem, 3.1vw, 2.25rem)",
+        "purpose": "Subtitular (opsz 32), título de práctica (30), cifra del peso (23)."
+      },
+      {
+        "name": "--t-entrada",
+        "value": "clamp(1.35rem, 2.5vw, 1.8rem)",
+        "purpose": "Entrada de programa: principio (opsz 28), territorio, enlace de contacto (21), cierre del pie (25)."
+      },
+      {
+        "name": "--t-menor",
+        "value": "clamp(1.15rem, 2.1vw, 1.5rem)",
+        "purpose": "Estación y paso: metodología, paso del cotejo (opsz 18), entrada no impresa (21)."
+      },
+      {
+        "name": "--t-marca",
+        "value": "1.5rem",
+        "purpose": "Numeral de raíl (opsz 21); numeral de práctica (18)."
+      },
+      {
+        "name": "--t-sub",
+        "value": "1.125rem",
+        "purpose": "Rótulo de la cinta, numeral de principio (opsz 16) y de hueco (15), numeral de raíl en móvil."
+      },
+      {
+        "name": "--t-lead",
+        "value": "1.1875rem",
+        "purpose": "Entradilla (.plomo)."
+      },
+      {
+        "name": "--t-cuerpo",
+        "value": "1.0625rem",
+        "purpose": "Cuerpo global y lista de clientes."
+      },
+      {
+        "name": "--t-nota",
+        "value": "1rem",
+        "purpose": "Nota curatorial (opsz 14); el rótulo de la cinta bajo 34rem."
+      },
+      {
+        "name": "--t-chico",
+        "value": "0.9375rem",
+        "purpose": "Cuerpo menor: marginalia (opsz 13), enlace cruzado, datos del pie, línea de pista."
+      },
+      {
+        "name": "--t-menudo",
+        "value": "0.875rem",
+        "purpose": "Apoyo: numeral de estación, nombres de territorio, contacto de portada."
+      },
+      {
+        "name": "--t-rotulo",
+        "value": "0.6875rem",
+        "purpose": "Rótulo en versalitas (.medida), unidad de cifra, ENTRAR, cruce de pista."
+      },
+      {
+        "name": "--t-micro",
+        "value": "0.625rem",
+        "purpose": "Escala declarada del campo, marcador vertical, raíl y territorios en móvil."
+      }
     ],
     "shadows": [],
     "motion": [
-      { "name": "ease", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "La única curva del sistema. Toda transición y toda animación la usan." },
-      { "name": "dur-enlace", "value": "180ms", "purpose": "Color y subrayado de enlace en hover." },
-      { "name": "dur-rail", "value": "320ms", "purpose": "Encendido del numeral y estiramiento del travesaño de la sesión viva." },
-      { "name": "dur-filete", "value": "380ms", "purpose": "Estiramiento del filete de ENTRAR y encendido de las mitades del anillo (420ms)." },
-      { "name": "dur-campo", "value": "520ms", "purpose": "Encendido del campo de media página en la portada." },
-      { "name": "dur-trazo", "value": "560ms", "purpose": "Crecimiento de cada trazo del campo medido, escalonado 11ms por índice." },
-      { "name": "vt-hoja-sale", "value": "260ms", "purpose": "La hoja saliente se va 10px hacia arriba en la transición de documento." },
-      { "name": "vt-hoja-entra", "value": "460ms", "purpose": "La hoja entrante sube 22px hasta su sitio." },
-      { "name": "vt-anillo", "value": "620ms", "purpose": "El anillo compartido se contrae de la portada al logotipo de la cinta." }
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "La curva del sistema. Toda transición y toda animación la usan, salvo el enfoque del anillo."
+      },
+      {
+        "name": "ease-enfoque",
+        "value": "cubic-bezier(0.4, 0.05, 0.2, 1)",
+        "purpose": "Única excepción: el enfoque del anillo en la entrada de la portada. Con la curva compartida el desenfoque se cerraba en 250ms y el gesto no se leía."
+      },
+      {
+        "name": "dur-enlace",
+        "value": "180ms",
+        "purpose": "Color y subrayado de enlace en hover."
+      },
+      {
+        "name": "dur-rail",
+        "value": "320ms",
+        "purpose": "Encendido del numeral y estiramiento del travesaño de la sesión viva."
+      },
+      {
+        "name": "dur-filete",
+        "value": "380ms",
+        "purpose": "Estiramiento del filete de ENTRAR y encendido de las mitades del anillo (420ms)."
+      },
+      {
+        "name": "dur-campo",
+        "value": "520ms",
+        "purpose": "Encendido del campo de media página en la portada."
+      },
+      {
+        "name": "dur-trazo",
+        "value": "560ms",
+        "purpose": "Crecimiento de cada trazo del campo medido, escalonado 11ms por índice."
+      },
+      {
+        "name": "dur-bruma",
+        "value": "900ms",
+        "purpose": "Aparición del lienzo WebGL una vez dibujado el primer fotograma."
+      },
+      {
+        "name": "entrada-escala",
+        "value": "1",
+        "purpose": "Mando único de la entrada de la portada, declarado en .portada. 1 = 2,4 s en total; 4 ≈ 10 s."
+      },
+      {
+        "name": "vt-hoja-sale",
+        "value": "260ms",
+        "purpose": "La hoja saliente se va 10px hacia arriba en la transición de documento."
+      },
+      {
+        "name": "vt-hoja-entra",
+        "value": "460ms",
+        "purpose": "La hoja entrante sube 22px hasta su sitio."
+      },
+      {
+        "name": "vt-anillo",
+        "value": "620ms",
+        "purpose": "El anillo de la portada viaja hasta el logotipo de la cinta (.cinta .marca img)."
+      }
     ],
     "breakpoints": [
-      { "name": "cinta-apretada", "value": "34rem" },
-      { "name": "rail-minimo", "value": "40rem" },
-      { "name": "columna-unica", "value": "52rem" },
-      { "name": "rail-estrecho", "value": "62rem" },
-      { "name": "marginalia", "value": "72rem" },
-      { "name": "pagina", "value": "78rem" }
+      {
+        "name": "cinta-apretada",
+        "value": "34rem"
+      },
+      {
+        "name": "rail-minimo",
+        "value": "40rem"
+      },
+      {
+        "name": "columna-unica",
+        "value": "52rem"
+      },
+      {
+        "name": "rail-estrecho",
+        "value": "62rem"
+      },
+      {
+        "name": "marginalia",
+        "value": "72rem"
+      },
+      {
+        "name": "pagina",
+        "value": "78rem"
+      }
     ]
   },
   "components": [
+    {
+      "name": "La bruma",
+      "kind": "custom",
+      "refersTo": "bruma",
+      "description": "El haz del spot sobre la primera página: campo WebGL de ruido con deformación de dominio, 92svh al tope de cada mundo, con el color de su pista. Aquí se muestra la reserva CSS — lo que ship si WebGL no arranca.",
+      "html": "<div class=\"ds-bruma\" data-pista=\"a\" aria-hidden=\"true\"><canvas class=\"ds-bruma__lienzo\"></canvas></div>",
+      "css": ".ds-bruma { position: relative; height: 92svh; min-height: 320px; overflow: hidden; pointer-events: none; background: radial-gradient(120% 78% at 38% 6%, var(--bruma-tenue) 0%, transparent 62%), linear-gradient(to bottom, var(--bruma-borde) 0%, transparent 55%); } .ds-bruma[data-pista='a'] { --bruma-tenue: #0B1F1A; --bruma-borde: #0D1614; } .ds-bruma[data-pista='b'] { --bruma-tenue: #1C1710; --bruma-borde: #14110C; } .ds-bruma__lienzo { width: 100%; height: 100%; display: block; opacity: 0; transition: opacity 900ms cubic-bezier(0.16,1,0.3,1); } .ds-bruma__lienzo[data-encendido] { opacity: 1; } .ds-bruma::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 42%, var(--stock, #0A0A0A) 96%); }"
+    },
     {
       "name": "Sesión del programa",
       "kind": "custom",
       "refersTo": "sesion",
       "description": "La unidad estructural del sitio: raíl con numeral romano, cuerpo de lectura y marginalia en la columna exterior por encima de 72rem.",
       "html": "<section class=\"ds-sesion ds-sesion--viva\"><p class=\"ds-sesion__rail\"><b>V</b><span>El peso</span></p><div class=\"ds-sesion__cuerpo\"><h2 class=\"ds-subtitular\">La escala habla antes que nosotros.</h2><p class=\"ds-plomo\">Cifras declaradas, no estimadas.</p></div><aside class=\"ds-sesion__margen\"><p>Cifras declaradas en el portafolio Spot 2026.</p></aside></section>",
-      "css": ".ds-sesion { display: grid; grid-template-columns: 9rem minmax(0,1fr); column-gap: 40px; padding-block: 104px 64px; border-top: 1px solid var(--rule, #2A2724); position: relative; } .ds-sesion__rail { grid-column: 1; margin: 0; font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-rotulo, 0.6875rem); letter-spacing: 0.24em; text-transform: uppercase; color: var(--foil, #B8935A); padding-top: 0.6em; padding-left: 24px; align-self: start; position: relative; } .ds-sesion__rail::before { content: ''; position: absolute; left: 0; top: calc(0.6em + 0.75rem); width: 24px; height: 1px; background: var(--foil-dim, #6A5436); transform: scaleX(0.66); transform-origin: left; transition: background-color 320ms cubic-bezier(0.16,1,0.3,1), transform 320ms cubic-bezier(0.16,1,0.3,1); } .ds-sesion__rail b { display: block; font-weight: 400; font-family: 'Bodoni Moda', Georgia, serif; font-size: var(--t-marca, 1.5rem); letter-spacing: 0.06em; line-height: 1; margin-bottom: 8px; font-variation-settings: 'opsz' 28; transition: color 320ms cubic-bezier(0.16,1,0.3,1); } .ds-sesion--viva .ds-sesion__rail::before { background: var(--live, #10E6B3); transform: scaleX(1); } .ds-sesion--viva .ds-sesion__rail b { color: var(--live, #10E6B3); } .ds-sesion__cuerpo { grid-column: 2; min-width: 0; } .ds-subtitular { margin: 0; font-family: 'Bodoni Moda', Georgia, serif; font-weight: 400; color: var(--ink, #EDE9E1); font-size: var(--t-titulo, clamp(1.5rem, 3.1vw, 2.25rem)); line-height: 1.14; letter-spacing: -0.012em; font-variation-settings: 'opsz' 48; } .ds-plomo { margin: 24px 0 0; max-width: 34rem; font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-lead, 1.1875rem); line-height: 1.58; color: var(--ink-body, #C9C4BA); } .ds-sesion__margen { grid-column: 2; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--rule, #2A2724); } .ds-sesion__margen > * { margin: 0; font-family: 'Bodoni Moda', Georgia, serif; font-style: italic; font-size: var(--t-chico, 0.9375rem); line-height: 1.5; color: var(--ink-quiet, #948E82); font-variation-settings: 'opsz' 14; } @media (min-width: 72rem) { .ds-sesion { grid-template-columns: 9rem minmax(0,1fr) 12rem; } .ds-sesion__margen { grid-column: 3; grid-row: 1; margin-top: 0.55rem; padding-top: 0; border-top: 0; padding-left: 16px; border-left: 1px solid var(--foil-faint, #2E2519); align-self: start; } }"
+      "css": ".ds-sesion { display: grid; grid-template-columns: 9rem minmax(0,1fr); column-gap: 40px; padding-block: 104px 64px; border-top: 1px solid var(--rule, #2A2724); position: relative; } .ds-sesion__rail { grid-column: 1; margin: 0; font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-rotulo, 0.6875rem); letter-spacing: 0.24em; text-transform: uppercase; color: var(--foil, #B8935A); padding-top: 0.6em; padding-left: 24px; align-self: start; position: relative; } .ds-sesion__rail::before { content: ''; position: absolute; left: 0; top: calc(0.6em + 0.75rem); width: 24px; height: 1px; background: var(--foil-dim, #6A5436); transform: scaleX(0.66); transform-origin: left; transition: background-color 320ms cubic-bezier(0.16,1,0.3,1), transform 320ms cubic-bezier(0.16,1,0.3,1); } .ds-sesion__rail b { display: block; font-weight: 400; font-family: 'Source Serif 4', Georgia, serif; font-size: var(--t-marca, 1.5rem); letter-spacing: 0.06em; line-height: 1; margin-bottom: 8px; font-variation-settings: 'opsz' 21; transition: color 320ms cubic-bezier(0.16,1,0.3,1); } .ds-sesion--viva .ds-sesion__rail::before { background: var(--live, #10E6B3); transform: scaleX(1); } .ds-sesion--viva .ds-sesion__rail b { color: var(--live, #10E6B3); } .ds-sesion__cuerpo { grid-column: 2; min-width: 0; } .ds-subtitular { margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 400; color: var(--ink, #EDE9E1); font-size: var(--t-titulo, clamp(1.5rem, 3.1vw, 2.25rem)); line-height: 1.14; letter-spacing: -0.012em; font-variation-settings: 'opsz' 32; } .ds-plomo { margin: 24px 0 0; max-width: 34rem; font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-lead, 1.1875rem); line-height: 1.58; color: var(--ink-body, #C9C4BA); } .ds-sesion__margen { grid-column: 2; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--rule, #2A2724); } .ds-sesion__margen > * { margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-style: italic; font-size: var(--t-chico, 0.9375rem); line-height: 1.5; color: var(--ink-quiet, #A39C8E); font-variation-settings: 'opsz' 13; } @media (min-width: 72rem) { .ds-sesion { grid-template-columns: 9rem minmax(0,1fr) 12rem; } .ds-sesion__margen { grid-column: 3; grid-row: 1; margin-top: 0.55rem; padding-top: 0; border-top: 0; padding-left: 16px; border-left: 1px solid var(--foil-faint, #2E2519); align-self: start; } }"
     },
     {
       "name": "Campo medido",
@@ -153,7 +493,7 @@
       "refersTo": "campo-trazo",
       "description": "Un trazo es una unidad. El componente sólo dibuja trazos; la escala, cuando no es 1:1, cierra el texto de la cifra desde dentro y nunca se interpone entre el campo y su lectura.",
       "html": "<div class=\"ds-cifra\"><div class=\"ds-campo\" aria-hidden=\"true\"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><dl class=\"ds-cifra__lectura\"><dt><b>+5.800</b> <span>líderes C-level</span></dt><dd class=\"ds-cifra__texto\">impactados directamente en las experiencias que hemos dirigido.<em class=\"ds-cifra__escala\">Cada trazo · 100</em></dd></dl></div>",
-      "css": ".ds-cifra { display: grid; gap: 16px 0; padding-block: 24px; border-top: 1px solid var(--rule, #2A2724); } .ds-campo { --paso: 10px; display: flex; flex-wrap: wrap; gap: calc(var(--paso) - 1px); align-items: flex-end; height: 3.25rem; } .ds-campo i { display: block; flex: 0 0 1px; width: 1px; height: 100%; background: var(--foil, #B8935A); transform-origin: bottom; animation: ds-trazo 560ms cubic-bezier(0.16,1,0.3,1) backwards; } .ds-campo i:nth-child(2){animation-delay:11ms}.ds-campo i:nth-child(3){animation-delay:22ms}.ds-campo i:nth-child(4){animation-delay:33ms}.ds-campo i:nth-child(5){animation-delay:44ms}.ds-campo i:nth-child(6){animation-delay:55ms}.ds-campo i:nth-child(7){animation-delay:66ms}.ds-campo i:nth-child(8){animation-delay:77ms}.ds-campo i:nth-child(9){animation-delay:88ms}.ds-campo i:nth-child(10){animation-delay:99ms}.ds-campo i:nth-child(11){animation-delay:110ms}.ds-campo i:nth-child(12){animation-delay:121ms} @keyframes ds-trazo { from { transform: scaleY(0.08); opacity: 0; } to { transform: scaleY(1); opacity: 1; } } .ds-cifra__lectura { margin: 0; } .ds-cifra__lectura dt { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.2em 0.7em; } .ds-cifra__lectura b { font-family: 'Bodoni Moda', Georgia, serif; font-style: italic; font-weight: 400; font-size: var(--t-titulo, clamp(1.5rem, 3.1vw, 2.25rem)); line-height: 1; color: var(--ink, #EDE9E1); letter-spacing: -0.01em; font-variation-settings: 'opsz' 32; } .ds-cifra__lectura dt span { font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-rotulo, 0.6875rem); letter-spacing: 0.2em; text-transform: uppercase; color: var(--foil, #B8935A); } .ds-cifra__texto { margin: 16px 0 0; font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-chico, 0.9375rem); line-height: 1.6; color: var(--ink-body, #C9C4BA); max-width: 52ch; } .ds-cifra__escala { display: block; margin-top: 8px; font-style: normal; font-size: var(--t-micro, 0.625rem); letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-quiet, #948E82); } @media (max-width: 52rem) { .ds-campo { --paso: 5px; height: 2.5rem; } } @media (prefers-reduced-motion: reduce) { .ds-campo i { animation: none; } }"
+      "css": ".ds-cifra { display: grid; gap: 16px 0; padding-block: 24px; border-top: 1px solid var(--rule, #2A2724); } .ds-campo { --paso: 10px; display: flex; flex-wrap: wrap; gap: calc(var(--paso) - 1px); align-items: flex-end; height: 3.25rem; } .ds-campo i { display: block; flex: 0 0 1px; width: 1px; height: 100%; background: var(--foil, #B8935A); transform-origin: bottom; animation: ds-trazo 560ms cubic-bezier(0.16,1,0.3,1) backwards; } .ds-campo i:nth-child(2){animation-delay:11ms} .ds-campo i:nth-child(3){animation-delay:22ms} .ds-campo i:nth-child(4){animation-delay:33ms} .ds-campo i:nth-child(5){animation-delay:44ms} .ds-campo i:nth-child(6){animation-delay:55ms} .ds-campo i:nth-child(7){animation-delay:66ms} .ds-campo i:nth-child(8){animation-delay:77ms} .ds-campo i:nth-child(9){animation-delay:88ms} .ds-campo i:nth-child(10){animation-delay:99ms} .ds-campo i:nth-child(11){animation-delay:110ms} .ds-campo i:nth-child(12){animation-delay:121ms} @keyframes ds-trazo { from { transform: scaleY(0.08); opacity: 0; } to { transform: scaleY(1); opacity: 1; } } .ds-cifra__lectura { margin: 0; } .ds-cifra__lectura dt { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.2em 0.7em; } .ds-cifra__lectura b { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; font-weight: 400; font-size: var(--t-titulo, clamp(1.5rem, 3.1vw, 2.25rem)); line-height: 1; color: var(--ink, #EDE9E1); letter-spacing: -0.01em; font-variation-settings: 'opsz' 23; } .ds-cifra__lectura dt span { font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-rotulo, 0.6875rem); letter-spacing: 0.2em; text-transform: uppercase; color: var(--foil, #B8935A); } .ds-cifra__texto { margin: 16px 0 0; font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-chico, 0.9375rem); line-height: 1.6; color: var(--ink-body, #C9C4BA); max-width: 52ch; } .ds-cifra__escala { display: block; margin-top: 8px; font-style: normal; font-size: var(--t-micro, 0.625rem); letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-quiet, #A39C8E); } @media (max-width: 52rem) { .ds-campo { --paso: 5px; height: 2.5rem; } } @media (prefers-reduced-motion: reduce) { .ds-campo i { animation: none; } }"
     },
     {
       "name": "Entrada no impresa",
@@ -161,7 +501,7 @@
       "refersTo": "sesion",
       "description": "La ausencia se dibuja: un hueco declarado se imprime como entrada del programa, con numeral romano generado, título en tinta apagada, qué se requiere y en qué formato se entrega.",
       "html": "<ol class=\"ds-huecos\"><li class=\"ds-hueco\"><h3 class=\"ds-hueco__titulo\">Capacidades</h3><p class=\"ds-hueco__requiere\">La lista de servicios industriales que Spot presta hoy, con una línea de alcance por servicio.</p><p class=\"ds-hueco__formato\">Entre cuatro y ocho entradas. Nombre del servicio, una frase de alcance.</p></li></ol><div class=\"ds-renglones\" aria-hidden=\"true\"><i style=\"--w:100%\"></i><i style=\"--w:88%\"></i><i style=\"--w:47%\"></i></div>",
-      "css": ".ds-huecos { margin: 0; padding: 0; list-style: none; counter-reset: hueco; } .ds-hueco { display: grid; grid-template-columns: 2.25rem minmax(0,1fr); gap: 0.3rem 24px; padding-block: 24px; border-top: 1px solid var(--rule, #2A2724); counter-increment: hueco; } .ds-hueco::before { content: counter(hueco, upper-roman); grid-row: span 3; font-family: 'Bodoni Moda', Georgia, serif; font-size: var(--t-sub, 1.125rem); line-height: 1.2; color: var(--foil, #B8935A); font-variation-settings: 'opsz' 18; } .ds-hueco__titulo { margin: 0; font-family: 'Bodoni Moda', Georgia, serif; font-weight: 400; font-size: var(--t-menor, clamp(1.15rem, 2.1vw, 1.5rem)); line-height: 1.15; color: var(--ink-quiet, #948E82); font-variation-settings: 'opsz' 28; } .ds-hueco__requiere { margin: 0; font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-cuerpo, 1.0625rem); line-height: 1.62; max-width: 56ch; color: var(--ink-body, #C9C4BA); } .ds-hueco__formato { margin: 0; font-family: 'Bodoni Moda', Georgia, serif; font-style: italic; font-size: var(--t-nota, 1rem); line-height: 1.5; max-width: 56ch; color: var(--ink-quiet, #948E82); font-variation-settings: 'opsz' 16; } .ds-renglones { margin-top: 40px; display: grid; gap: 0.95rem; max-width: 32rem; } .ds-renglones i { display: block; width: var(--w); height: 1px; background: var(--foil-faint, #2E2519); }"
+      "css": ".ds-huecos { margin: 0; padding: 0; list-style: none; counter-reset: hueco; } .ds-hueco { display: grid; grid-template-columns: 2.25rem minmax(0,1fr); gap: 0.3rem 24px; padding-block: 24px; border-top: 1px solid var(--rule, #2A2724); counter-increment: hueco; } .ds-hueco::before { content: counter(hueco, upper-roman); grid-row: span 3; font-family: 'Source Serif 4', Georgia, serif; font-size: var(--t-sub, 1.125rem); line-height: 1.2; color: var(--foil, #B8935A); font-variation-settings: 'opsz' 15; } .ds-hueco__titulo { margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 400; font-size: var(--t-menor, clamp(1.15rem, 2.1vw, 1.5rem)); line-height: 1.15; color: var(--ink-quiet, #A39C8E); font-variation-settings: 'opsz' 21; } .ds-hueco__requiere { margin: 0; font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-cuerpo, 1.0625rem); line-height: 1.62; max-width: 56ch; color: var(--ink-body, #C9C4BA); } .ds-hueco__formato { margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-style: italic; font-size: var(--t-nota, 1rem); line-height: 1.5; max-width: 56ch; color: var(--ink-quiet, #A39C8E); font-variation-settings: 'opsz' 14; } .ds-renglones { margin-top: 40px; display: grid; gap: 0.95rem; max-width: 32rem; } .ds-renglones i { display: block; width: var(--w); height: 1px; background: var(--foil-faint, #2E2519); }"
     },
     {
       "name": "Cotejo",
@@ -169,15 +509,15 @@
       "refersTo": "sesion",
       "description": "Dos cadenas de pasos enfrentadas. La izquierda está apagada; la derecha es la viva y es el único sitio del cuerpo donde entra la luz.",
       "html": "<div class=\"ds-cotejo\"><div class=\"ds-cotejo__lado ds-cotejo__lado--muerto\"><p class=\"ds-medida\">El error común</p><ol class=\"ds-cotejo__pasos\"><li>Logística</li><li>Estética</li><li>Ejecución</li></ol></div><div class=\"ds-cotejo__lado ds-cotejo__lado--vivo\"><p class=\"ds-medida\">El método Spot</p><ol class=\"ds-cotejo__pasos\"><li>Primero el pensamiento</li><li>Después el concepto</li><li>Al final, la ejecución impecable</li></ol></div></div>",
-      "css": ".ds-cotejo { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 40px; border-top: 1px solid var(--rule, #2A2724); border-bottom: 1px solid var(--rule, #2A2724); padding-block: 40px; } .ds-medida { margin: 0 0 16px; font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-rotulo, 0.6875rem); letter-spacing: 0.22em; text-transform: uppercase; color: var(--foil, #B8935A); } .ds-cotejo__lado--muerto .ds-medida { color: var(--ink-quiet, #948E82); } .ds-cotejo__pasos { display: grid; gap: 24px; margin: 0; padding: 0; list-style: none; } .ds-cotejo__pasos li { position: relative; padding-left: 40px; font-family: 'Bodoni Moda', Georgia, serif; font-size: var(--t-menor, clamp(1.15rem, 2.1vw, 1.5rem)); line-height: 1.2; font-variation-settings: 'opsz' 24; } .ds-cotejo__pasos li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 24px; height: 1px; background: currentColor; opacity: 0.5; } .ds-cotejo__pasos li + li::after { content: ''; position: absolute; left: 4px; top: -24px; height: 24px; width: 1px; background: currentColor; opacity: 0.28; } .ds-cotejo__lado--muerto { color: var(--ink-quiet, #948E82); } .ds-cotejo__lado--vivo { color: var(--live, #10E6B3); } .ds-cotejo__lado--vivo .ds-cotejo__pasos li { color: var(--ink, #EDE9E1); } .ds-cotejo__lado--vivo .ds-cotejo__pasos li::before, .ds-cotejo__lado--vivo .ds-cotejo__pasos li::after { background: var(--live, #10E6B3); opacity: 1; } @media (max-width: 52rem) { .ds-cotejo { grid-template-columns: 1fr; gap: 24px; } }"
+      "css": ".ds-cotejo { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 40px; border-top: 1px solid var(--rule, #2A2724); border-bottom: 1px solid var(--rule, #2A2724); padding-block: 40px; } .ds-medida { margin: 0 0 16px; font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-rotulo, 0.6875rem); letter-spacing: 0.22em; text-transform: uppercase; color: var(--foil, #B8935A); } .ds-cotejo__lado--muerto .ds-medida { color: var(--ink-quiet, #A39C8E); } .ds-cotejo__pasos { display: grid; gap: 24px; margin: 0; padding: 0; list-style: none; } .ds-cotejo__pasos li { position: relative; padding-left: 40px; font-family: 'Source Serif 4', Georgia, serif; font-size: var(--t-menor, clamp(1.15rem, 2.1vw, 1.5rem)); line-height: 1.2; font-variation-settings: 'opsz' 18; } .ds-cotejo__pasos li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 24px; height: 1px; background: currentColor; opacity: 0.5; } .ds-cotejo__pasos li + li::after { content: ''; position: absolute; left: 4px; top: -24px; height: 24px; width: 1px; background: currentColor; opacity: 0.28; } .ds-cotejo__lado--muerto { color: var(--ink-quiet, #A39C8E); } .ds-cotejo__lado--vivo { color: var(--live, #10E6B3); } .ds-cotejo__lado--vivo .ds-cotejo__pasos li { color: var(--ink, #EDE9E1); } .ds-cotejo__lado--vivo .ds-cotejo__pasos li::before, .ds-cotejo__lado--vivo .ds-cotejo__pasos li::after { background: var(--live, #10E6B3); opacity: 1; } @media (max-width: 52rem) { .ds-cotejo { grid-template-columns: 1fr; gap: 24px; } }"
     },
     {
       "name": "Cinta (navegación)",
       "kind": "nav",
       "refersTo": "cinta",
-      "description": "Cabecera sticky del mundo: logotipo, pista actual y enlace cruzado a la otra pista. El rótulo de pista va en línea, nunca apilado encima del nombre.",
-      "html": "<header class=\"ds-cinta\"><div class=\"ds-cinta__hoja\"><a class=\"ds-marca\" href=\"/\" aria-label=\"Spot — portada\"><span aria-hidden=\"true\">sp</span><svg class=\"ds-marca__anillo\" viewBox=\"0 0 100 100\" aria-hidden=\"true\"><path d=\"M 6.57 43.587 A 43.9 43.9 0 1 1 6.57 56.413\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"12.2\" stroke-linecap=\"butt\"/></svg><span aria-hidden=\"true\">t</span></a><p class=\"ds-cinta__pista\"><span class=\"ds-medida\">Pista A</span><span class=\"ds-cinta__nombre\">Experiencias</span></p><a class=\"ds-cinta__otra\" href=\"/industrial/\"><span class=\"ds-medida\">Pista B</span><span>Industrial</span></a></div></header>",
-      "css": ".ds-cinta { position: sticky; top: 0; z-index: 5; background: var(--stock, #0A0A0A); border-bottom: 1px solid var(--rule, #2A2724); } .ds-cinta__hoja { max-width: 78rem; margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 4.5rem); display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 16px; } .ds-marca { display: inline-flex; align-items: center; gap: 0.07em; font-family: Archivo, Helvetica, Arial, sans-serif; font-weight: 400; font-size: var(--t-marca, 1.5rem); letter-spacing: 0.015em; line-height: 1; color: var(--ink, #EDE9E1); text-decoration: none; } .ds-marca__anillo { display: block; width: 0.62em; height: 0.62em; color: var(--ink, #EDE9E1); transform: translateY(0.035em); transition: color 200ms cubic-bezier(0.16,1,0.3,1); } .ds-marca:hover .ds-marca__anillo { color: var(--live, #10E6B3); } .ds-cinta__pista { margin: 0; display: flex; align-items: baseline; gap: 0.75em; min-width: 0; } .ds-medida { font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-rotulo, 0.6875rem); letter-spacing: 0.22em; text-transform: uppercase; color: var(--foil, #B8935A); } .ds-cinta__nombre { font-family: 'Bodoni Moda', Georgia, serif; font-size: var(--t-sub, 1.125rem); color: var(--ink, #EDE9E1); letter-spacing: 0.005em; } .ds-cinta__otra { display: flex; align-items: baseline; gap: 0.75em; font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-chico, 0.9375rem); text-decoration: none; color: var(--ink-quiet, #948E82); white-space: nowrap; transition: color 180ms cubic-bezier(0.16,1,0.3,1); } .ds-cinta__otra:hover { color: var(--live, #10E6B3); } .ds-cinta__otra:focus-visible { outline: 2px solid var(--live, #10E6B3); outline-offset: 3px; border-radius: 1px; } @media (max-width: 52rem) { .ds-cinta__pista .ds-medida { display: none; } .ds-cinta__otra span:last-child { display: none; } } @media (max-width: 34rem) { .ds-cinta__nombre { font-size: var(--t-nota, 1rem); } }"
+      "description": "Cabecera sticky del mundo: logotipo oficial, pista actual y enlace cruzado. El rótulo de pista va en línea, nunca apilado encima del nombre. Aquí aterriza el view-transition del anillo.",
+      "html": "<header class=\"ds-cinta\"><div class=\"ds-cinta__hoja\"><a class=\"ds-marca\" href=\"/\"><img src=\"/brand/spot-wordmark-white.webp\" alt=\"Spot — volver a la portada\" width=\"1024\" height=\"482\" decoding=\"async\"></a><p class=\"ds-cinta__pista\"><span class=\"ds-medida\">Pista A</span><span class=\"ds-cinta__nombre\">Experiencias</span></p><a class=\"ds-cinta__otra\" href=\"/industrial/\"><span class=\"ds-medida\">Pista B</span><span>Industrial</span></a></div></header>",
+      "css": ".ds-cinta { position: sticky; top: 0; z-index: 5; background: var(--stock, #0A0A0A); border-bottom: 1px solid var(--rule, #2A2724); } .ds-cinta__hoja { max-width: 78rem; margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 4.5rem); display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 16px; } .ds-marca { display: inline-block; line-height: 0; text-decoration: none; } .ds-marca img { width: auto; height: var(--marca-alto, 1.75rem); opacity: 0.94; transition: opacity 200ms cubic-bezier(0.16,1,0.3,1); } .ds-marca:hover img { opacity: 1; } .ds-cinta__pista { margin: 0; display: flex; align-items: baseline; gap: 0.75em; min-width: 0; } .ds-medida { font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-rotulo, 0.6875rem); letter-spacing: 0.22em; text-transform: uppercase; color: var(--foil, #B8935A); } .ds-cinta__nombre { font-family: 'Source Serif 4', Georgia, serif; font-size: var(--t-sub, 1.125rem); color: var(--ink, #EDE9E1); letter-spacing: 0.005em; } .ds-cinta__otra { display: flex; align-items: baseline; gap: 0.75em; font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-chico, 0.9375rem); text-decoration: none; color: var(--ink-quiet, #A39C8E); white-space: nowrap; transition: color 180ms cubic-bezier(0.16,1,0.3,1); } .ds-cinta__otra:hover { color: var(--live, #10E6B3); } .ds-cinta__otra:focus-visible { outline: 2px solid var(--live, #10E6B3); outline-offset: 3px; border-radius: 1px; } @media (max-width: 52rem) { .ds-cinta__pista .ds-medida { display: none; } .ds-cinta__otra span:last-child { display: none; } } @media (max-width: 34rem) { .ds-cinta__nombre { font-size: var(--t-nota, 1rem); } }"
     },
     {
       "name": "Mitad de portada",
@@ -185,21 +525,21 @@
       "refersTo": "pista-mitad",
       "description": "El divisor de la portada. La acción es media pantalla: al posarse se enciende el campo de color, la letra de pista, el filete de ENTRAR y la mitad correspondiente del anillo.",
       "html": "<li class=\"ds-pista\" data-pista=\"a\"><a class=\"ds-pista__enlace\" href=\"/experiencias/\" aria-label=\"Pista A · Experiencias\"><span class=\"ds-pista__rail\" aria-hidden=\"true\"><b>A</b><i>Pista</i></span><span class=\"ds-pista__texto\"><span class=\"ds-pista__nombre\">Experiencias</span><span class=\"ds-pista__linea\">Summits, congresos y encuentros ejecutivos donde la estrategia antecede a la producción.</span><span class=\"ds-pista__entrar\"><span>Entrar</span><span class=\"ds-pista__filete\" aria-hidden=\"true\"></span></span></span></a></li>",
-      "css": ".ds-pista { display: grid; list-style: none; } .ds-pista__enlace { display: grid; grid-template-columns: auto minmax(0,1fr); align-content: end; column-gap: clamp(16px, 2.4vw, 40px); padding: 16px clamp(16px, 3vw, 40px); text-decoration: none; color: var(--ink-body, #C9C4BA); text-align: right; transition: background-color 420ms cubic-bezier(0.16,1,0.3,1), color 240ms cubic-bezier(0.16,1,0.3,1); } .ds-pista__rail { display: grid; justify-items: center; gap: 0.35rem; align-self: end; padding-bottom: 0.4rem; } .ds-pista__rail b { font-family: 'Bodoni Moda', Georgia, serif; font-weight: 400; font-size: var(--t-rail-letra, clamp(1.75rem, 3.4vw, 2.75rem)); line-height: 0.82; color: var(--foil, #B8935A); font-variation-settings: 'opsz' 44; transition: color 240ms cubic-bezier(0.16,1,0.3,1); } .ds-pista__rail i { font-family: Archivo, Helvetica, Arial, sans-serif; font-style: normal; font-size: var(--t-micro, 0.625rem); letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink-quiet, #948E82); writing-mode: vertical-rl; } .ds-pista__texto { display: grid; gap: 8px; justify-items: end; min-width: 0; } .ds-pista__nombre { font-family: 'Bodoni Moda', Georgia, serif; font-size: var(--t-portada, clamp(2rem, 4.6vw, 3.4rem)); line-height: 1; letter-spacing: -0.02em; color: var(--ink, #EDE9E1); font-variation-settings: 'opsz' 88; } .ds-pista__linea { font-family: Archivo, Helvetica, Arial, sans-serif; max-width: min(26rem, 100%); font-size: var(--t-chico, 0.9375rem); line-height: 1.5; color: var(--ink-quiet, #948E82); transition: color 240ms cubic-bezier(0.16,1,0.3,1); } .ds-pista__entrar { display: inline-flex; flex-direction: row-reverse; align-items: center; gap: 0.9em; margin-top: 16px; font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-rotulo, 0.6875rem); letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink, #EDE9E1); } .ds-pista__filete { display: block; width: 5.5rem; height: 1px; background: var(--foil-dim, #6A5436); transform: scaleX(0.45); transform-origin: right; transition: transform 380ms cubic-bezier(0.16,1,0.3,1), background-color 260ms cubic-bezier(0.16,1,0.3,1); } .ds-pista:hover .ds-pista__enlace, .ds-pista:focus-within .ds-pista__enlace { background: #07211B; } .ds-pista:hover .ds-pista__linea, .ds-pista:focus-within .ds-pista__linea { color: var(--ink-body, #C9C4BA); } .ds-pista:hover .ds-pista__rail b, .ds-pista:hover .ds-pista__entrar, .ds-pista:focus-within .ds-pista__rail b, .ds-pista:focus-within .ds-pista__entrar { color: var(--live, #10E6B3); } .ds-pista:hover .ds-pista__filete, .ds-pista:focus-within .ds-pista__filete { transform: scaleX(1); background: var(--live, #10E6B3); } .ds-pista__enlace:focus-visible { outline: 2px solid var(--live, #10E6B3); outline-offset: 3px; border-radius: 1px; }"
+      "css": ".ds-pista { display: grid; list-style: none; } .ds-pista__enlace { display: grid; grid-template-columns: auto minmax(0,1fr); align-content: end; column-gap: clamp(16px, 2.4vw, 40px); padding: 16px clamp(16px, 3vw, 40px); text-decoration: none; color: var(--ink-body, #C9C4BA); text-align: right; transition: background-color 420ms cubic-bezier(0.16,1,0.3,1), color 240ms cubic-bezier(0.16,1,0.3,1); } .ds-pista__rail { display: grid; justify-items: center; gap: 0.35rem; align-self: end; padding-bottom: 0.4rem; } .ds-pista__rail b { font-family: 'Source Serif 4', Georgia, serif; font-weight: 400; font-size: var(--t-rail-letra, clamp(1.75rem, 3.4vw, 2.75rem)); line-height: 0.82; color: var(--foil, #B8935A); font-variation-settings: 'opsz' 30; transition: color 240ms cubic-bezier(0.16,1,0.3,1); } .ds-pista__rail i { font-family: Archivo, Helvetica, Arial, sans-serif; font-style: normal; font-size: var(--t-micro, 0.625rem); letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink-quiet, #A39C8E); writing-mode: vertical-rl; } .ds-pista__texto { display: grid; gap: 8px; justify-items: end; min-width: 0; } .ds-pista__nombre { font-family: 'Source Serif 4', Georgia, serif; font-size: var(--t-portada, clamp(2rem, 4.6vw, 3.4rem)); line-height: 1; letter-spacing: -0.02em; color: var(--ink, #EDE9E1); font-variation-settings: 'opsz' 55; } .ds-pista__linea { font-family: Archivo, Helvetica, Arial, sans-serif; max-width: min(26rem, 100%); font-size: var(--t-chico, 0.9375rem); line-height: 1.5; color: var(--ink-quiet, #A39C8E); transition: color 240ms cubic-bezier(0.16,1,0.3,1); } .ds-pista__entrar { display: inline-flex; flex-direction: row-reverse; align-items: center; gap: 0.9em; margin-top: 16px; font-family: Archivo, Helvetica, Arial, sans-serif; font-size: var(--t-rotulo, 0.6875rem); letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink, #EDE9E1); } .ds-pista__filete { display: block; width: 5.5rem; height: 1px; background: var(--foil-dim, #6A5436); transform: scaleX(0.45); transform-origin: right; transition: transform 380ms cubic-bezier(0.16,1,0.3,1), background-color 260ms cubic-bezier(0.16,1,0.3,1); } .ds-pista:hover .ds-pista__enlace, .ds-pista:focus-within .ds-pista__enlace { background: #07211B; } .ds-pista:hover .ds-pista__linea, .ds-pista:focus-within .ds-pista__linea { color: var(--ink-body, #C9C4BA); } .ds-pista:hover .ds-pista__rail b, .ds-pista:hover .ds-pista__entrar, .ds-pista:focus-within .ds-pista__rail b, .ds-pista:focus-within .ds-pista__entrar { color: var(--live, #10E6B3); } .ds-pista:hover .ds-pista__filete, .ds-pista:focus-within .ds-pista__filete { transform: scaleX(1); background: var(--live, #10E6B3); } .ds-pista__enlace:focus-visible { outline: 2px solid var(--live, #10E6B3); outline-offset: 3px; border-radius: 1px; }"
     },
     {
       "name": "Enlace de display",
       "kind": "button",
       "refersTo": "enlace-display",
-      "description": "El sitio no tiene botones: la acción es un enlace del programa. Bodoni sobre subrayado de latón que pasa a la luz en hover y foco.",
+      "description": "El sitio no tiene botones: la acción es un enlace del programa. La serif sobre subrayado de latón que pasa a la luz en hover y foco.",
       "html": "<ul class=\"ds-contacto\"><li><a class=\"ds-enlace-display\" href=\"mailto:gerencia@spotlatam.com\">gerencia@spotlatam.com</a></li><li><a class=\"ds-enlace-display\" href=\"tel:+17814916039\">+1 (781) 491 6039</a></li></ul>",
-      "css": ".ds-contacto { margin: 24px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; } .ds-enlace-display { font-family: 'Bodoni Moda', Georgia, serif; font-size: var(--t-entrada, clamp(1.35rem, 2.5vw, 1.8rem)); text-decoration: none; border-bottom: 1px solid var(--foil-dim, #6A5436); border-radius: 0; color: var(--ink, #EDE9E1); font-variation-settings: 'opsz' 28; transition: color 180ms cubic-bezier(0.16,1,0.3,1), border-color 180ms cubic-bezier(0.16,1,0.3,1); } .ds-enlace-display:hover { color: var(--live, #10E6B3); border-bottom-color: var(--live, #10E6B3); } .ds-enlace-display:focus-visible { outline: 2px solid var(--live, #10E6B3); outline-offset: 3px; border-radius: 1px; }"
+      "css": ".ds-contacto { margin: 24px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; } .ds-enlace-display { font-family: 'Source Serif 4', Georgia, serif; font-size: var(--t-entrada, clamp(1.35rem, 2.5vw, 1.8rem)); text-decoration: none; border-bottom: 1px solid var(--foil-dim, #6A5436); border-radius: 0; color: var(--ink, #EDE9E1); font-variation-settings: 'opsz' 21; transition: color 180ms cubic-bezier(0.16,1,0.3,1), border-color 180ms cubic-bezier(0.16,1,0.3,1); } .ds-enlace-display:hover { color: var(--live, #10E6B3); border-bottom-color: var(--live, #10E6B3); } .ds-enlace-display:focus-visible { outline: 2px solid var(--live, #10E6B3); outline-offset: 3px; border-radius: 1px; }"
     },
     {
       "name": "Anillo Spot",
       "kind": "custom",
       "refersTo": "sesion",
-      "description": "El símbolo de la marca y la única forma del sistema: arco de radio central 43,9 sobre viewBox 100, grosor 12,2, apertura de 16,8° normalizada a 180° exactos, cortes rectos. Hereda currentColor; en reposo se imprime con la tinta del anillo.",
+      "description": "El símbolo de la marca y la única forma del sistema: arco de radio central 43,9 sobre viewBox 100, grosor 12,2, apertura de 16,8° normalizada a 180° exactos, cortes rectos. Hereda currentColor; en reposo se imprime con la tinta del anillo. Medido igual a la 'o' del logotipo oficial.",
       "html": "<div class=\"ds-anillo-caja\"><svg class=\"ds-anillo\" viewBox=\"0 0 100 100\" role=\"img\"><title>Spot</title><path d=\"M 6.57 43.587 A 43.9 43.9 0 1 1 6.57 56.413\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"12.2\" stroke-linecap=\"butt\"/></svg></div>",
       "css": ".ds-anillo-caja { width: clamp(11rem, min(58vh, 42vw), 28rem); max-width: 100%; aspect-ratio: 1; color: var(--ink-anillo, #B5B0A6); } .ds-anillo { display: block; width: 100%; height: 100%; }"
     },
@@ -215,62 +555,161 @@
       "name": "Saltar al contenido",
       "kind": "custom",
       "refersTo": "saltar",
-      "description": "El único elemento del sistema con fondo de luz: aparece sólo con foco de teclado, en la esquina superior izquierda.",
+      "description": "El único elemento del sistema con fondo de luz: aparece sólo con foco de teclado, en la esquina superior izquierda, por encima de la cinta y de la bruma.",
       "html": "<a class=\"ds-saltar\" href=\"#contenido\">Saltar al contenido</a>",
       "css": ".ds-saltar { position: absolute; left: -9999px; top: 0; background: var(--live, #10E6B3); color: var(--stock, #0A0A0A); font-family: Archivo, Helvetica, Arial, sans-serif; padding: 0.6rem 1rem; z-index: 10; text-decoration: none; border-radius: 0; } .ds-saltar:focus { left: 0; }"
     }
   ],
   "narrative": {
     "northStar": "El Programa de Sala",
-    "overview": "El artefacto no es una web de agencia: es el programa de mano de un summit, impreso sobre cartulina negra con lámina de latón. Sesiones numeradas en romanos, un raíl de latón por el margen izquierdo, notas curatoriales al margen exterior y filetes hairline en lugar de contenedores. La página se lee como se lee un impreso: de arriba abajo, con una sola jerarquía y sin ningún elemento pidiendo un clic.\n\nLa lógica de color es la del oficio que imita. El hueso es tinta, el latón es estructura, y el menta no es tinta: es luz. Por eso el menta no decora nunca — sólo marca lo que está vivo en ese instante: la sesión que el visitante está leyendo, el lado vivo del cotejo, el foco de teclado, la selección de texto y una sola cláusula del titular de cada página. El mundo Industrial ([data-pista='b']) reimprime esa misma luz en latón #CDA96E: el sistema no cambia, cambia la tinta que vive.\n\nLa arquitectura es un divisor puro en / y dos mundos con tono propio en /experiencias/ y /industrial/. El rechazo declarado y observado por el build: el reel de eventos a sangre con titular serif encima que domina esta categoría. Aquí no hay hero de vídeo, ni tarjetas, ni sombras, ni iconos de glifo.",
+    "overview": "El artefacto no es una web de agencia: es el programa de mano de un summit, impreso sobre cartulina negra con lámina de latón. Sesiones numeradas en romanos, un raíl de latón por el margen izquierdo, notas curatoriales al margen exterior y filetes hairline en lugar de contenedores. La página se lee como se lee un impreso: de arriba abajo, con una sola jerarquía y sin ningún elemento pidiendo un clic.\n\nLa lógica de color es la del oficio que imita. El hueso es tinta, el latón es estructura, y el menta no es tinta: es luz. Por eso el menta no decora nunca — sólo marca lo que está vivo en ese instante: la sesión que el visitante está leyendo, el lado vivo del cotejo, el foco de teclado, la selección de texto y una sola cláusula del titular de cada página. El mundo Industrial ([data-pista='b']) reimprime esa misma luz en latón #CDA96E: el sistema no cambia, cambia la tinta que vive.\n\nSobre ese impreso cae una sola fuente de luz real: la bruma, un campo WebGL que ocupa los primeros 92svh de cada mundo y se apaga hacia abajo hasta fundirse con la cartulina. Es el haz del spot sobre la primera página, y toma el color de su pista — la regla de una tinta por mundo, extendida al fondo. Ninguna sesión se lee nunca sobre luz.\n\nLa arquitectura es un divisor puro en / y dos mundos con tono propio en /experiencias/ y /industrial/. El rechazo declarado y observado por el build: el reel de eventos a sangre con titular serif encima que domina esta categoría. Aquí no hay hero de vídeo, ni tarjetas, ni sombras, ni iconos de glifo.",
     "keyCharacteristics": [
       "Fondo negro cartulina #0A0A0A en las tres páginas; sin modo claro.",
-      "Una sola familia de display (Bodoni Moda variable, opsz declarada en cada uso) y una sola de texto (Archivo, cifras tabulares).",
+      "Una sola familia de display (Source Serif 4 variable, opsz declarada en cada uso) y una sola de texto (Archivo, cifras tabulares). Ambas subsetadas y servidas desde el propio dominio.",
       "Dieciséis tamaños con nombre y oficio; ni un solo literal de font-size en todo src/.",
       "Un único peso de filete (1px) para todas las divisiones del sistema.",
       "Cero sombras, cero radios (salvo 1px en el anillo de foco y 50% en un punto de 7px de la metodología).",
       "El menta reservado a lo vivo; el latón para toda la estructura.",
+      "La luz es física y direccional: entra por arriba y muere hacia abajo.",
       "La ausencia se dibuja: los huecos de contenido se imprimen como entradas del programa, nunca se rellenan."
     ],
     "rules": [
-      { "name": "La regla de la luz", "body": "El menta no es un color de marca: es el estado vivo. Se usa para lo que está ocurriendo ahora (sesión en pantalla, foco, selección, hover, el lado vivo del cotejo) y para una sola cláusula del h1. Si un elemento puede estar en menta permanentemente sin cambiar de estado, no debe estar en menta.", "section": "colors" },
-      { "name": "La regla de un mundo, una tinta", "body": "Un mundo tiene una sola luz. La Pista B no añade una paleta: remapea --live y --foil bajo [data-pista='b']. Un componente nuevo que necesite el color vivo usa var(--live) y hereda la pista automáticamente. Nunca escriba #10E6B3 en un componente.", "section": "colors" },
-      { "name": "La regla de la cláusula viva", "body": "Un h1 por página lleva exactamente una cláusula en cursiva menta (h1.titular em). El h2 lleva cursiva, pero en tinta (h2.subtitular em), no en menta. Dos cláusulas vivas en una página rompen la regla de la luz.", "section": "colors" },
-      { "name": "La regla del latón estructural", "body": "Si un elemento organiza (numera, rotula, divide, mide), va en latón. Si informa, va en tinta. Si vive, va en menta. No hay cuarta categoría.", "section": "colors" },
-      { "name": "La regla de un papel por oficio", "body": "La escala es cerrada y está en tokens.css: dieciséis tamaños con nombre. Todo font-size de src/ es un var(--t-…); un literal nuevo es una regresión, no una excepción. Antes de añadir un token, busque el oficio: si el tamaño que necesita ya tiene uno, use ese — que dos componentes compartan token es la intención del sistema, no una colisión.", "section": "typography" },
-      { "name": "La regla de la óptica declarada", "body": "Bodoni Moda es variable en opsz: todo uso de display declara su font-variation-settings (96 en el titular, 48 en el subtitular, 44 en prácticas, 36 en el cierre del pie, 32 en la cifra, 28 en enlaces de contacto y entradas, 24 en el cotejo, 14–18 en notas y numerales menores). Un display sin opsz declarado hereda 72 del h1..h4 global y llega con el grosor equivocado.", "section": "typography" },
-      { "name": "La regla del numeral romano", "body": "El programa se numera en romanos: las sesiones (I…VIII) y los contadores generados (counter(hueco, upper-roman)). Las únicas cifras arábigas del sistema son datos reales: los principios (01–03) y las cifras del peso. Un arábigo donde el programa numera es un error de imprenta.", "section": "typography" },
-      { "name": "La regla de la cifra tabular", "body": "El body fija font-variant-numeric: tabular-nums de forma global. Ninguna cifra del sitio debe salir de esa rejilla.", "section": "typography" },
-      { "name": "La regla del hilo", "body": "La orientación se resuelve con el raíl y su hilo continuo de latón, que recorre el programa entero y enciende la sesión que ocupa la banda central del viewport. Antes de añadir cualquier navegación interna, compruebe que el hilo no lo está haciendo ya.", "section": "layout" },
-      { "name": "La regla de la retícula que se escala", "body": "En pantalla estrecha la retícula se comprime, no se deshace: el raíl sigue existiendo a 4,25rem y sigue mostrando su numeral. Una sesión sin raíl deja de ser una sesión. La marginalia sólo ocupa la tercera columna por encima de 72rem; por debajo cae bajo su sesión, nunca desaparece.", "section": "layout" },
-      { "name": "La regla del filete único", "body": "El sistema tiene un solo grosor de regla: 1px. Toda la jerarquía de una división se expresa con el color del filete, nunca con su peso. No introduzca reglas de 2px ni bordes dobles.", "section": "elevation" },
-      { "name": "La regla del plano", "body": "Nada se levanta del papel. No hay una sola sombra en el build. Si un elemento necesita destacarse, se le da luz (menta), se le da aire (compás) o se le da un filete — jamás una sombra.", "section": "elevation" },
-      { "name": "La regla sin tarjetas", "body": "Un programa de sala no tiene tarjetas. Las entradas de lista — prácticas, principios, territorios, cifras, huecos — se separan con un filete superior y una rejilla de dos columnas (numeral + cuerpo). Nunca con una caja, un fondo, un borde completo ni un radio.", "section": "shapes" },
-      { "name": "La regla del corte recto", "body": "Los extremos del anillo son cortes rectos radiales (stroke-linecap: butt), con apertura de 16,8° normalizada a 180° exactos. Cualquier reproducción con stroke-linecap: round está mal dibujada.", "section": "shapes" },
-      { "name": "La regla del campo honesto", "body": "Un campo que miente deja de ser un dato. Un trazo es una unidad, el paso es el mismo en toda la página (10px en escritorio, 5px en móvil), y toda escala distinta de 1:1 se declara dentro del texto de la cifra, nunca entre el campo y su lectura.", "section": "components" },
-      { "name": "La regla de la ausencia dibujada", "body": "Lo que falta se imprime, no se rellena ni se esconde. Cada hueco declara qué va en su sitio y en qué formato se entrega. Nunca se escribe una capacidad, una certificación, un caso o un cliente que no exista, ni siquiera como texto de relleno verosímil.", "section": "components" },
-      { "name": "La regla del marcador al margen", "body": "Los rótulos de categoría (pista, sesión, rubro del cotejo) viven en el margen exterior o en línea con su título. Jamás apilados encima de un titular.", "section": "components" }
+      {
+        "name": "La regla de la luz",
+        "body": "El menta no es un color de marca: es el estado vivo. Se usa para lo que está ocurriendo ahora (sesión en pantalla, foco, selección, hover, el lado vivo del cotejo) y para una sola cláusula del h1. Si un elemento puede estar en menta permanentemente sin cambiar de estado, no debe estar en menta.",
+        "section": "colors"
+      },
+      {
+        "name": "La regla de un mundo, una tinta",
+        "body": "Un mundo tiene una sola luz. La Pista B no añade una paleta: remapea --live y --foil bajo [data-pista='b'], y la bruma recibe la misma decisión como uniforme. Un componente nuevo que necesite el color vivo usa var(--live) y hereda la pista automáticamente. Nunca escriba #10E6B3 en un componente.",
+        "section": "colors"
+      },
+      {
+        "name": "La regla de la cláusula viva",
+        "body": "Un h1 por página lleva exactamente una cláusula en cursiva menta (h1.titular em). El h2 lleva cursiva, pero en tinta (h2.subtitular em), no en menta. Dos cláusulas vivas en una página rompen la regla de la luz.",
+        "section": "colors"
+      },
+      {
+        "name": "La regla del latón estructural",
+        "body": "Si un elemento organiza (numera, rotula, divide, mide), va en latón. Si informa, va en tinta. Si vive, va en menta. No hay cuarta categoría.",
+        "section": "colors"
+      },
+      {
+        "name": "La regla del contraste sobre luz",
+        "body": "Un color no se aprueba contra la cartulina limpia: se aprueba contra el punto más claro que la bruma alcanza bajo él. La tinta queda se movió de #948E82 a #A39C8E por esa medición (4,56:1 contra la tinta de cuerpo sobre el fondo animado; ahora 7,26:1 sobre cartulina limpia y 5,45:1 en el punto más claro), y cualquier tono nuevo que viva en los primeros 92svh se mide igual.",
+        "section": "colors"
+      },
+      {
+        "name": "La regla de un papel por oficio",
+        "body": "La escala es cerrada y está en tokens.css: dieciséis tamaños con nombre. Todo font-size de src/ es un var(--t-…); un literal nuevo es una regresión, no una excepción. Antes de añadir un token, busque el oficio: si el tamaño que necesita ya tiene uno, use ese — que dos componentes compartan token es la intención del sistema, no una colisión.",
+        "section": "typography"
+      },
+      {
+        "name": "La regla de la óptica declarada",
+        "body": "Todo uso de la serif declara su font-variation-settings: 'opsz' N dentro del eje 8–60, proporcional al tamaño de lectura. Un display sin opsz declarado hereda 46 del h1..h4 global y llega con el grosor equivocado. Si algún día cambia la familia, los valores se remapean al nuevo rango — no se copian.",
+        "section": "typography"
+      },
+      {
+        "name": "La regla del trazo que sobrevive al negro",
+        "body": "La cara de display se elige contra el fondo real, a tamaño real, con el texto real. Sobre cartulina #0A0A0A los finos de una didone se rompen: a 32px el trazo delgado cae por debajo del píxel y el titular se lee sucio en lugar de fino. Ninguna cara cuyo trazo delgado se rompa sobre ese fondo entra en el sistema, por bien que se vea en un espécimen blanco.",
+        "section": "typography"
+      },
+      {
+        "name": "La regla del numeral romano",
+        "body": "El programa se numera en romanos: las sesiones (I…VIII) y los contadores generados (counter(hueco, upper-roman)). Las únicas cifras arábigas del sistema son datos reales: los principios (01–03) y las cifras del peso. Un arábigo donde el programa numera es un error de imprenta.",
+        "section": "typography"
+      },
+      {
+        "name": "La regla de la cifra tabular",
+        "body": "El body fija font-variant-numeric: tabular-nums de forma global. Ninguna cifra del sitio debe salir de esa rejilla.",
+        "section": "typography"
+      },
+      {
+        "name": "La regla del hilo",
+        "body": "La orientación se resuelve con el raíl y su hilo continuo de latón, que recorre el programa entero y enciende la sesión que ocupa la banda central del viewport. Antes de añadir cualquier navegación interna, compruebe que el hilo no lo está haciendo ya.",
+        "section": "layout"
+      },
+      {
+        "name": "La regla de la retícula que se escala",
+        "body": "En pantalla estrecha la retícula se comprime, no se deshace: el raíl sigue existiendo a 4,25rem y sigue mostrando su numeral. Una sesión sin raíl deja de ser una sesión. La marginalia sólo ocupa la tercera columna por encima de 72rem; por debajo cae bajo su sesión, nunca desaparece.",
+        "section": "layout"
+      },
+      {
+        "name": "La regla del filete único",
+        "body": "El sistema tiene un solo grosor de regla: 1px. Toda la jerarquía de una división se expresa con el color del filete, nunca con su peso. No introduzca reglas de 2px ni bordes dobles.",
+        "section": "elevation"
+      },
+      {
+        "name": "La regla del plano",
+        "body": "Nada se levanta del papel. No hay una sola sombra en el build. Si un elemento necesita destacarse, se le da luz (menta), se le da aire (compás) o se le da un filete — jamás una sombra.",
+        "section": "elevation"
+      },
+      {
+        "name": "La regla de la luz que cae",
+        "body": "La luz entra por arriba y se apaga hacia abajo, siempre. Ningún resplandor se enciende en el centro de una página ni bajo un bloque de texto: el gradiente de corte de la bruma existe precisamente para que ninguna sesión se lea sobre luz.",
+        "section": "elevation"
+      },
+      {
+        "name": "La regla sin tarjetas",
+        "body": "Un programa de sala no tiene tarjetas. Las entradas de lista — prácticas, principios, territorios, cifras, huecos — se separan con un filete superior y una rejilla de dos columnas (numeral + cuerpo). Nunca con una caja, un fondo, un borde completo ni un radio.",
+        "section": "shapes"
+      },
+      {
+        "name": "La regla del corte recto",
+        "body": "Los extremos del anillo son cortes rectos radiales (stroke-linecap: butt), con apertura de 16,8° normalizada a 180° exactos. Cualquier reproducción con stroke-linecap: round está mal dibujada.",
+        "section": "shapes"
+      },
+      {
+        "name": "La regla del logotipo intocable",
+        "body": "El logotipo se coloca, no se compone. Es el activo oficial del cliente (spot-wordmark-white.webp), su geométrica no es ninguna de las dos familias del sitio, y recomponerlo con tipografía daría otra marca. No se le cambia el color (blanco al 94% que sube a 100% en hover), no se le recorta la caja — viene ajustado al dibujo y el margen se da por CSS — y no se le separa la 'o' del resto.",
+        "section": "shapes"
+      },
+      {
+        "name": "La regla del campo honesto",
+        "body": "Un campo que miente deja de ser un dato. Un trazo es una unidad, el paso es el mismo en toda la página (10px en escritorio, 5px en móvil), y toda escala distinta de 1:1 se declara dentro del texto de la cifra, nunca entre el campo y su lectura.",
+        "section": "components"
+      },
+      {
+        "name": "La regla de la ausencia dibujada",
+        "body": "Lo que falta se imprime, no se rellena ni se esconde. Cada hueco declara qué va en su sitio y en qué formato se entrega. Nunca se escribe una capacidad, una certificación, un caso o un cliente que no exista, ni siquiera como texto de relleno verosímil.",
+        "section": "components"
+      },
+      {
+        "name": "La regla del marcador al margen",
+        "body": "Los rótulos de categoría (pista, sesión, rubro del cotejo) viven en el margen exterior o en línea con su título. Jamás apilados encima de un titular.",
+        "section": "components"
+      },
+      {
+        "name": "La regla de las tres salidas",
+        "body": "Todo efecto que dependa de una capacidad del navegador declara sus tres salidas antes de entrar: qué se ve sin la capacidad, qué hace bajo prefers-reduced-motion, y cuándo deja de gastar. La bruma las tiene (degradado CSS de reserva, un fotograma y para, rAF cancelado fuera de pantalla, DPR limitado a 1,5); la entrada de la portada las tiene (cada keyframe corre backwards desde el estado visible, así que sin JS no hay animación y nada queda oculto). Un efecto sin las tres no entra.",
+        "section": "components"
+      }
     ],
     "dos": [
       "Do usar var(--live) para lo que está vivo y dejar que la pista decida el color: el mundo Industrial ya remapea esa variable a latón #CDA96E.",
       "Do construir cualquier sección nueva como una <Sesion> con numeral romano y rótulo: es lo que engancha el bloque al hilo y le da estado vivo.",
       "Do tomar todo tamaño de texto de la escala (var(--t-…)) y buscar primero el oficio que ya existe antes de pensar en un token nuevo.",
-      "Do declarar font-variation-settings: 'opsz' N en todo uso de Bodoni Moda, proporcional al tamaño (96 en titulares, 14–28 en notas, numerales y enlaces).",
+      "Do declarar font-variation-settings: 'opsz' N dentro del eje 8–60 en todo uso de la serif, proporcional al tamaño de lectura.",
+      "Do medir cualquier color nuevo de los primeros 92svh contra el punto más claro de la bruma, no contra la cartulina limpia.",
+      "Do darle a todo efecto sus tres salidas: sin la capacidad, con movimiento reducido, y fuera de pantalla.",
       "Do separar con un filete de 1px y espaciar con el compás (8/16/24/40/64/104).",
       "Do acotar el texto corrido con una medida explícita (--measure = 34rem, o un max-width en ch por bloque).",
       "Do hacer que la marginalia caiga bajo su sesión por debajo de 72rem en vez de ocultarla.",
       "Do declarar la escala de un campo medido, desde dentro del texto de la cifra, cuando un trazo no vale una unidad.",
       "Do imprimir lo que falta como entrada del programa, con su requisito y su formato de entrega.",
-      "Do dibujar el anillo con cortes rectos (butt), apertura de 16,8° centrada a 180° exactos, y currentColor."
+      "Do colocar el logotipo como imagen y darle su margen por CSS."
     ],
     "donts": [
       "Don't escribir un literal de font-size. La escala está cerrada y vive en tokens.css; un literal nuevo es una regresión, no una excepción.",
+      "Don't volver a una didone ni a ninguna cara cuyo trazo delgado se rompa sobre #0A0A0A. La legibilidad sobre el fondo real manda sobre el espécimen.",
+      "Don't recomponer el logotipo con las fuentes del sitio, recortarle la caja o teñirlo. Es un activo entregado, no un dibujo del sistema.",
+      "Don't encender luz en el centro de la página ni bajo un bloque de texto. La luz entra arriba y muere abajo.",
       "Don't usar tarjetas, cajas, fondos de bloque ni bordes completos para agrupar. La agrupación se hace con filete superior y rejilla.",
       "Don't añadir sombras, text-shadow, backdrop-filter ni ningún efecto de elevación: el build no tiene ni uno.",
       "Don't poner un kicker o rótulo en versalitas apilado encima de un titular. El marcador va al margen exterior o en línea con el título.",
       "Don't usar el menta como color decorativo, de fondo de bloque, de icono o de acento permanente. Si no marca un estado, no es menta.",
       "Don't poner más de una cláusula viva por página: sólo h1.titular em. La cursiva del h2 va en tinta.",
-      "Don't introducir un segundo grosor de regla, un radio de esquina en superficies, una tercera familia tipográfica o una segunda curva de easing.",
+      "Don't introducir un segundo grosor de regla, un radio de esquina en superficies, una tercera familia tipográfica o una segunda curva de easing — la del anillo de la portada es la única excepción, y está justificada.",
       "Don't escribir un hex de marca dentro de un componente; use el token.",
       "Don't numerar sesiones en cifras arábigas: el programa se numera en romanos.",
       "Don't usar iconos de glifo o fuentes de iconos. La única forma del sistema es el anillo, y es un vector propio.",

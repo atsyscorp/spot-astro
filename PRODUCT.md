@@ -40,7 +40,7 @@ Sitio corporativo de Spot que sostiene dos líneas de negocio bajo una sola marc
 
 ## Brand Commitments
 
-- Nombre y marca denominativa: **spot**, en minúsculas, con la "o" sustituida por el símbolo de anillo abierto de la marca (logotipo presente en el pie de cada página del portafolio).
+- **Logotipo oficial:** `spot-main-logo-white-1024x482.webp` (copia de trabajo en `brand/spot-wordmark-white.webp`), entregado por el cliente. «spot» en minúsculas, en una geométrica fina que no es ninguna de las familias tipográficas del sitio, con la "o" sustituida por el anillo abierto. **Se coloca como imagen y no se recompone con tipografía**: cualquier reconstrucción sería otra marca.
 - **Símbolo: el anillo abierto.** El cliente entregó el símbolo en `CirculoBlanco.png` (blanco sobre transparencia) con la instrucción explícita de **darle prevalencia** en el sitio: el anillo no es una firma de pie de página, es el elemento dominante del sistema. Redibujado como vector en `brand/spot-ring.svg`; geometría y correcciones documentadas en `brand/README.md`. La apertura del anillo mira al oeste y es horizontal: ese es el eje sobre el que se parte la pantalla en la home.
 - El anillo aparece además con degradado menta-esmeralda en la portada del portafolio; el vector hereda el color del contexto, así que el degradado es una aplicación, no parte del símbolo.
 - Datos de contacto reales: gerencia@spotlatam.com · contacto@spotlatam.com · www.spotlatam.com · +1 (781) 491 6039.
@@ -50,7 +50,8 @@ Sitio corporativo de Spot que sostiene dos líneas de negocio bajo una sola marc
 ## Evidence on Hand
 
 - **`Spot · Portafolio.pdf`** (raíz del proyecto, 11 páginas): copy completo, cifras, clientes y sistema visual del que se deriva el sitio.
-- **`CirculoBlanco.png`** (raíz) y su vector `brand/spot-ring.svg`: el símbolo de marca, único asset gráfico propio entregado hasta ahora.
+- **`CirculoBlanco.png`** (raíz) y su vector `brand/spot-ring.svg`: el símbolo suelto.
+- **`spot-main-logo-white-1024x482.webp`** (raíz): el logotipo oficial completo. Su anillo y el símbolo suelto coinciden — verificado y tabulado en `brand/README.md`.
 - **Cifras verificables declaradas:** +5.800 líderes C-level impactados, +30 experiencias estratégicas, +12 ediciones de congresos, 3 mercados.
 - **Clientes con logotipo en el portafolio:** Motorola Solutions, Vitalis, Carvajal, Cámara de Comercio de Manizales por Caldas, Teclogi, Bosch, Red Hat, Jelou, IXL Center, Colsubsidio, Cámara de Comercio de Bogotá, Berkley Colombia Seguros, Buentipo | Anchor.
 - **Clientes visibles hoy en spot.atsys.co** que no están en el portafolio: El Corral, DHL Global Forwarding, Aerosan, Leños y Carbón, Caribe Cargo. Pendiente confirmar a qué línea pertenecen.

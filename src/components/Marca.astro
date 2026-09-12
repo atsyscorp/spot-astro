@@ -1,43 +1,34 @@
 ---
-/* El logotipo: «spot» con el anillo ocupando el lugar de la o. */
-import Anillo from './Anillo.astro';
+/* El logotipo oficial, tal como lo entregó el cliente:
+   `spot-main-logo-white-1024x482.webp`, blanco sobre transparencia, recortado
+   a la caja exacta del dibujo. No se reconstruye con tipografía: la geométrica
+   del logotipo no es ninguna de las dos familias del sitio.
+   La 'o' es el mismo anillo que `brand/spot-ring.svg` — verificado. */
 interface Props { href?: string | null; class?: string }
 const { href = '/', class: clase = '' } = Astro.props;
+const src = '/brand/spot-wordmark-white.webp';
 ---
 {href ? (
-  <a class:list={['marca', clase]} href={href} aria-label="Spot — portada">
-    <span aria-hidden="true">sp</span>
-    <Anillo class="marca__anillo" />
-    <span aria-hidden="true">t</span>
+  <a class:list={['marca', clase]} href={href}>
+    <img src={src} alt="Spot — volver a la portada" width="1024" height="482" decoding="async" />
   </a>
 ) : (
-  <span class:list={['marca', clase]} aria-label="Spot" role="img">
-    <span aria-hidden="true">sp</span>
-    <Anillo class="marca__anillo" />
-    <span aria-hidden="true">t</span>
+  <span class:list={['marca', clase]}>
+    <img src={src} alt="Spot" width="1024" height="482" decoding="async" />
   </span>
 )}
 
 <style is:global>
   .marca {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.07em;
-    font-family: var(--text);
-    font-weight: 400;
-    font-size: var(--t-marca);
-    letter-spacing: 0.015em;
-    line-height: 1;
-    color: var(--ink);
+    display: inline-block;
+    line-height: 0;
     text-decoration: none;
   }
-  .marca__anillo {
-    width: 0.62em;
-    height: 0.62em;
-    color: var(--ink);
-    transform: translateY(0.035em);
-    transition: color 200ms var(--ease);
+  .marca img {
+    width: auto;
+    height: var(--marca-alto, 1.75rem);
+    opacity: 0.94;
+    transition: opacity 200ms var(--ease);
   }
-  a.marca:hover { color: var(--ink); }
-  a.marca:hover .marca__anillo { color: var(--live); }
+  a.marca:hover img { opacity: 1; }
 </style>

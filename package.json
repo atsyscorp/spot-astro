@@ -8,14 +8,11 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "deploy": "astro build && netlify deploy --dir=dist --prod",
-    "login": "netlify login"
+    "deploy": "astro build && npx netlify-cli deploy --dir=dist --prod",
+    "login": "npx netlify-cli login"
   },
   "dependencies": {
     "astro": "^5.15.6",
     "@astrojs/sitemap": "^3.7.0"
-  },
-  "devDependencies": {
-    "netlify-cli": "^17"
   }
 }

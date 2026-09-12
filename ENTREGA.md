@@ -61,6 +61,24 @@ Todo el texto vive en `src/data/`, no en las plantillas:
 El símbolo de marca está en `brand/`, con su geometría medida documentada en
 `brand/README.md`.
 
+## Material propio del sitio
+
+| Qué | De dónde salió |
+|---|---|
+| `public/video/experiencias.mp4` | Bucle de 12 s recortado de `Spot expriences.mp4` (el original se conserva en la raíz). 848 × 480 en origen. |
+| `public/video/poster.webp` | Fotograma del mismo tramo. Es lo que ve quien no carga el vídeo. |
+| `public/sala/*.webp` | Tres fotogramas del mismo material, elegidos **sin caras identificables**. |
+| `public/clientes/*.webp` | Los trece logotipos, recortados de la página 9 del portafolio y pasados a tinta hueso. |
+| `public/brand/spot-wordmark-white.webp` | El logotipo oficial entregado por el cliente. |
+
+El vídeo sólo se descarga si el visitante no pidió menos movimiento, no está en
+ahorro de datos, la conexión no es lenta y la pantalla da el ancho. En el resto
+de casos se sirve el poster.
+
+**Sobre derechos de imagen:** en el material hay planos buenos de equipo y de
+asistentes que no se usaron. Publicar personas reconocibles necesita cesión de
+imagen; esa decisión es del cliente, no del código.
+
 ## Lo que falta, por orden de urgencia
 
 Estas son las únicas cosas que impiden publicar. Ninguna se puede resolver desde

@@ -9,6 +9,7 @@ html {
 
 body {
   margin: 0;
+  overflow-x: clip;   /* las bandas a sangre usan 100vw; nada se sale por el lado */
   background: var(--stock);
   color: var(--ink-body);
   font-family: var(--text);
@@ -41,7 +42,7 @@ h1, h2, h3, h4 {
   margin: 0;
   text-wrap: balance;
   letter-spacing: -0.012em;
-  font-variation-settings: 'opsz' 72;
+  font-variation-settings: 'opsz' 46;
 }
 
 p { margin: 0; }
@@ -57,6 +58,18 @@ a {
 a:hover { color: var(--live); text-decoration-color: var(--live); }
 
 img, svg { display: block; max-width: 100%; }
+
+/* Sólo para lectores de pantalla: el valor real detrás de lo que se anima. */
+.solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 
 /* --------------------------------------------------------------------------
    Retícula del programa: raíl de sesión a la izquierda, columna de lectura.
@@ -99,7 +112,7 @@ img, svg { display: block; max-width: 100%; }
   letter-spacing: 0.06em;
   line-height: 1;
   margin-bottom: var(--s1);
-  font-variation-settings: 'opsz' 28;
+  font-variation-settings: 'opsz' 21;
 }
 
 .sesion__cuerpo { grid-column: 2; min-width: 0; }
@@ -119,11 +132,14 @@ img, svg { display: block; max-width: 100%; }
   font-size: var(--t-chico);
   line-height: 1.5;
   color: var(--ink-quiet);
-  font-variation-settings: 'opsz' 14;
+  font-variation-settings: 'opsz' 13;
 }
 
 @media (min-width: 72rem) {
   .sesion { grid-template-columns: var(--rail) minmax(0, 1fr) 12rem; }
+  /* El cierre no tiene marginalia: ocupa también esa columna, porque el muro
+     de clientes necesita ancho para que las placas respiren. */
+  .sesion--cierre .sesion__cuerpo { grid-column: 2 / 4; }
   .sesion__margen {
     grid-column: 3;
     grid-row: 1;
@@ -142,7 +158,7 @@ img, svg { display: block; max-width: 100%; }
   font-size: var(--t-display);
   line-height: 1.04;
   letter-spacing: -0.022em;
-  font-variation-settings: 'opsz' 96;
+  font-variation-settings: 'opsz' 60;
 }
 .titular em { font-style: italic; color: var(--live); }
 .subtitular em { font-style: italic; color: var(--ink); }
@@ -152,7 +168,7 @@ img, svg { display: block; max-width: 100%; }
   color: var(--ink);
   font-size: var(--t-titulo);
   line-height: 1.14;
-  font-variation-settings: 'opsz' 48;
+  font-variation-settings: 'opsz' 32;
 }
 
 .titular + .plomo,
@@ -171,7 +187,7 @@ img, svg { display: block; max-width: 100%; }
   font-size: var(--t-nota);
   line-height: 1.5;
   color: var(--ink-quiet);
-  font-variation-settings: 'opsz' 16;
+  font-variation-settings: 'opsz' 14;
 }
 
 .medida {

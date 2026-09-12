@@ -1,0 +1,75 @@
+---
+/* La película: documentación real de una experiencia dirigida por Spot,
+   detrás de la apertura de la pista A. La fuente es 848x480, así que a ancho
+   completo va blanda; en vez de disimularlo, se asume — desenfoque leve,
+   brillo bajo y dos velos hasta la cartulina. Lee como atmósfera, no como
+   un vídeo que se quedó pequeño.
+
+   No se carga sola: el `src` lo pone el script, y sólo si el visitante no
+   pidió menos movimiento, no está ahorrando datos y la pantalla da el ancho.
+   Hasta entonces, y siempre en móvil, lo que se ve es el poster. */
+---
+<div class="pelicula" aria-hidden="true">
+  <video
+    class="pelicula__cinta"
+    poster="/video/poster.webp"
+    muted
+    loop
+    playsinline
+    preload="none"
+    data-src="/video/experiencias.mp4"
+  ></video>
+</div>
+
+<style>
+  .pelicula {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 92svh;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: var(--stock);
+  }
+  .pelicula__cinta {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.72) brightness(0.46) contrast(1.04) blur(1.4px);
+    transform: scale(1.03);   /* come el borde que deja el desenfoque */
+  }
+  /* Dos velos: uno plano que baja el conjunto, otro que lo lleva a la
+     cartulina antes de que empiece el programa. */
+  .pelicula::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, rgba(10,10,10,0.58) 0%, rgba(10,10,10,0.66) 38%, var(--stock) 94%),
+      radial-gradient(118% 84% at 26% 22%, transparent 0%, rgba(10,10,10,0.5) 78%);
+  }
+</style>
+
+<script>
+  const capa = document.querySelector<HTMLElement>('.pelicula');
+  const cinta = capa?.querySelector<HTMLVideoElement>('.pelicula__cinta');
+
+  if (cinta) {
+    const quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const estrecho = window.matchMedia('(max-width: 52rem)').matches;
+    const conexion = (navigator as any).connection;
+    const ahorro = Boolean(conexion?.saveData);
+    const lenta = /(^|\W)(slow-2g|2g|3g)$/.test(conexion?.effectiveType ?? '');
+
+    if (!quieto && !estrecho && !ahorro && !lenta) {
+      const src = cinta.dataset.src;
+      if (src) {
+        cinta.src = src;
+        cinta.load();
+        cinta.play().catch(() => { /* si el navegador lo bloquea, queda el poster */ });
+      }
+    }
+  }
+</script>
