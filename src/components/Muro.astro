@@ -2,12 +2,16 @@
 /* El muro: los logotipos de cliente subiendo en marquesina, cada uno en su
    placa. Va pegado a la llamada de contacto — la prueba al lado de la acción.
 
-   Dos columnas a distinta velocidad para que no lea como una tabla que se
-   desliza. La lista se duplica y la animación recorre exactamente la mitad,
-   así que el bucle no tiene costura.
+   Dos columnas al mismo paso y en sentidos opuestos: la izquierda sube y la
+   derecha baja. La lista se duplica y la animación recorre exactamente la
+   mitad, así que el bucle no tiene costura.
 
    Con prefers-reduced-motion deja de correr y queda como rejilla estática:
-   la prueba se ve entera, que es lo que importa. */
+   la prueba se ve entera, que es lo que importa.
+
+   Sin `loading="lazy"`: el navegador decide la carga diferida con la posición
+   SIN transformar, así que las placas que la marquesina trae a pantalla no se
+   pedían nunca y el muro salía vacío. Son trece archivos y 100 KB. */
 import { clientesLogos } from '../data/clientes';
 
 const mitad = Math.ceil(clientesLogos.length / 2);
@@ -25,7 +29,6 @@ const columnas = [clientesLogos.slice(0, mitad), clientesLogos.slice(mitad)];
               aria-hidden={j >= col.length ? 'true' : undefined}
               width={c.w}
               height={c.h}
-              loading="lazy"
               decoding="async"
             />
           </li>
@@ -55,7 +58,9 @@ const columnas = [clientesLogos.slice(0, mitad), clientesLogos.slice(mitad)];
     animation: sube 42s linear infinite;
     will-change: transform;
   }
-  .muro__columna[data-col='1'] .muro__cinta { animation-duration: 54s; }
+  /* La columna derecha recorre lo mismo pero en sentido contrario: una sube
+     y otra baja, al mismo paso. */
+  .muro__columna[data-col='1'] .muro__cinta { animation-direction: reverse; }
 
   @keyframes sube {
     from { transform: translateY(0); }

@@ -3,6 +3,7 @@ import Base from './Base.astro';
 import Marca from '../components/Marca.astro';
 import Bruma from '../components/Bruma.astro';
 import Pelicula from '../components/Pelicula.astro';
+import Brujula from '../components/Brujula.astro';
 import { marca } from '../data/spot';
 
 interface Props {
@@ -38,6 +39,8 @@ const letra = pista === 'a' ? 'A' : 'B';
   </header>
 
   {fondo === 'pelicula' ? <Pelicula /> : <Bruma pista={pista} />}
+
+  <Brujula />
 
   <div class="hoja portadilla">
     <slot name="apertura" />

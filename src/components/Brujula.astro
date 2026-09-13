@@ -1,0 +1,75 @@
+---
+/* La brújula: el símbolo fijo al borde derecho, girando con el scroll. Bajando
+   va con las manecillas del reloj; subiendo, al revés. El giro está atado a la
+   posición, no a un reloj, así que el anillo sólo se mueve si el visitante se
+   mueve — y el corte de la apertura hace visible cuánto ha girado.
+
+   Cuelga casi la mitad fuera de la pantalla por la derecha: la apertura mira
+   al oeste, así que lo que queda dentro es justamente el lado que se lee.
+
+   Decorativa de arriba abajo: sin texto, fuera del árbol de accesibilidad y
+   sin capturar el puntero. Con prefers-reduced-motion se queda quieta. */
+import Anillo from './Anillo.astro';
+---
+<div class="brujula" aria-hidden="true">
+  <Anillo class="brujula__anillo" />
+</div>
+
+<style>
+  .brujula {
+    --tam: clamp(8rem, 15vw, 14rem);
+    position: fixed;
+    top: 50%;
+    right: calc(var(--tam) * -0.44);
+    width: var(--tam);
+    height: var(--tam);
+    margin-top: calc(var(--tam) * -0.5);
+    z-index: 2;
+    pointer-events: none;
+    color: var(--foil-dim);
+    opacity: 0.5;
+  }
+  .brujula > :global(svg) { width: 100%; height: 100%; }
+
+  @media (max-width: 52rem) {
+    .brujula { --tam: clamp(6rem, 26vw, 9rem); opacity: 0.38; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .brujula > :global(svg) { transform: none !important; }
+  }
+</style>
+
+<script>
+  /* El giro va en JavaScript, no en `animation-timeline: scroll()`.
+     Lo comprobado: con `animation-timeline: scroll(root block)` la animación
+     queda adjunta pero el transform calculado no avanza en ninguna posición de
+     scroll, mientras que el `view()` de la banda de sala sí avanza medido igual.
+     La causa probable es el `overflow-x: clip` que `body` propaga al viewport
+     para las bandas a sangre, pero eso no lo confirmé: lo que sé es que esa vía
+     no giraba y ésta sí.
+
+     Un `transform` por fotograma de scroll, con rAF de por medio: barato. */
+  {
+    const aguja = document.querySelector<SVGElement>('.brujula svg');
+    const quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (aguja && !quieto) {
+      const VUELTAS = 1080;
+
+      const pintar = () => {
+        const doc = document.documentElement;
+        const recorrido = doc.scrollHeight - doc.clientHeight;
+        const p = recorrido > 0 ? Math.min(1, Math.max(0, doc.scrollTop / recorrido)) : 0;
+        aguja.style.transform = `rotate(${(p * VUELTAS).toFixed(2)}deg)`;
+      };
+
+      /* Sin requestAnimationFrame: el navegador lo estrangula cuando no está
+         componiendo y el anillo se quedaba clavado. Escribir un `transform`
+         por evento de scroll es más barato que la alternativa. */
+      window.addEventListener('scroll', pintar, { passive: true });
+      window.addEventListener('resize', pintar, { passive: true });
+      pintar();
+    }
+  }
+</script>
