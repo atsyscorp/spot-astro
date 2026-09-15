@@ -87,11 +87,32 @@ img, svg { display: block; max-width: 100%; }
   display: grid;
   grid-template-columns: var(--rail) minmax(0, 1fr);
   column-gap: var(--s4);
-  padding-block: var(--s6) var(--s5);
-  border-top: var(--hair) solid var(--rule);
+  /* Más aire arriba que abajo: la sesión respira antes de hablar. */
+  padding-block: clamp(var(--s6), 13vh, 11rem) var(--s5);
   position: relative;
 }
-.sesion:first-of-type { border-top: 0; }
+
+/* El corte: el filete que separa dos sesiones cruza de borde a borde, no
+   sólo el ancho de la hoja. Una sesión termina como termina un movimiento,
+   con un corte en toda la cartulina. */
+.sesion::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  height: var(--hair);
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--rule) 12%,
+    var(--rule) 88%,
+    transparent
+  );
+  pointer-events: none;
+}
+.sesion:first-of-type::before { display: none; }
 
 .sesion__rail {
   grid-column: 1;
@@ -203,7 +224,7 @@ img, svg { display: block; max-width: 100%; }
 
 @media (max-width: 62rem) {
   :root { --rail: 4.75rem; }
-  .sesion { column-gap: var(--s3); padding-block: var(--s5) var(--s4); }
+  .sesion { column-gap: var(--s3); padding-block: clamp(var(--s5), 9vh, var(--s6)) var(--s4); }
   .sesion__rail { position: static; }
 }
 
