@@ -6,6 +6,7 @@ import Muro from '../../components/Muro.astro';
 import Apertura from '../../components/Apertura.astro';
 import Sala from '../../components/Sala.astro';
 import Refran from '../../components/Refran.astro';
+import Metodo from '../../components/Metodo.astro';
 import {
   tesis, principios, practicas, spotboxes, metodo,
   peso, territorios, clientesTitular, marca,
@@ -98,15 +99,7 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
 
   <Sesion n="IV" rotulo="Metodología" id="metodo">
     <h2 class="subtitular">Del insight a la huella.</h2>
-    <ol class="metodo">
-      {metodo.map((m) => (
-        <li class="paso">
-          <span class="paso__n">{m.n}</span>
-          <h3 class="paso__titulo">{m.titulo}</h3>
-          <p class="paso__cuerpo">{m.cuerpo}</p>
-        </li>
-      ))}
-    </ol>
+    <Metodo pasos={metodo} />
   </Sesion>
 
   <Sesion n="V" rotulo="El peso" id="peso">

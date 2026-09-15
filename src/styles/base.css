@@ -102,7 +102,8 @@ img, svg { display: block; max-width: 100%; }
   padding-top: 0.6em;
   align-self: start;
   position: sticky;
-  top: var(--s4);
+  /* Debajo de la cinta, no detrás: con top 40px el numeral quedaba cortado. */
+  top: calc(var(--cinta) + var(--s3));
 }
 .sesion__rail b {
   display: block;
@@ -150,7 +151,7 @@ img, svg { display: block; max-width: 100%; }
     border-left: 1px solid var(--foil-faint);
     align-self: start;
     position: sticky;
-    top: calc(var(--s4) + 2.5rem);
+    top: calc(var(--cinta) + var(--s3));
   }
 }
 

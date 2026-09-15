@@ -72,6 +72,10 @@
   --s6:  calc(var(--step) * 13);   /* 104px */
 
   /* Retícula del programa: raíl de sesión + columna de lectura + margen */
+  /* Alto de la cinta pegajosa. Todo lo que se pega debajo se mide desde aquí,
+     para que no vuelva a quedar nada escondido tras ella. */
+  --cinta:  3.875rem;
+
   --rail:   9rem;
   --measure: 34rem;      /* ~68ch en el cuerpo */
   --gutter: clamp(1.25rem, 4vw, 4.5rem);

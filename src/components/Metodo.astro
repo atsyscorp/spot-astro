@@ -1,0 +1,161 @@
+---
+/* Las cinco estaciones en horizontal, con la sección clavada mientras pasan.
+   Al terminar el recorrido el scroll sigue normal: la sección es alta, dentro
+   va una ventana `sticky` de la altura del viewport, y la vía se desplaza
+   dentro de ella.
+
+   Sin una línea de JavaScript. La vía se mueve con `animation-timeline` sobre
+   la propia sección y `animation-range: contain`, que para un sujeto más alto
+   que la ventana abarca exactamente el tramo en que está clavada.
+
+   Todo el maquetado horizontal vive dentro de `@supports`: donde no existan
+   las animaciones ligadas al scroll, la lista se queda en vertical — que es
+   el diseño que había — en vez de dejar cuatro estaciones inalcanzables
+   detrás de un recorte. Lo mismo en móvil y con prefers-reduced-motion:
+   clavar la pantalla en un teléfono es quitarle el control al visitante. */
+import type { metodo as Metodo } from '../data/spot';
+
+interface Props {
+  pasos: typeof Metodo;
+}
+const { pasos } = Astro.props;
+---
+<section class="riel" style={`--n:${pasos.length}`}>
+  <div class="riel__ventana">
+    <ol class="riel__via">
+      {pasos.map((m) => (
+        <li class="estacion">
+          <span class="estacion__n">{m.n}</span>
+          <h3 class="estacion__titulo">{m.titulo}</h3>
+          <p class="estacion__cuerpo">{m.cuerpo}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  /* --------------------------------------------------------------------
+     Reposo: la lista vertical de siempre. Es lo que se ve si el navegador
+     no sabe de scroll timelines, en móvil, o si se pidió menos movimiento.
+     -------------------------------------------------------------------- */
+  .riel { position: relative; z-index: 1; }
+
+  .riel__via {
+    margin: var(--s4) 0 0;
+    padding-left: var(--s4);
+    position: relative;
+  }
+  .riel__via::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 0.7rem;
+    bottom: 0.9rem;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--live), var(--foil-dim));
+  }
+
+  .estacion {
+    position: relative;
+    display: grid;
+    gap: 0.3rem;
+    padding-block: var(--s2) var(--s3);
+  }
+  .estacion::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--s4) + 2px);
+    top: 0.95rem;
+    width: 7px;
+    height: 7px;
+    background: var(--stock);
+    border: 1px solid var(--live);
+    border-radius: 50%;
+  }
+  .estacion__n {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: var(--t-menudo);
+    letter-spacing: 0.12em;
+    color: var(--foil);
+  }
+  .estacion__titulo { font-size: var(--t-menor); line-height: 1.15; }
+  .estacion__cuerpo { max-width: 52ch; }
+
+  /* --------------------------------------------------------------------
+     En marcha: sección alta, ventana clavada, vía que barre.
+     -------------------------------------------------------------------- */
+  @supports (animation-timeline: view()) {
+    @media (min-width: 52.0625rem) and (prefers-reduced-motion: no-preference) {
+      .riel {
+        --ancho: clamp(24rem, 42vw, 36rem);
+        --sep: var(--s4);
+        --via: calc(var(--n) * var(--ancho) + (var(--n) - 1) * var(--sep));
+        --viaje: max(1px, calc(var(--via) + var(--gutter) * 2 - 100vw));
+
+        margin-inline: calc(50% - 50vw);
+        width: 100vw;
+        height: calc(100svh + var(--viaje));
+        view-timeline: --riel block;
+      }
+
+      .riel__ventana {
+        position: sticky;
+        top: 0;
+        height: 100svh;
+        /* La ventana ocupa el viewport entero para que el recorrido cuadre con
+           la línea de tiempo, pero su contenido arranca bajo la cinta. */
+        padding-top: var(--cinta);
+        display: flex;
+        align-items: center;
+        overflow: clip;
+      }
+
+      .riel__via {
+        display: flex;
+        align-items: start;
+        gap: var(--sep);
+        width: max-content;
+        margin: 0;
+        padding-inline: var(--gutter);
+        padding-block: 0;
+        animation: barre linear both;
+        animation-timeline: --riel;
+        animation-range: contain;
+      }
+      /* En horizontal el hilo cruza la vía en lugar de bajarla. */
+      .riel__via::before {
+        left: var(--gutter);
+        right: var(--gutter);
+        top: 1.15rem;
+        bottom: auto;
+        width: auto;
+        height: 1px;
+        background: linear-gradient(to right, var(--live), var(--foil-dim));
+      }
+
+      @keyframes barre {
+        from { transform: translateX(0); }
+        to   { transform: translateX(calc(-1 * var(--viaje))); }
+      }
+
+      .estacion {
+        flex: 0 0 var(--ancho);
+        width: var(--ancho);
+        gap: var(--s2);
+        /* El hilo cruza a 1,15rem y el punto se sienta encima; el numeral
+           arranca por debajo para no montarse con él. */
+        padding-block: var(--s3) 0;
+      }
+      .estacion::before {
+        left: 0;
+        top: calc(1.15rem - 3px);
+      }
+      /* Más aire y más cuerpo: es lo que gana la horizontal. */
+      .estacion__n { font-size: var(--t-sub); }
+      .estacion__titulo { font-size: var(--t-titulo); }
+      .estacion__cuerpo { font-size: var(--t-lead); max-width: none; }
+    }
+  }
+</style>
