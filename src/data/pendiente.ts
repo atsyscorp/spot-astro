@@ -1,6 +1,9 @@
-/* La línea Industrial no tiene material propio todavía: ni catálogo, ni fichas,
-   ni fotografías, ni lista de servicios redactada. Este archivo declara los
-   huecos en lugar de rellenarlos. Cada entrada se imprime en el sitio como una
+/* Desde el 18/09/2026 la línea Industrial sí tiene material propio: el
+   `Catálogo SPOT LATAM 2026` alimenta productos, servicios, fabricación a la
+   medida, software, demarcación y cobertura, y todo eso vive en
+   `industrial.ts`. Lo que el catálogo no contiene —casos con resultado
+   verificable y la lista confirmada de clientes— se queda aquí. Este archivo
+   declara los huecos en lugar de rellenarlos. Cada entrada se imprime en el sitio como una
    sesión del programa con su contenido por confirmar: el visitante ve la
    estructura y el cliente ve exactamente qué tiene que entregar.
 
@@ -18,34 +21,19 @@ export type Hueco = {
 
 export const huecosIndustrial: Hueco[] = [
   {
-    n: 'II',
-    titulo: 'Capacidades',
-    requiere:
-      'La lista de servicios industriales que Spot presta hoy, con una línea de alcance por servicio.',
-    formato: 'Entre cuatro y ocho entradas. Nombre del servicio, una frase de alcance.',
-  },
-  {
-    n: 'III',
+    n: 'I',
     titulo: 'Proyectos',
     requiere:
-      'Dos o tres proyectos reales: sector, problema, intervención y resultado verificable.',
+      'Dos o tres proyectos reales: sector, problema, intervención y resultado verificable. El catálogo enseña lo que la casa sabe hacer; un proyecto enseña lo que resolvió.',
     formato: 'Un párrafo por proyecto, más el nombre del cliente si autoriza aparecer.',
   },
   {
-    n: 'IV',
+    n: 'II',
     titulo: 'Clientes industriales',
     requiere:
       'Confirmación de qué clientes pertenecen a esta línea y sus logotipos en vectorial.',
     formato:
-      'SVG o EPS con fondo transparente. En el sitio de pruebas aparecen DHL Global Forwarding, Teclogi, Aerosan y Caribe Cargo: falta confirmar si son de esta línea o de Experiencias.',
-  },
-  {
-    n: 'V',
-    titulo: 'Herencia ALW Colombia',
-    requiere:
-      'Decisión sobre si la trayectoria previa como ALW Colombia se comunica en abierto, y con qué palabras.',
-    formato:
-      'Una decisión de sí o no, y si es sí, el párrafo aprobado. No se publica nada sobre la marca anterior sin ese visto bueno.',
+      'SVG o EPS con fondo transparente. En la reunión del 15/09/2026 se nombraron cadenas de restaurantes y empresas del sector aéreo; la página 25 del catálogo trae el muro completo, pero en raster y sin confirmación por escrito de quién puede aparecer.',
   },
 ];
 
@@ -53,5 +41,5 @@ export const huecosIndustrial: Hueco[] = [
 export const materialFaltante = [
   'Logotipos de cliente en vectorial. Los del portafolio están incrustados como raster dentro del PDF, a resolución de pantalla.',
   'Fotografía propia de experiencias dirigidas, con derechos de uso confirmados por cliente.',
-  'Fotografía o render de la línea Industrial. No existe ninguna imagen de esta línea.',
+  'Fotografía de la línea Industrial a resolución de web. El catálogo trae fotografía real de producto, pero incrustada en el PDF y comprimida; para usarla en el sitio hacen falta los originales.',
 ];

@@ -2,32 +2,131 @@
 import Mundo from '../../layouts/Mundo.astro';
 import Sesion from '../../components/Sesion.astro';
 import Apertura from '../../components/Apertura.astro';
-import { metodo, marca, practicas } from '../../data/spot';
+import Anillo from '../../components/Anillo.astro';
+import { metodo } from '../../data/spot';
+import { industrial } from '../../data/industrial';
 import { huecosIndustrial } from '../../data/pendiente';
 
-const practica = practicas.find((p) => p.pista === 'b')!;
+const { tesis, frentes, productos, servicios, medida, software, demarcacion, cobertura, herencia, contacto } = industrial;
 ---
 <Mundo
   pista="b"
   nombre="Industrial"
   titulo="Industrial — Spot"
-  descripcion="Proyectos estratégicos para el sector industrial. Soluciones donde la estrategia es crítica. El mismo método que dirige nuestras experiencias corporativas."
+  descripcion="Setenta y cinco años al servicio de la industria nacional. Sistemas para movilización de carga, estanterías, equipos de medición, mantenimiento y calibración, y fabricación a la medida. Cobertura nacional."
 >
   <Apertura slot="apertura" letra="B" pista="Industrial">
-    <h1 slot="titular" class="titular">Proyectos donde la estrategia <em>es crítica.</em></h1>
-    <p slot="plomo" class="plomo">
-      {practica.cuerpo} La Pista B atiende al sector industrial con el mismo
-      principio que rige toda la casa: primero el pensamiento, después el
-      concepto, y sólo al final la ejecución. Cambia el terreno, no el criterio.
-    </p>
+    <h1 slot="titular" class="titular">
+      {tesis.titular[0]}<br /><em>{tesis.titular[1]}</em>
+    </h1>
+    <p slot="plomo" class="plomo">{tesis.cuerpo}</p>
     <ol slot="tira" class="tira">
-      {metodo.map((m) => (
-        <li><b>{m.n}</b><span>{m.titulo}</span></li>
+      {frentes.map((f) => (
+        <li>
+          <b>{f.n}</b>
+          <span><a href={f.ancla}>{f.titulo}</a></span>
+        </li>
       ))}
     </ol>
   </Apertura>
 
-  <Sesion n="II" rotulo="El método" id="metodo">
+  <Sesion n="I" rotulo="Qué hacemos" id="frentes">
+    <h2 class="subtitular">Tres frentes.<br /><em>Un mismo taller detrás.</em></h2>
+    <ol class="frentes">
+      {frentes.map((f) => (
+        <li class="frente entra">
+          <span class="frente__n">{f.n}</span>
+          <h3 class="frente__titulo"><a href={f.ancla}>{f.titulo}</a></h3>
+          <p class="frente__cuerpo">{f.cuerpo}</p>
+        </li>
+      ))}
+    </ol>
+    <p slot="margen">Los tres frentes son los del catálogo de productos y servicios 2026.</p>
+  </Sesion>
+
+  <Sesion n="II" rotulo="Productos" id="productos">
+    <h2 class="subtitular">Lo que mueve, almacena <em>y pesa.</em></h2>
+    <ol class="familias">
+      {productos.map((p) => (
+        <li class="familia entra">
+          <span class="familia__n">{p.n}</span>
+          <h3 class="familia__titulo">{p.titulo}</h3>
+          <p class="familia__cuerpo">{p.cuerpo}</p>
+          {p.detalle.length > 0 && (
+            <ul class="familia__detalle">
+              {p.detalle.map((d) => <li>{d}</li>)}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ol>
+    <p slot="margen">Nueve familias declaradas en el catálogo. Cada una se fabrica también a la medida.</p>
+  </Sesion>
+
+  <Sesion n="III" rotulo="Servicios" id="servicios">
+    <h2 class="subtitular">Un equipo que mide mal <em>cuesta más que uno parado.</em></h2>
+    <p class="plomo servicios__plomo">
+      Personal técnico propio para el mantenimiento, y laboratorios acreditados
+      ONAC para la calibración. La acreditación es del laboratorio aliado, no
+      de la casa: se dice como es.
+    </p>
+    <ol class="servicios">
+      {servicios.map((s) => (
+        <li class="servicio entra">
+          <span class="servicio__n">{s.n}</span>
+          <h3 class="servicio__titulo">{s.titulo}</h3>
+          <p class="servicio__cuerpo">{s.cuerpo}</p>
+        </li>
+      ))}
+    </ol>
+  </Sesion>
+
+  <Sesion n="IV" rotulo="A la medida" id="medida">
+    <h2 class="subtitular">Cuando el catálogo <em>no lo resuelve.</em></h2>
+    <p class="plomo">
+      Diseño y fabricación sobre el requerimiento de cada cliente. Lo que sale
+      del taller cuando la pieza que hace falta no existe todavía.
+    </p>
+    <ul class="piezas">
+      {medida.piezas.map((p) => (
+        <li class="pieza entra">
+          <span class="pieza__marca"><Anillo /></span>
+          <span>{p}</span>
+        </li>
+      ))}
+    </ul>
+    <p slot="margen">{medida.remate}</p>
+  </Sesion>
+
+  <Sesion n="V" rotulo="Software" id="software">
+    <h2 class="subtitular">La medición <em>también se administra.</em></h2>
+    <div class="par">
+      <div class="par__entrada entra">
+        <h3 class="par__titulo">{software.titulo}</h3>
+        <p class="par__cuerpo">{software.cuerpo}</p>
+      </div>
+      <div class="par__entrada entra">
+        <h3 class="par__titulo">{demarcacion.titulo}</h3>
+        <p class="par__cuerpo">{demarcacion.cuerpo}</p>
+      </div>
+    </div>
+  </Sesion>
+
+  <Sesion n="VI" rotulo="Dónde operamos" id="cobertura">
+    <h2 class="subtitular">{cobertura.titulo}.</h2>
+    <ul class="ciudades">
+      {cobertura.ciudades.map((c) => <li class="entra">{c}</li>)}
+    </ul>
+    <p class="nota ciudades__nota">{cobertura.nota}</p>
+  </Sesion>
+
+  <Sesion n="VII" rotulo="La herencia" id="herencia">
+    <h2 class="subtitular">{herencia.titulo}</h2>
+    <p class="plomo">{herencia.cuerpo}</p>
+    <p slot="margen">{herencia.nota}</p>
+  </Sesion>
+
+  <Sesion n="VIII" rotulo="El método" id="metodo">
     <h2 class="subtitular">El método no cambia de pista.</h2>
     <p class="plomo metodo__plomo">
       Las cinco estaciones que dirigen un summit dirigen también un proyecto
@@ -44,8 +143,8 @@ const practica = practicas.find((p) => p.pista === 'b')!;
     </ol>
   </Sesion>
 
-  <Sesion n="III" rotulo="En preparación" id="en-preparacion" class="sesion--pendiente">
-    <h2 class="subtitular">Cuatro entradas de este programa <em>todavía no se han impreso.</em></h2>
+  <Sesion n="IX" rotulo="En preparación" id="en-preparacion" class="sesion--pendiente">
+    <h2 class="subtitular">Dos entradas de este programa <em>todavía no se han impreso.</em></h2>
     <p class="plomo">
       Están declaradas, no disimuladas. Cada una dice qué va en su sitio y en qué
       formato se entrega. Aquí no se publica nada que no se pueda sostener.
@@ -65,26 +164,35 @@ const practica = practicas.find((p) => p.pista === 'b')!;
     <p slot="margen">Cada entrada ocupará su sitio en cuanto exista, sin rehacer el programa.</p>
   </Sesion>
 
-  <Sesion n="IV" rotulo="Hablemos" id="hablemos">
+  <Sesion n="X" rotulo="Hablemos" id="hablemos">
     <h2 class="titular">Hablemos.</h2>
     <p class="plomo">
       Si su operación tiene una decisión pendiente y no un pliego de compras,
       esta es la conversación correcta.
     </p>
     <ul class="contacto">
-      {marca.correos.map((c) => (
+      <li>
+        <a class="contacto__enlace" href={`tel:${contacto.oficinaHref}`}>{contacto.oficina}</a>
+        <i class="contacto__rotulo">Oficina</i>
+      </li>
+      {contacto.moviles.map((m) => (
+        <li>
+          <a class="contacto__enlace" href={`tel:${m.href}`}>{m.numero}</a>
+          <i class="contacto__rotulo">Móvil</i>
+        </li>
+      ))}
+      {contacto.correos.map((c) => (
         <li><a class="contacto__enlace" href={`mailto:${c}`}>{c}</a></li>
       ))}
-      <li><a class="contacto__enlace" href={`tel:${marca.telefonoHref}`}>{marca.telefono}</a></li>
     </ul>
   </Sesion>
 </Mundo>
 
 <style>
-  .metodo__plomo { margin-top: var(--s2); }
+  .metodo__plomo, .servicios__plomo { margin-top: var(--s2); }
 
-  /* La tira de la apertura: las cinco estaciones del método, que es lo único
-     que esta pista puede afirmar hoy sin inventar nada. */
+  /* La tira de la apertura: los tres frentes del catálogo, que es el índice
+     de la casa. */
   .tira {
     display: flex;
     flex-wrap: wrap;
@@ -108,6 +216,173 @@ const practica = practicas.find((p) => p.pista === 'b')!;
     text-transform: uppercase;
     color: var(--ink);
   }
+  .tira a { text-decoration: none; }
+
+  /* Los tres frentes: entradas de programa, como las prácticas de la Pista A. */
+  .frentes { margin-top: var(--s4); }
+  .frente {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    gap: 0.35rem var(--s3);
+    padding-block: var(--s4);
+    border-top: 1px solid var(--rule);
+  }
+  .frente__n {
+    grid-row: span 2;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: var(--t-marca);
+    color: var(--foil);
+    line-height: 1;
+    font-variation-settings: 'opsz' 18;
+  }
+  .frente__titulo {
+    font-size: var(--t-titulo);
+    line-height: 1.1;
+    font-variation-settings: 'opsz' 30;
+  }
+  .frente__titulo a { text-decoration: none; border-bottom: 1px solid var(--foil-dim); }
+  .frente__cuerpo { max-width: 52ch; }
+
+  /* Las nueve familias. El detalle va en versalitas de latón, en línea: es
+     nomenclatura de catálogo, no texto de lectura. */
+  .familias { margin-top: var(--s4); }
+  .familia {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: 0.3rem var(--s3);
+    padding-block: var(--s3);
+    border-top: 1px solid var(--rule);
+  }
+  .familia__n {
+    grid-row: span 3;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: var(--t-sub);
+    color: var(--foil);
+    line-height: 1.2;
+    font-variation-settings: 'opsz' 15;
+  }
+  .familia__titulo {
+    font-size: var(--t-entrada);
+    line-height: 1.14;
+    font-variation-settings: 'opsz' 25;
+  }
+  .familia__cuerpo { max-width: 56ch; font-size: var(--t-chico); }
+  /* El detalle corre como una sola línea de texto, no como una rejilla de
+     etiquetas: en columna estrecha, siete nombres en caja alta y con prosa
+     ocupaban nueve renglones, uno por etiqueta. Como texto corrido se acomodan
+     solos y siguen leyéndose como nomenclatura de catálogo. */
+  .familia__detalle {
+    margin-top: var(--s1);
+    font-size: var(--t-menudo);
+    letter-spacing: 0.14em;
+    line-height: 1.7;
+    text-transform: uppercase;
+    color: var(--foil);
+  }
+  .familia__detalle li { display: inline; }
+  .familia__detalle li + li::before { content: ' · '; color: var(--foil-dim); }
+
+  /* Los servicios: cadena de cinco, con el mismo hilo que la metodología.
+     Es un mantenimiento, y un mantenimiento es una secuencia. */
+  .servicios {
+    margin-top: var(--s4);
+    position: relative;
+    padding-left: var(--s4);
+  }
+  .servicios::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 0.9rem;
+    bottom: 1.1rem;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--live), var(--foil-faint));
+  }
+  .servicio {
+    position: relative;
+    display: grid;
+    gap: 0.3rem;
+    padding-block: var(--s2) var(--s3);
+  }
+  .servicio::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--s4) + 2px);
+    top: 1.15rem;
+    width: 7px;
+    height: 7px;
+    background: var(--stock);
+    border: 1px solid var(--live);
+    border-radius: 50%;
+  }
+  .servicio__n {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: var(--t-menudo);
+    letter-spacing: 0.12em;
+    color: var(--foil);
+  }
+  .servicio__titulo { font-size: var(--t-menor); line-height: 1.15; }
+  .servicio__cuerpo { max-width: 54ch; }
+
+  /* Las piezas a la medida: el anillo como viñeta, en dos columnas. */
+  .piezas {
+    margin-top: var(--s4);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s2) var(--s4);
+  }
+  .pieza {
+    display: grid;
+    grid-template-columns: 1rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: var(--s2);
+    padding-block: var(--s2);
+    border-top: 1px solid var(--rule);
+    font-family: var(--display);
+    font-size: var(--t-menor);
+    line-height: 1.2;
+    color: var(--ink);
+    font-variation-settings: 'opsz' 18;
+  }
+  /* Envuelto: una clase suelta sobre `<Anillo />` no recibe el atributo de
+     ámbito de la página. */
+  .pieza__marca { display: block; width: 0.6rem; height: 0.6rem; color: var(--live); }
+  .pieza__marca :global(.anillo) { width: 100%; height: 100%; }
+
+  /* El par: software y demarcación, dos entradas cortas lado a lado. */
+  .par {
+    margin-top: var(--s4);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s4);
+  }
+  .par__entrada { padding-top: var(--s3); border-top: 1px solid var(--rule); }
+  .par__titulo {
+    font-size: var(--t-entrada);
+    line-height: 1.14;
+    margin-bottom: var(--s1);
+    font-variation-settings: 'opsz' 25;
+  }
+  .par__cuerpo { max-width: 46ch; }
+
+  /* Las ciudades: el alcance se lee de un vistazo, no en un párrafo. */
+  .ciudades {
+    margin-top: var(--s4);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2) var(--s4);
+  }
+  .ciudades li {
+    font-family: var(--display);
+    font-size: var(--t-menor);
+    line-height: 1.2;
+    color: var(--ink);
+    font-variation-settings: 'opsz' 18;
+  }
+  .ciudades__nota { margin-top: var(--s3); max-width: 54ch; }
 
   .metodo {
     margin-top: var(--s4);
@@ -187,11 +462,8 @@ const practica = practicas.find((p) => p.pista === 'b')!;
     background: var(--foil-faint);
   }
 
-  @media (max-width: 52rem) {
-    .hueco { grid-template-columns: 1.75rem minmax(0, 1fr); }
-  }
-
-  .contacto { margin-top: var(--s3); display: grid; gap: var(--s1); }
+  .contacto { margin-top: var(--s3); display: grid; gap: var(--s2); }
+  .contacto li { display: flex; align-items: baseline; gap: var(--s2); flex-wrap: wrap; }
   .contacto__enlace {
     font-family: var(--display);
     font-size: var(--t-entrada);
@@ -201,7 +473,21 @@ const practica = practicas.find((p) => p.pista === 'b')!;
     font-variation-settings: 'opsz' 21;
   }
   .contacto__enlace:hover { color: var(--live); border-bottom-color: var(--live); }
+  .contacto__rotulo {
+    font-style: normal;
+    font-size: var(--t-rotulo);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--foil);
+  }
 
   h1.titular em { font-style: italic; color: var(--live); }
   h2.subtitular em { font-style: italic; color: var(--ink); }
+
+  @media (max-width: 52rem) {
+    .hueco { grid-template-columns: 1.75rem minmax(0, 1fr); }
+    .frente, .familia { grid-template-columns: 2.5rem minmax(0, 1fr); }
+    .familia__detalle { letter-spacing: 0.1em; font-size: var(--t-micro); }
+    .piezas, .par { grid-template-columns: 1fr; gap: var(--s2); }
+  }
 </style>
