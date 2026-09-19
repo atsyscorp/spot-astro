@@ -24,7 +24,7 @@ export const huecosIndustrial: Hueco[] = [
     n: 'I',
     titulo: 'Proyectos',
     requiere:
-      'Dos o tres proyectos reales: sector, problema, intervención y resultado verificable. El catálogo enseña lo que la casa sabe hacer; un proyecto enseña lo que resolvió.',
+      'Dos o tres proyectos reales: sector, problema, intervención y resultado verificable.',
     formato: 'Un párrafo por proyecto, más el nombre del cliente si autoriza aparecer.',
   },
 ];

@@ -168,25 +168,23 @@ const taller = [
     </ol>
   </Sesion>
 
-  <Sesion n="IX" rotulo="En preparación" id="en-preparacion" class="sesion--pendiente">
-    <h2 class="subtitular">Una entrada de este programa <em>todavía no se ha impreso.</em></h2>
+  <Sesion n="IX" rotulo="Proyectos" id="proyectos" class="sesion--pendiente">
+    <h2 class="subtitular">Esta entrada <em>todavía no se ha impreso.</em></h2>
     <p class="plomo">
-      Están declaradas, no disimuladas. Cada una dice qué va en su sitio y en qué
-      formato se entrega. Aquí no se publica nada que no se pueda sostener.
+      El catálogo enseña lo que la casa sabe hacer. Un proyecto enseña lo que
+      resolvió, y eso se publica cuando existe verificado, no antes. Está
+      declarada, no disimulada: dice qué va en su sitio y en qué formato.
     </p>
-    <ol class="huecos">
-      {huecosIndustrial.map((h) => (
-        <li class="hueco entra">
-          <h3 class="hueco__titulo">{h.titulo}</h3>
-          <p class="hueco__requiere">{h.requiere}</p>
-          <p class="nota hueco__formato">{h.formato}</p>
-        </li>
-      ))}
-    </ol>
-    <div class="renglones" aria-hidden="true">
-      <i style="--w:100%"></i><i style="--w:88%"></i><i style="--w:47%"></i>
-    </div>
-    <p slot="margen">Cada entrada ocupará su sitio en cuanto exista, sin rehacer el programa.</p>
+    {huecosIndustrial.map((h) => (
+      <div class="hueco entra">
+        <p class="hueco__requiere">{h.requiere}</p>
+        <p class="nota hueco__formato">{h.formato}</p>
+        <div class="renglones" aria-hidden="true">
+          <i style="--w:100%"></i><i style="--w:88%"></i><i style="--w:47%"></i>
+        </div>
+      </div>
+    ))}
+    <p slot="margen">Ocupará su sitio en cuanto exista, sin rehacer el programa.</p>
   </Sesion>
 
   <Sesion n="X" rotulo="Hablemos" id="hablemos" class="sesion--cierre">
@@ -453,37 +451,17 @@ const taller = [
      en tinta apagada, lo que falta, y el formato de entrega al margen. Debajo,
      los renglones que todavía no se han impreso. La ausencia se dibuja con el
      mismo cuidado que lo escrito. */
-  .huecos {
-    margin-top: var(--s4);
-    counter-reset: hueco;
-  }
+  /* Queda un solo hueco, así que ya no es una lista numerada: es la entrada
+     que falta, con sus renglones sin imprimir debajo. Cuando llegue el
+     material, este bloque se reemplaza por los proyectos y la sesión conserva
+     su sitio y su numeral. */
   .hueco {
-    display: grid;
-    grid-template-columns: 2.25rem minmax(0, 1fr);
-    gap: 0.3rem var(--s3);
-    padding-block: var(--s3);
+    margin-top: var(--s4);
+    padding-top: var(--s3);
     border-top: 1px solid var(--rule);
-    counter-increment: hueco;
-  }
-  .hueco::before {
-    content: counter(hueco, upper-roman);
-    grid-row: span 3;
-    font-family: var(--display);
-    font-size: var(--t-sub);
-    line-height: 1.2;
-    color: var(--foil);
-    font-variation-settings: 'opsz' 15;
-  }
-  .hueco__titulo {
-    font-family: var(--display);
-    font-weight: 400;
-    font-size: var(--t-menor);
-    line-height: 1.15;
-    color: var(--ink-quiet);
-    font-variation-settings: 'opsz' 21;
   }
   .hueco__requiere { max-width: 56ch; color: var(--ink-body); }
-  .hueco__formato { max-width: 56ch; }
+  .hueco__formato { max-width: 56ch; margin-top: var(--s1); }
 
   .renglones {
     margin-top: var(--s4);
@@ -546,7 +524,6 @@ const taller = [
   h2.subtitular em { font-style: italic; color: var(--ink); }
 
   @media (max-width: 52rem) {
-    .hueco { grid-template-columns: 1.75rem minmax(0, 1fr); }
     .frente, .familia { grid-template-columns: 2.5rem minmax(0, 1fr); }
     .familia__detalle { letter-spacing: 0.1em; font-size: var(--t-micro); }
     .piezas, .par { grid-template-columns: 1fr; gap: var(--s2); }

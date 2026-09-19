@@ -134,6 +134,13 @@ resultado verificable. El catálogo enseña lo que la casa sabe hacer; un proyec
 enseña lo que resolvió. Un párrafo por proyecto, más el nombre del cliente si
 autoriza aparecer.
 
+El pedido ya está redactado y listo para enviar a Mauricio Altamar:
+**`resources/PEDIDO-PROYECTOS.md`**. Lleva las cuatro líneas que hacen falta por
+proyecto, las dos autorizaciones que bloquean la publicación y las tres dudas
+concretas del catálogo. En la Pista B esa entrada es hoy la sesión IX
+«Proyectos», numerada y declarada: cuando llegue el material ocupa su sitio sin
+rehacer el programa.
+
 Mientras tanto el sitio no inventa nada: enseña la forma del hueco. Es honesto y
 además le dice al cliente exactamente qué entregar.
 
