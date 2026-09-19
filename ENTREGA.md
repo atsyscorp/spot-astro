@@ -196,5 +196,9 @@ para la Pista A.
   catálogo industrial 2026. Donde no hay material, hay hueco declarado.
 - **No usa un reel de eventos.** La categoría entera ship eso; esta dirección lo
   rechaza explícitamente.
-- **No tiene barra de navegación interna.** La orientación vive en el hilo de
-  latón del raíl: la sesión que se está leyendo enciende su numeral.
+- **No tiene menú desplegable ni versión móvil aparte.** La navegación es un
+  solo elemento en todos los anchos: la segunda fila de la cinta lista las
+  sesiones de la pista y enciende la que se está leyendo. En columna estrecha
+  los rótulos se recogen y queda la fila de numerales, salvo el del capítulo
+  activo. Añadida el 19/09/2026 a petición del cliente; hasta entonces la
+  orientación vivía sólo en el hilo de latón del raíl.

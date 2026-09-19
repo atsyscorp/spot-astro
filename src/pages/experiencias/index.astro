@@ -14,6 +14,18 @@ import {
   peso, territorios, clientesTitular, marca,
 } from '../../data/spot';
 
+/* Las siete sesiones de esta pista, para el hilo de capítulos de la cinta.
+   El rótulo es el mismo que lleva el raíl de cada sesión. */
+const capitulos = [
+  { n: 'I',   rotulo: 'El diagnóstico', id: 'tesis' },
+  { n: 'II',  rotulo: 'Cómo pensamos',  id: 'principios' },
+  { n: 'III', rotulo: 'Prácticas',      id: 'practicas' },
+  { n: 'IV',  rotulo: 'Metodología',    id: 'metodo' },
+  { n: 'V',   rotulo: 'El peso',        id: 'peso' },
+  { n: 'VI',  rotulo: 'Dónde operamos', id: 'territorios' },
+  { n: 'VII', rotulo: 'Hablemos',       id: 'hablemos' },
+];
+
 const practicasPista = practicas.filter((p) => p.pista === 'a');
 const industrial = practicas.find((p) => p.pista === 'b')!;
 ---
@@ -21,6 +33,7 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
   pista="a"
   fondo="pelicula"
   nombre="Experiencias"
+  capitulos={capitulos}
   titulo="Experiencias — Spot"
   descripcion="Summits, congresos y encuentros ejecutivos donde la estrategia antecede a la producción. +5.800 líderes C-level impactados en tres mercados."
 >

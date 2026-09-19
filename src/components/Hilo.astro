@@ -1,0 +1,175 @@
+---
+/* El hilo de capítulos: la segunda fila de la cinta, con las sesiones del
+   programa de esta pista.
+
+   Hasta el 19/09/2026 el sistema no tenía barra de navegación interna a
+   propósito: la orientación vivía en el hilo de latón del raíl, que enciende el
+   numeral de la sesión en pantalla. Esa regla se levanta por petición expresa
+   del cliente — quería un menú único que funcionara a cualquier ancho—, pero no
+   se cambia el recurso: esto es el mismo hilo, con los mismos numerales
+   romanos y la misma luz de pista, movido a donde se ve sin bajar.
+
+   Un solo elemento en todos los anchos. No hay versión de escritorio y versión
+   de móvil, ni menú que se despliega: lo que cambia con el ancho es cuánta
+   tinta gasta. En columna estrecha los rótulos se recogen y queda la fila de
+   numerales, salvo el del capítulo activo, que conserva su nombre — así el
+   visitante sabe dónde está sin abrir nada.
+
+   Las tres salidas: sin `IntersectionObserver` sigue siendo un índice de anclas
+   que funciona y sólo se pierde el encendido; con `prefers-reduced-motion` el
+   desplazamiento suave se anula desde `tokens.css`; y el observador no gasta
+   nada mientras no se cruce una sesión. */
+export interface Capitulo {
+  n: string;
+  rotulo: string;
+  id: string;
+}
+
+interface Props {
+  capitulos: Capitulo[];
+}
+const { capitulos } = Astro.props;
+---
+<nav class="hilo" aria-label="Sesiones del programa">
+  <ol class="hilo__lista">
+    {capitulos.map((c, i) => (
+      <li>
+        <a class="hilo__paso" href={`#${c.id}`} aria-current={i === 0 ? 'true' : undefined}>
+          <b>{c.n}</b><span>{c.rotulo}</span>
+        </a>
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .hilo { border-top: 1px solid var(--rule); }
+
+  .hilo__lista {
+    display: flex;
+    align-items: stretch;
+    /* El aire entre pasos va en el `gap`, no en el relleno de cada enlace: así
+       el travesaño encendido mide lo que mide su rótulo y no un bloque. */
+    gap: 1.15rem;
+    max-width: var(--page);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    /* Cuando la fila no cabe, se desplaza dentro de su propia caja. La página
+       nunca scrollea de lado. */
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .hilo__lista::-webkit-scrollbar { display: none; }
+  .hilo__lista li { flex: none; }
+
+  /* Cuando la fila no cabe entera, el canto derecho se apaga: dice que hay
+     más hilo sin dibujar una flecha. La clase la pone el script sólo si de
+     verdad hay desbordamiento, así que una pista que cabe no se difumina. */
+  .hilo__lista--corre {
+    mask-image: linear-gradient(to right, #000 calc(100% - 3rem), transparent);
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 3rem), transparent);
+  }
+
+  .hilo__paso {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5em;
+    padding-block: 0.7rem;
+    text-decoration: none;
+    color: var(--ink-quiet);
+    white-space: nowrap;
+    /* El travesaño del raíl, tumbado: en reposo es latón apagado a dos
+       tercios; encendido, luz de pista a lo ancho del paso. */
+    border-bottom: 1px solid var(--foil-faint);
+    transition: color 320ms var(--ease), border-color 320ms var(--ease);
+  }
+  .hilo__paso b {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: var(--t-menudo);
+    line-height: 1;
+    color: var(--foil);
+    letter-spacing: 0.06em;
+    transition: color 320ms var(--ease);
+  }
+  .hilo__paso span {
+    font-size: var(--t-rotulo);
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .hilo__paso:hover { color: var(--ink); }
+  .hilo__paso:hover b { color: var(--live); }
+
+  .hilo__paso[aria-current='true'] {
+    color: var(--live);
+    border-bottom-color: var(--live);
+  }
+  .hilo__paso[aria-current='true'] b { color: var(--live); }
+
+  /* En columna estrecha sólo el capítulo activo conserva su rótulo. Mismo
+     menú, menos tinta — no una versión aparte. */
+  @media (max-width: 72rem) {
+    .hilo__lista { gap: 0.95rem; }
+    .hilo__paso { gap: 0.4em; }
+    .hilo__paso span { display: none; }
+    .hilo__paso[aria-current='true'] span { display: inline; }
+  }
+</style>
+
+<script>
+  {
+    const pasos = Array.from(document.querySelectorAll<HTMLAnchorElement>('.hilo__paso'));
+    const lista = document.querySelector<HTMLElement>('.hilo__lista');
+
+    if (pasos.length && lista && 'IntersectionObserver' in window) {
+      const sesiones = pasos
+        .map((a) => document.querySelector<HTMLElement>(a.getAttribute('href') || ''))
+        .filter((s): s is HTMLElement => Boolean(s));
+
+      if (sesiones.length === pasos.length) {
+        const visibles = new Set<HTMLElement>();
+
+        const marcar = () => {
+          let activo = 0;
+          for (let i = 0; i < sesiones.length; i++) {
+            if (visibles.has(sesiones[i])) { activo = i; break; }
+          }
+
+          pasos.forEach((a, i) => {
+            if (i === activo) a.setAttribute('aria-current', 'true');
+            else a.removeAttribute('aria-current');
+          });
+
+          /* Si la fila está desplazada, el hilo trae el paso activo a la vista:
+             el rótulo que se acaba de encender no puede quedar fuera de cuadro. */
+          const caja = pasos[activo].getBoundingClientRect();
+          const marco = lista.getBoundingClientRect();
+          if (caja.left < marco.left + 12) lista.scrollLeft += caja.left - marco.left - 12;
+          else if (caja.right > marco.right - 12) lista.scrollLeft += caja.right - marco.right + 12;
+        };
+
+        const ojo = new IntersectionObserver(
+          (entradas) => {
+            for (const e of entradas) {
+              if (e.isIntersecting) visibles.add(e.target as HTMLElement);
+              else visibles.delete(e.target as HTMLElement);
+            }
+            marcar();
+          },
+          { rootMargin: '-30% 0px -55% 0px' }
+        );
+
+        sesiones.forEach((s) => ojo.observe(s));
+        marcar();
+
+        const medir = () => {
+          lista.classList.toggle('hilo__lista--corre', lista.scrollWidth > lista.clientWidth + 2);
+        };
+        medir();
+        window.addEventListener('resize', medir, { passive: true });
+      }
+    }
+  }
+</script>

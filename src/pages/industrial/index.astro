@@ -10,6 +10,21 @@ import { industrial } from '../../data/industrial';
 import { huecosIndustrial } from '../../data/pendiente';
 import { clientesIndustriales } from '../../data/clientes-industrial';
 
+/* Las diez sesiones de esta pista, para el hilo de capítulos de la cinta.
+   El rótulo es el mismo que lleva el raíl de cada sesión. */
+const capitulos = [
+  { n: 'I',    rotulo: 'Qué hacemos',    id: 'frentes' },
+  { n: 'II',   rotulo: 'Productos',      id: 'productos' },
+  { n: 'III',  rotulo: 'Servicios',      id: 'servicios' },
+  { n: 'IV',   rotulo: 'A la medida',    id: 'medida' },
+  { n: 'V',    rotulo: 'Software',       id: 'software' },
+  { n: 'VI',   rotulo: 'Dónde operamos', id: 'cobertura' },
+  { n: 'VII',  rotulo: 'La herencia',    id: 'herencia' },
+  { n: 'VIII', rotulo: 'El método',      id: 'metodo' },
+  { n: 'IX',   rotulo: 'Proyectos',      id: 'proyectos' },
+  { n: 'X',    rotulo: 'Hablemos',       id: 'hablemos' },
+];
+
 const { tesis, frentes, productos, servicios, medida, software, demarcacion, cobertura, herencia, contacto } = industrial;
 
 /* Nueve fotogramas del propio catálogo, recortados a la misma caja que los de
@@ -30,6 +45,7 @@ const taller = [
 <Mundo
   pista="b"
   nombre="Industrial"
+  capitulos={capitulos}
   titulo="Industrial — Spot"
   descripcion="Setenta y cinco años al servicio de la industria nacional. Sistemas para movilización de carga, estanterías, equipos de medición, mantenimiento y calibración, y fabricación a la medida. Cobertura nacional."
 >

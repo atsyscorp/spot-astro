@@ -462,9 +462,14 @@ contenido. Cada sesión se cuelga de él con un travesaño horizontal
 (`.sesion__rail::before`) que en reposo mide el 66% de su ancho, en latón
 apagado. Un `IntersectionObserver` con `rootMargin: -45% 0px -45% 0px` marca como
 `.sesion--viva` la sesión que ocupa la banda central del viewport: su travesaño
-se estira al 100% y pasa a la luz, y su numeral se enciende. Ese hilo es toda la
-orientación de la página: **no hay barra de navegación de sección, ni índice, ni
-migas**.
+se estira al 100% y pasa a la luz, y su numeral se enciende.
+
+**Desde el 19/09/2026 ese hilo tiene una segunda instancia arriba.** Hasta esa
+fecha era toda la orientación de la página y no había barra de navegación de
+sección, por decisión declarada. El cliente pidió un menú único que funcionara a
+cualquier ancho, y la regla se levanta — pero no se cambia el recurso: la cinta
+gana una segunda fila con los mismos numerales romanos, el mismo travesaño
+tumbado y la misma luz de pista. Sigue sin haber índice ni migas.
 
 **Puntos de quiebre observados.** 72rem (aparece la marginalia), 62rem (raíl
 estrecho y estático, compás de sesión más corto), 52rem (el cotejo y las
@@ -631,6 +636,30 @@ cartulina antes del cuerpo de lectura.
   no descodifica lo que nadie mira.
 - **Material:** documentación real de la misma experiencia que sostiene la
   apertura, en otro tramo, elegido sin caras reconocibles.
+
+### El hilo de capítulos (componente firma)
+La segunda fila de la cinta: las sesiones de la pista, del primer numeral al
+último, con la que se está leyendo encendida. Es el raíl tumbado, no un menú
+nuevo.
+- **Un solo elemento en todos los anchos.** No hay versión de escritorio y
+  versión de móvil, ni menú desplegable: lo que cambia con el ancho es cuánta
+  tinta gasta. Por debajo de 72rem los rótulos se recogen y queda la fila de
+  numerales, **salvo el del capítulo activo**, que conserva su nombre — así el
+  visitante sabe dónde está sin abrir nada.
+- **Color:** latón en reposo, `var(--live)` encendido, así que la Pista A marca
+  en menta y la Pista B en rojo sin que el componente sepa de qué mundo es.
+- **Desbordamiento:** la fila se desplaza dentro de su propia caja y la página
+  nunca scrollea de lado. Si de verdad desborda —la Pista B tiene diez sesiones—
+  el canto derecho se apaga con una máscara, y el script trae el paso activo a
+  la vista cuando la fila está corrida. La clase de la máscara sólo se pone si
+  hay desbordamiento: una pista que cabe no se difumina.
+- **Las tres salidas:** sin `IntersectionObserver` sigue siendo un índice de
+  anclas que funciona y sólo se pierde el encendido; el desplazamiento suave se
+  anula bajo `prefers-reduced-motion` desde `tokens.css`; y el observador no
+  gasta nada mientras no se cruce una sesión.
+- **`--cinta` mide las dos filas** (6,25rem). De ese token cuelgan el
+  `scroll-margin-top` de las sesiones, el raíl pegajoso y la marginalia: si la
+  cinta cambia de alto, se cambia ahí y no en cinco sitios.
 
 ### El raíl de sesión (componente firma)
 Numeral romano en la serif sobre rótulo en versalitas de latón, colgado del hilo

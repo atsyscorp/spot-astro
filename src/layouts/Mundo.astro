@@ -4,6 +4,7 @@ import Marca from '../components/Marca.astro';
 import Bruma from '../components/Bruma.astro';
 import Pelicula from '../components/Pelicula.astro';
 import Brujula from '../components/Brujula.astro';
+import Hilo, { type Capitulo } from '../components/Hilo.astro';
 import { marca } from '../data/spot';
 
 interface Props {
@@ -14,8 +15,10 @@ interface Props {
   /* 'pelicula' sólo donde hay material real. La Pista B no tiene grabación
      propia todavía, y no se le presta la de la otra pista. */
   fondo?: 'bruma' | 'pelicula';
+  /* Las sesiones de esta pista, para el hilo de capítulos de la cinta. */
+  capitulos: Capitulo[];
 }
-const { titulo, descripcion, pista, nombre, fondo = 'bruma' } = Astro.props;
+const { titulo, descripcion, pista, nombre, fondo = 'bruma', capitulos } = Astro.props;
 const otra = pista === 'a'
   ? { nombre: 'Industrial', href: '/industrial/', letra: 'B' }
   : { nombre: 'Experiencias', href: '/experiencias/', letra: 'A' };
@@ -36,6 +39,7 @@ const letra = pista === 'a' ? 'A' : 'B';
         <span>{otra.nombre}</span>
       </a>
     </div>
+    <Hilo capitulos={capitulos} />
   </header>
 
   {fondo === 'pelicula' ? <Pelicula /> : <Bruma pista={pista} />}
@@ -82,6 +86,9 @@ const letra = pista === 'a' ? 'A' : 'B';
   }
   .saltar:focus { left: 0; }
 
+  /* La cinta tiene dos filas y es un solo elemento pegajoso: arriba la marca y
+     las dos pistas, debajo el hilo de capítulos de esta pista. El alto total
+     vive en `--cinta`, de donde cuelgan las anclas y todo lo que se pega. */
   .cinta {
     position: sticky;
     top: 0;

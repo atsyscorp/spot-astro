@@ -90,6 +90,9 @@ img, svg { display: block; max-width: 100%; }
   /* Más aire arriba que abajo: la sesión respira antes de hablar. */
   padding-block: clamp(var(--s6), 13vh, 11rem) var(--s5);
   position: relative;
+  /* Al saltar desde el hilo de capítulos, la sesión se detiene por debajo de
+     la cinta, no detrás de ella. */
+  scroll-margin-top: calc(var(--cinta) + var(--s2));
 }
 
 /* El corte: el filete que separa dos sesiones cruza de borde a borde, no
