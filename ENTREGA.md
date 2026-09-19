@@ -134,6 +134,16 @@ resultado verificable. El catálogo enseña lo que la casa sabe hacer; un proyec
 enseña lo que resolvió. Un párrafo por proyecto, más el nombre del cliente si
 autoriza aparecer.
 
+**El parte de obra** de esta ronda está en `resources/PARTE-DE-OBRA.html`, y
+publicado como artefacto privado para pasárselo al cliente. Es una copia
+literal de lo publicado, con una diferencia deliberada: **no lleva el capítulo
+de autorizaciones pendientes**. Ese capítulo describía que el sitio publica
+treinta y cuatro marcas de cliente sin permiso escrito y que el párrafo de ALW
+espera visto bueno — información correcta, y exactamente la que no debe circular
+si el documento se reenvía. Vive aquí, en las secciones 1 y 2 de este archivo, y
+en el pedido de abajo. Por eso la numeración de capítulos del HTML salta el
+`id="c7"`: no es un error de maquetación.
+
 El pedido ya está redactado y listo para enviar a Mauricio Altamar:
 **`resources/PEDIDO-PROYECTOS.md`**. Lleva las cuatro líneas que hacen falta por
 proyecto, las dos autorizaciones que bloquean la publicación y las tres dudas

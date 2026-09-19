@@ -1,0 +1,805 @@
+<title>Parte de obra · Spot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+
+<style>
+  /* Paleta clara: el papel del parte de obra. La oscura es la del sitio real
+     —cartulina, tinta hueso, latón— así que el documento se pone el traje de
+     su propio sujeto cuando el lector mira en oscuro. */
+  :root {
+    --paper:      #F7F5F0;
+    --paper-deep: #EFEBE2;
+    --ink:        #191714;
+    --ink-body:   #3B362E;
+    --ink-quiet:  #6B6458;
+    --rule:       #DFD9CC;
+    --rule-firm:  #C6BDA9;
+    --brass:      #8A6B2F;
+    --track-a:    #0B7D62;
+    --track-b:    #B23A2B;
+    --flag:       #F3EADF;
+
+    --display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --text: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    --t-title: clamp(2.1rem, 6vw, 3.4rem);
+    --t-h2:    clamp(1.5rem, 3.4vw, 2rem);
+    --t-h3:    1.1875rem;
+    --t-body:  1.0312rem;
+    --t-small: 0.9062rem;
+    --t-label: 0.6875rem;
+
+    --rail: 4.5rem;
+    --measure: 63ch;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #131211;
+      --paper-deep: #0B0B0A;
+      --ink:        #EDE9E1;
+      --ink-body:   #C9C4BA;
+      --ink-quiet:  #A39C8E;
+      --rule:       #2A2724;
+      --rule-firm:  #443E36;
+      --brass:      #B8935A;
+      --track-a:    #10E6B3;
+      --track-b:    #FF5A4A;
+      --flag:       #1B1815;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:      #131211;
+    --paper-deep: #0B0B0A;
+    --ink:        #EDE9E1;
+    --ink-body:   #C9C4BA;
+    --ink-quiet:  #A39C8E;
+    --rule:       #2A2724;
+    --rule-firm:  #443E36;
+    --brass:      #B8935A;
+    --track-a:    #10E6B3;
+    --track-b:    #FF5A4A;
+    --flag:       #1B1815;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink-body);
+    font-family: var(--text);
+    font-size: var(--t-body);
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .hoja {
+    max-width: 62rem;
+    margin-inline: auto;
+    padding-inline: max(1rem, 4vw);
+    padding-block: clamp(2.5rem, 7vw, 5rem) 4rem;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--display);
+    font-weight: 400;
+    color: var(--ink);
+    margin: 0;
+    text-wrap: balance;
+    letter-spacing: -0.012em;
+  }
+
+  p { margin: 0; }
+  ul, ol { margin: 0; padding: 0; }
+
+  a { color: inherit; text-decoration-color: var(--rule-firm); text-underline-offset: 0.2em; }
+  a:hover { color: var(--brass); text-decoration-color: var(--brass); }
+  :focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+
+  code, .mono {
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.875em;
+    color: var(--ink);
+  }
+
+  .rotulo {
+    font-size: var(--t-label);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+
+  /* ---- El hilo: un solo menú, el mismo elemento en todos los anchos ----
+     Es la misma pieza que desde el 19/09/2026 lleva el sitio en la segunda fila
+     de su cinta: numerales romanos, el travesaño del raíl tumbado, y el
+     capítulo que se está leyendo encendido. Aquí en latón, que es el acento de
+     este documento; allí en la luz de cada pista — menta en Experiencias, rojo
+     en Industrial.
+
+     Ancho grande: numeral y rótulo. Ancho estrecho: el rótulo del capítulo
+     activo se queda y los demás se reducen a su numeral, así que la fila cabe
+     sin partirse y sin convertirse en un segundo menú. */
+  .hilo {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 10;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    border-bottom: 1px solid var(--rule);
+  }
+  @supports not (background: color-mix(in srgb, red 50%, transparent)) {
+    .hilo { background: var(--paper); }
+  }
+
+  .hilo__hoja {
+    max-width: 62rem;
+    margin-inline: auto;
+    padding-inline: max(1rem, 4vw);
+  }
+
+  .hilo__lista {
+    display: flex;
+    align-items: stretch;
+    /* El aire entre pasos va en el gap, no en el relleno de cada enlace: así el
+       travesaño encendido mide lo que mide su rótulo y no un bloque. */
+    gap: 1.15rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .hilo__lista::-webkit-scrollbar { display: none; }
+
+  .hilo__lista li { list-style: none; flex: none; }
+
+  /* Cuando la fila no cabe entera, el canto derecho se apaga: dice que hay más
+     hilo sin dibujar una flecha. La clase la pone el script sólo si de verdad
+     hay desbordamiento, así que una fila que cabe no se difumina. */
+  .hilo__lista--corre {
+    mask-image: linear-gradient(to right, #000 calc(100% - 3rem), transparent);
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 3rem), transparent);
+  }
+
+  .hilo__paso {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5em;
+    padding-block: 0.8rem;
+    text-decoration: none;
+    color: var(--ink-quiet);
+    white-space: nowrap;
+    /* El travesaño del raíl, tumbado. */
+    border-bottom: 1px solid var(--rule);
+    transition: color 320ms ease, border-color 320ms ease;
+  }
+  .hilo__paso b {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 0.9375rem;
+    line-height: 1;
+    color: var(--brass);
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+  }
+  .hilo__paso span {
+    font-size: var(--t-label);
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+  .hilo__paso:hover { color: var(--ink); }
+  .hilo__paso[aria-current="true"] {
+    color: var(--brass);
+    border-bottom-color: var(--brass);
+  }
+
+  /* El ancla no se esconde bajo la barra. */
+  .sesion, .parte { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 4rem); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+
+  /* Estrecho: sólo el capítulo activo conserva su rótulo. Mismo menú, menos
+     tinta — no una versión aparte. */
+  @media (max-width: 56rem) {
+    .hilo__lista { gap: 0.95rem; }
+    .hilo__paso { gap: 0.4em; }
+    .hilo__paso span { display: none; }
+    .hilo__paso[aria-current="true"] span { display: inline; }
+  }
+
+  /* ---- Cabecera ---- */
+  .parte { display: grid; gap: 1.5rem; }
+  .parte__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.6rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--rule-firm);
+  }
+  .parte h1 {
+    font-size: var(--t-title);
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+  }
+  .parte h1 em { font-style: italic; color: var(--brass); }
+  .parte__plomo {
+    max-width: var(--measure);
+    font-size: 1.125rem;
+    line-height: 1.55;
+  }
+
+  /* Cifras de cabecera: no son el titular, son la escala del trabajo. */
+  .cifras {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border-block: 1px solid var(--rule);
+    margin-top: 2.5rem;
+  }
+  .cifra { background: var(--paper); padding: 1rem 1.1rem; display: grid; gap: 0.15rem; }
+  .cifra b {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 1.75rem;
+    line-height: 1;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .cifra span { font-size: var(--t-small); color: var(--ink-quiet); }
+
+  /* ---- Sesiones, numeradas en romanos como numera el sitio ---- */
+  .sesion {
+    display: grid;
+    grid-template-columns: var(--rail) minmax(0, 1fr);
+    gap: 0 1.75rem;
+    padding-top: 2.75rem;
+    margin-top: 2.75rem;
+    border-top: 1px solid var(--rule);
+  }
+  .sesion__rail { display: grid; gap: 0.3rem; align-content: start; }
+  .sesion__rail b {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--brass);
+  }
+  .sesion__cuerpo { display: grid; gap: 1.1rem; min-width: 0; }
+  .sesion h2 { font-size: var(--t-h2); line-height: 1.12; }
+  .sesion h2 em { font-style: italic; color: var(--ink-quiet); }
+  .sesion p, .sesion li { max-width: var(--measure); }
+
+  h3 { font-size: var(--t-h3); line-height: 1.25; margin-top: 0.6rem; }
+
+  .lista { display: grid; gap: 0.7rem; }
+  .lista li { list-style: none; padding-left: 1.1rem; position: relative; }
+  .lista li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.72em;
+    width: 0.5rem; height: 1px;
+    background: var(--rule-firm);
+  }
+
+  /* ---- Cita del cliente: lo que se pidió, con sus palabras ---- */
+  .dicho {
+    display: grid;
+    gap: 0.35rem;
+    padding: 0.9rem 0 0.9rem 1.1rem;
+    border-left: 2px solid var(--track-a);
+    max-width: var(--measure);
+  }
+  .dicho p {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 1.125rem;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+  .dicho cite { font-style: normal; font-size: var(--t-small); color: var(--ink-quiet); }
+
+  /* ---- Tablas ---- */
+  .tabla-caja { overflow-x: auto; margin-block: 0.4rem; }
+  table { border-collapse: collapse; width: 100%; font-size: var(--t-small); }
+  th, td { text-align: left; padding: 0.6rem 0.9rem 0.6rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th {
+    font-weight: 500;
+    font-size: var(--t-label);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brass);
+    white-space: nowrap;
+  }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: 0; }
+
+  /* ---- Marcadores de pista: el color marca de qué mundo habla ---- */
+  .pista {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.45em;
+    font-size: var(--t-label);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .pista::before { content: ''; width: 0.55em; height: 0.55em; border-radius: 50%; }
+  .pista--a { color: var(--track-a); }
+  .pista--a::before { background: var(--track-a); }
+  .pista--b { color: var(--track-b); }
+  .pista--b::before { background: var(--track-b); }
+
+  .nota {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: var(--t-small);
+    color: var(--ink-quiet);
+    max-width: var(--measure);
+  }
+
+  .enlace-fuerte {
+    font-family: var(--display);
+    font-size: 1.0625rem;
+    word-break: break-word;
+  }
+
+  .pie {
+    margin-top: 3.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule-firm);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    font-size: var(--t-small);
+    color: var(--ink-quiet);
+  }
+
+  @media (max-width: 40rem) {
+    :root { --rail: 0rem; }
+    .sesion { grid-template-columns: 1fr; gap: 0.9rem; }
+    .sesion__rail { display: flex; align-items: baseline; gap: 0.7rem; }
+    .commit { grid-template-columns: 1fr; }
+    .commit__det { grid-column: 1; }
+  }
+</style>
+
+<nav class="hilo" aria-label="Capítulos del parte">
+  <div class="hilo__hoja">
+    <ol class="hilo__lista">
+        <li><a class="hilo__paso" href="#c1" aria-current="true"><b>I</b><span>El encargo</span></a></li>
+        <li><a class="hilo__paso" href="#c2"><b>II</b><span>Pista A</span></a></li>
+        <li><a class="hilo__paso" href="#c3"><b>III</b><span>El rojo</span></a></li>
+        <li><a class="hilo__paso" href="#c4"><b>IV</b><span>Pista B</span></a></li>
+        <li><a class="hilo__paso" href="#c5"><b>V</b><span>Material</span></a></li>
+        <li><a class="hilo__paso" href="#c6"><b>VI</b><span>Proyectos</span></a></li>
+        <li><a class="hilo__paso" href="#c8"><b>VII</b><span>Entrega</span></a></li>
+        <li><a class="hilo__paso" href="#c9"><b>VIII</b><span>Lo que sigue</span></a></li>
+    </ol>
+  </div>
+</nav>
+
+<div class="hoja">
+
+  <header class="parte">
+    <div class="parte__meta">
+      <span class="rotulo">Parte de obra</span>
+      <span class="rotulo" style="color: var(--ink-quiet)">spotlatam.com</span>
+      <span class="rotulo" style="color: var(--ink-quiet)">18 · 09 · 2026</span>
+      <span class="rotulo" style="color: var(--ink-quiet)">ATSYS</span>
+    </div>
+
+    <h1>La Pista B deja de estar<br><em>en preparación.</em></h1>
+
+    <p class="parte__plomo">
+      Lo hecho en una sesión de trabajo sobre el sitio de Spot: se aplicó el
+      feedback de la revisión del 15 de septiembre a la pista de Experiencias, y
+      la pista Industrial pasó de ser una estructura con seis huecos declarados a
+      diez sesiones con contenido real, sacado del catálogo que el cliente
+      entregó después de esa reunión.
+    </p>
+
+    <div class="cifras">
+      <div class="cifra"><b>26</b><span>páginas de catálogo aplicadas</span></div>
+      <div class="cifra"><b>10</b><span>sesiones en la Pista B</span></div>
+      <div class="cifra"><b>21</b><span>logotipos de cliente</span></div>
+      <div class="cifra"><b>9</b><span>fotogramas de obra</span></div>
+      <div class="cifra"><b>1</b><span>entrada aún sin imprimir</span></div>
+    </div>
+  </header>
+
+  <!-- I -->
+  <section class="sesion" id="c1">
+    <p class="sesion__rail"><b>I</b><span class="rotulo">El encargo</span></p>
+    <div class="sesion__cuerpo">
+      <h2>Lo que dijo el cliente, y lo que significaba.</h2>
+      <p>
+        La revisión del 15 de septiembre duró veinte minutos y dejó dos cosas: una
+        aprobación conceptual del bloque de Experiencias y una queja concreta sobre
+        su acabado. Las notas de Gemini y la transcripción completa están en
+        <code>resources/</code>; estas son las frases que dirigieron el trabajo.
+      </p>
+
+      <div class="dicho">
+        <p>«Me parece que queda un poco plana, tan oscura. De ahí para abajo me queda muy oscura… esas dos particularmente quedan muy planas: el diagnóstico y el cómo pensamos quedan muy presentación.»</p>
+        <cite>Camilo Altamar · 00:09:28</cite>
+      </div>
+
+      <div class="dicho">
+        <p>«El del diagnóstico quede así, pero el del cómo pensamos entre de otra forma distinta y vuelva a tener de pronto un video de fondo diferente.»</p>
+        <cite>Camilo Altamar · 00:09:28</cite>
+      </div>
+
+      <div class="dicho">
+        <p>«Esa o que está girando del spot me encanta… quisiera un poco más así de movilidad en algunos otros lugares.»</p>
+        <cite>Camilo Altamar · 00:11:22</cite>
+      </div>
+
+      <p>
+        Y una decisión acordada con la gerencia: acentos rojos para separar la línea
+        industrial de la de experiencias, tomando la <em>o</em> roja del logotipo de
+        Spot Industries.
+      </p>
+    </div>
+  </section>
+
+  <!-- II -->
+  <section class="sesion" id="c2">
+    <p class="sesion__rail"><b>II</b><span class="rotulo">Pista A</span></p>
+    <div class="sesion__cuerpo">
+      <span class="pista pista--a">Experiencias</span>
+      <h2>Cuatro cambios sobre lo que ya estaba aprobado.</h2>
+
+      <h3>El telón de «Cómo pensamos»</h3>
+      <p>
+        Componente nuevo, <code>Telon.astro</code>: una banda a sangre que lleva su
+        propia película detrás de una sesión. Es la respuesta literal a la petición
+        de un vídeo de fondo distinto, y hay exactamente uno en todo el sitio — un
+        segundo devolvería las dos sesiones al empate que había que romper.
+      </p>
+      <p>
+        El material es el mismo rodaje de Berkley Colombia Seguros que sostiene la
+        apertura, en otro tramo: segundos 3 a 10, letras corpóreas y baño verde de
+        sala. El corte se detiene en el segundo 10 porque ahí entra un plano cercano
+        con caras legibles, y eso no se publica sin cesión de imagen.
+      </p>
+
+      <h3>El cotejo del diagnóstico ocurre, no está impreso</h3>
+      <p>
+        La cadena muerta —Logística, Estética, Ejecución— ya está puesta cuando el
+        visitante llega. La cadena viva se traza delante de él, eslabón a eslabón,
+        con el hilo que los une bajando al mismo paso. Es la frase de la sesión
+        dicha con el único recurso que el impreso no tiene: el tiempo del lector.
+      </p>
+
+      <h3>El programa se imprime al bajar</h3>
+      <p>
+        Las entradas de lista de los dos mundos llegan desde abajo al cruzar la
+        ventana (clase <code>.entra</code>), y cada principio lleva el anillo de la
+        marca girando con el scroll. Todo va atado a
+        <code>animation-timeline: view()</code>, sin una línea de JavaScript: el
+        movimiento es del visitante, no del sitio.
+      </p>
+      <p class="nota">
+        Detalle que costó encontrar: el corte global a 1 ms de
+        <code>prefers-reduced-motion</code> no neutraliza una animación de timeline,
+        porque ahí la duración no se usa. Los bloques van guardados explícitamente.
+      </p>
+
+      <h3>Un defecto de camino</h3>
+      <p>
+        El anillo del refrán salía sin medida —300 px, el tamaño por defecto de un
+        SVG sin dimensiones— y se comía la frase siguiente. Causa: una clase suelta
+        sobre <code>&lt;Anillo /&gt;</code> no recibe el atributo de ámbito de Astro,
+        así que la regla que lo dimensionaba nunca enganchaba. Va envuelto y a
+        0,78 em.
+      </p>
+    </div>
+  </section>
+
+  <!-- III -->
+  <section class="sesion" id="c3">
+    <p class="sesion__rail"><b>III</b><span class="rotulo">El rojo</span></p>
+    <div class="sesion__cuerpo">
+      <span class="pista pista--b">Industrial</span>
+      <h2>El acento se midió antes de elegirlo.</h2>
+      <p>
+        El rojo salió del logotipo real de Spot Industries, muestreado del catálogo:
+        <code>#ED2A39</code>. Ese valor no sirve tal cual. El sistema del sitio
+        exige que un color se apruebe contra el punto más claro que la bruma alcanza
+        bajo él, no contra la cartulina limpia.
+      </p>
+
+      <div class="tabla-caja">
+        <table>
+          <thead>
+            <tr><th>Color</th><th>Sobre cartulina</th><th>Sobre la bruma</th><th>Veredicto</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#ED2A39 · el del logotipo</td>
+              <td class="num">4,71:1</td>
+              <td class="num">≈ 4,2:1</td>
+              <td>Se cae bajo el suelo AA</td>
+            </tr>
+            <tr>
+              <td><strong>#FF5A4A · el publicado</strong></td>
+              <td class="num">6,42:1</td>
+              <td class="num">5,78:1</td>
+              <td>Pasa con margen</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        El remapeo de pista pasó de dos variables a una: antes la Pista B encendía
+        en latón vivo y había que bajar el latón estructural para que no se
+        confundieran. Con el rojo no hay confusión posible, así que el latón vuelve
+        al valor de la casa. El acento se ve en la portada, en la práctica IV de
+        Experiencias y en todo el mundo Industrial, bruma incluida.
+      </p>
+    </div>
+  </section>
+
+  <!-- IV -->
+  <section class="sesion" id="c4">
+    <p class="sesion__rail"><b>IV</b><span class="rotulo">Pista B</span></p>
+    <div class="sesion__cuerpo">
+      <h2>Del catálogo a diez sesiones.</h2>
+      <p>
+        Mauricio Altamar entregó el <em>Catálogo SPOT LATAM 2026</em>, 26 páginas.
+        Es ahora la fuente de <code>src/data/industrial.ts</code>. La estructura de
+        la página es la del propio catálogo —Productos, Servicios, Diseño y
+        fabricación a la medida, más Software y Demarcación—, no una taxonomía
+        nuestra: es el encuadre con el que la casa se presenta hoy.
+      </p>
+
+      <div class="tabla-caja">
+        <table>
+          <thead>
+            <tr><th>Sesión</th><th>Contenido</th><th>Origen</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="num">I</td><td>Qué hacemos — los tres frentes</td><td>Pág. 2</td></tr>
+            <tr><td class="num">II</td><td>Productos — nueve familias con su nomenclatura</td><td>Págs. 5–14</td></tr>
+            <tr><td class="num">III</td><td>Servicios — mantenimiento y calibración, en cadena</td><td>Pág. 16</td></tr>
+            <tr><td class="num">IV</td><td>A la medida — ocho piezas</td><td>Págs. 19–21</td></tr>
+            <tr><td class="num">V</td><td>Software y demarcación</td><td>Págs. 22–23</td></tr>
+            <tr><td class="num">VI</td><td>Dónde operamos — ocho plazas declaradas</td><td>Pág. 15</td></tr>
+            <tr><td class="num">VII</td><td>La herencia ALW, en abierto</td><td>Pág. 16 + portada</td></tr>
+            <tr><td class="num">VIII</td><td>El método — sin cambios</td><td>Portafolio 2026</td></tr>
+            <tr><td class="num">IX</td><td>Proyectos — declarada, sin imprimir</td><td>—</td></tr>
+            <tr><td class="num">X</td><td>Hablemos — contacto propio de la línea</td><td>Pág. 26</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Dos cuidados que el catálogo obliga a tener</h3>
+      <ul class="lista">
+        <li>
+          <strong>La acreditación ONAC es del laboratorio aliado, no de la casa.</strong>
+          El catálogo lo dice así y la sesión de servicios lo repite en el plomo.
+          Escribirlo al revés sería una afirmación falsa sobre una acreditación.
+        </li>
+        <li>
+          <strong>Dos cifras de antigüedad, de dos cosas distintas.</strong> La
+          portada declara 75 años de tradición industrial; las páginas de equipos de
+          medición, más de 30 en sistemas de pesaje. Se publican como las dice el
+          catálogo, y las dos están en la lista de confirmaciones pendientes.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- V -->
+  <section class="sesion" id="c5">
+    <p class="sesion__rail"><b>V</b><span class="rotulo">Material</span></p>
+    <div class="sesion__cuerpo">
+      <h2>La corrección que hizo falta.</h2>
+      <p>
+        En el primer pase dimos por hecho que la fotografía del catálogo no servía
+        —«hacen falta los originales»— sin medirla. Estaba mal: las 126 imágenes
+        incrustadas abren bien y van de 500 a 1600 px, de sobra para el sitio. Y en
+        la Pista A ya se habían recortado trece logotipos del portafolio, así que
+        aplicar otro criterio aquí no tenía defensa.
+      </p>
+
+      <h3>Muro de clientes · 21 logotipos</h3>
+      <p>
+        Recortados de la página 25 del catálogo y pasados a tinta hueso sobre
+        transparencia, con el mismo tratamiento que los de Experiencias: el RGB fijo
+        en <code>#EAE6DE</code> y toda la forma en el canal alfa. Cada recorte trae
+        su propio fondo —unos sobre blanco, otros sobre placa negra—, así que el
+        alfa se toma de la distancia al fondo de cada uno y no de un umbral común,
+        con una gamma de 0,72 para que los logotipos con degradado no desaparezcan
+        bajo la opacidad de la placa.
+      </p>
+      <p class="nota">
+        Confirman lo que se nombró en la reunión: El Corral, Burger King, Buffalo
+        Wings, Home Burgers y FedEx. 292 KB en total.
+      </p>
+
+      <h3>Banda de instalaciones · 9 fotogramas</h3>
+      <p>
+        Recortados a 848 × 480, la misma caja que los nueve de la sala de
+        Experiencias, y con el mismo criterio de no publicar caras reconocibles:
+        deck en plataforma de aeropuerto, morro de avión de noche, rodillos,
+        soldadura, ball transfers, deck perforado, terminal de carga, deck rayado y
+        demarcación. 380 KB.
+      </p>
+      <p>
+        Para que las dos piezas sirvieran a las dos pistas, <code>Muro</code> y
+        <code>Sala</code> pasaron a recibir su lista, su carpeta y su pie por props.
+        Ningún componente sabe de qué mundo es.
+      </p>
+
+      <h3>Contraste, medido sobre captura real</h3>
+      <p>
+        El telón lleva texto encima, así que se midió con el texto oculto y tomando
+        el punto más claro de cada zona — no a ojo.
+      </p>
+      <div class="tabla-caja">
+        <table>
+          <thead>
+            <tr><th>Ancho</th><th>Tinta</th><th>Cuerpo</th><th>Latón</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1440 px · peor punto</td><td class="num">7,5:1</td><td class="num">8,9:1</td><td class="num">5,9:1</td></tr>
+            <tr><td>390 px · poster fijo</td><td class="num">11,5:1</td><td class="num">8,0:1</td><td class="num">4,87:1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- VI -->
+  <section class="sesion" id="c6">
+    <p class="sesion__rail"><b>VI</b><span class="rotulo">Proyectos</span></p>
+    <div class="sesion__cuerpo">
+      <h2>La entrada que no se puede llenar desde el código.</h2>
+      <p>
+        Se revisó el catálogo entero buscando material de proyectos antes de
+        declararlo ausente. La página 24 es un montaje de instalaciones terminadas y
+        la 17 son fotos de mantenimiento: prueba de obra, sí; un caso con sector,
+        problema, intervención y resultado, ninguno.
+      </p>
+      <p>
+        Así que la sesión dejó de ser un cajón. Con seis huecos, «En preparación» se
+        ganaba su sitio; con uno, era una habitación vacía con un numeral romano
+        solitario dentro. La sesión IX se llama ahora <strong>Proyectos</strong> —que
+        es lo que va a ser— y dice de frente que esa entrada todavía no se ha
+        impreso. El visitante lee el nombre de lo que falta, no una etiqueta de obra.
+      </p>
+      <p>
+        Lo que de verdad la desbloquea no es código:
+        <code>resources/PEDIDO-PROYECTOS.md</code>, redactado y listo para enviar.
+        Pide cuatro líneas por proyecto —sector, problema, intervención, resultado—
+        con ejemplos marcados como forma y no como datos, y recoge las
+        autorizaciones y dudas pendientes.
+      </p>
+    </div>
+  </section>
+
+  <!-- VII -->
+  <section class="sesion" id="c8">
+    <p class="sesion__rail"><b>VII</b><span class="rotulo">Entrega</span></p>
+    <div class="sesion__cuerpo">
+      <h2>Lo que ya se puede enseñar.</h2>
+      <p>
+        El sitio existe para que Spot se proyecte ante sus clientes, así que la
+        pregunta que importa no es cuánto se escribió: es a quién se le puede
+        abrir hoy, y qué falta para abrirlo a todo el mundo.
+      </p>
+
+      <p><span class="rotulo">Para revisar, ahora</span></p>
+      <p class="enlace-fuerte">
+        <a href="https://6aae921ef09963ec58fa0fd7--spotweb.netlify.app">6aae921ef09963ec58fa0fd7--spotweb.netlify.app</a>
+      </p>
+      <p>
+        Es una dirección de revisión: se puede pasar a quien tenga que opinar
+        —gerencia, el equipo de Spot, un tercero de confianza— y está viva. Lo
+        que se ve ahí son las dos pistas completas: Experiencias con su película,
+        su metodología y su muro de clientes; Industrial con sus diez sesiones,
+        el catálogo aplicado, las instalaciones propias y los veintiún
+        logotipos.
+      </p>
+      <p class="nota">
+        Comprobado sobre la dirección publicada, no sobre la copia local: las
+        tres páginas responden, las imágenes y el vídeo se sirven, y la página
+        pide a los buscadores que no la indexen.
+      </p>
+
+      <p style="margin-top:1.2rem"><span class="rotulo">Todavía no, en abierto</span></p>
+      <p>
+        La dirección pública sigue mostrando la versión anterior, y así debe
+        seguir hasta que estén firmadas las confirmaciones que Spot tiene
+        pendientes. El día que lleguen, pasar de revisión a público es cuestión
+        de minutos.
+      </p>
+
+      <p class="nota" style="margin-top:1.2rem">
+        El detalle técnico —historial de cambios, ramas, tokens y componentes—
+        vive en el repositorio y en <code>DESIGN.md</code>, que es donde le sirve
+        a quien recoja el trabajo. Este parte no lo repite.
+      </p>
+    </div>
+  </section>
+
+  <section class="sesion" id="c9">
+    <p class="sesion__rail"><b>VIII</b><span class="rotulo">Lo que sigue</span></p>
+    <div class="sesion__cuerpo">
+      <h2>En orden de quién lo tiene que mover.</h2>
+      <ul class="lista">
+        <li><strong>Cliente ·</strong> los dos o tres proyectos, con el pedido ya redactado.</li>
+        <li><strong>Cliente ·</strong> las confirmaciones pendientes, detalladas en el documento de entrega.</li>
+        <li><strong>Camilo Altamar ·</strong> más imágenes de eventos y vídeos complementarios para la banda de sala de la Pista A, que admite fotogramas nuevos sin tocar el diseño.</li>
+        <li><strong>ATSYS ·</strong> el paso a público el día que lleguen las autorizaciones, y los ajustes que salgan de esta revisión.</li>
+        <li><strong>Abierto ·</strong> los logotipos en vectorial de las dos pistas. Los actuales salieron de PDF y vienen comprimidos una vez; a tamaños mayores se notará.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="pie">
+    <span>Parte de obra · sitio Spot</span>
+    <span>Fuentes: <code>Spot · Portafolio.pdf</code>, <code>Catálogo SPOT LATAM 2026</code>, acta del 15/09/2026</span>
+    <span>Nada publicado en el sitio procede de otra fuente.</span>
+  </footer>
+
+</div>
+
+<script>
+  /* El numeral del capítulo que se está leyendo enciende, y el hilo se desplaza
+     para que ese numeral quede a la vista cuando la fila no cabe entera. Sin
+     IntersectionObserver el menú sigue siendo un índice de anclas que funciona:
+     lo único que se pierde es el estado vivo. */
+  (function () {
+    var pasos = Array.prototype.slice.call(document.querySelectorAll('.hilo__paso'));
+    var lista = document.querySelector('.hilo__lista');
+    if (!pasos.length || !lista) return;
+
+    var capitulos = pasos
+      .map(function (a) { return document.querySelector(a.getAttribute('href')); })
+      .filter(Boolean);
+    if (capitulos.length !== pasos.length || !('IntersectionObserver' in window)) return;
+
+    var visibles = new Set();
+
+    function marcar() {
+      var activo = 0;
+      for (var i = 0; i < capitulos.length; i++) {
+        if (visibles.has(capitulos[i])) { activo = i; break; }
+      }
+      pasos.forEach(function (a, i) {
+        if (i === activo) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+
+      var paso = pasos[activo];
+      var caja = paso.getBoundingClientRect();
+      var marco = lista.getBoundingClientRect();
+      if (caja.left < marco.left + 8) {
+        lista.scrollLeft += caja.left - marco.left - 8;
+      } else if (caja.right > marco.right - 8) {
+        lista.scrollLeft += caja.right - marco.right + 8;
+      }
+    }
+
+    var ojo = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (e.isIntersecting) visibles.add(e.target);
+        else visibles.delete(e.target);
+      });
+      marcar();
+    }, { rootMargin: '-25% 0px -60% 0px' });
+
+    capitulos.forEach(function (c) { ojo.observe(c); });
+    marcar();
+
+    function medir() {
+      lista.classList.toggle('hilo__lista--corre', lista.scrollWidth > lista.clientWidth + 2);
+    }
+    medir();
+    window.addEventListener('resize', medir, { passive: true });
+  })();
+</script>
