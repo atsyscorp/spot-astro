@@ -30,7 +30,7 @@ const { pista } = Astro.props;
       linear-gradient(to bottom, var(--bruma-borde) 0%, transparent 55%);
   }
   .bruma[data-pista='a'] { --bruma-tenue: #0B1F1A; --bruma-borde: #0D1614; }
-  .bruma[data-pista='b'] { --bruma-tenue: #1C1710; --bruma-borde: #14110C; }
+  .bruma[data-pista='b'] { --bruma-tenue: #1E1210; --bruma-borde: #150F0E; }
 
   .bruma__lienzo {
     width: 100%;
@@ -93,7 +93,10 @@ const { pista } = Astro.props;
         vec3 cartulina = vec3(0.039, 0.039, 0.039);
         vec3 menta     = vec3(0.063, 0.902, 0.702);
         vec3 laton     = vec3(0.722, 0.576, 0.353);
-        vec3 viva      = mix(menta, laton, uPista);
+        /* --rojo. El shader duplica la paleta fuera del sistema de tokens: si
+           el token cambia, este vector cambia con él. */
+        vec3 rojo      = vec3(1.000, 0.353, 0.290);
+        vec3 viva      = mix(menta, rojo, uPista);
 
         vec3 col = cartulina;
         col = mix(col, laton * 0.38, smoothstep(0.34, 0.95, f) * 0.19);

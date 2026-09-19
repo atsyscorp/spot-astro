@@ -12,9 +12,9 @@ colors:
   laton-apagado: "#6A5436"
   laton-tenue: "#2E2519"
   menta-viva: "#10E6B3"
-  laton-vivo: "#CDA96E"
+  rojo-vivo: "#FF5A4A"
   campo-pista-a: "#07211B"
-  campo-pista-b: "#211A0E"
+  campo-pista-b: "#24100C"
   filete: "#2A2724"
 typography:
   display:
@@ -161,8 +161,11 @@ estructura, y el menta **no es tinta: es luz**. Por eso el menta no decora nunca
 — sólo marca lo que está vivo en ese instante: la sesión que el visitante está
 leyendo, el lado vivo del cotejo, el foco de teclado, la selección de texto y una
 sola cláusula del titular de cada página. El mundo Industrial (`[data-pista='b']`)
-reimprime esa misma luz en latón `#CDA96E`: el sistema no cambia, cambia la tinta
-que vive.
+reimprime esa misma luz en el rojo de Spot Industries `#FF5A4A`: el sistema no
+cambia, cambia la tinta que vive. Ese rojo lo decidió el cliente el 15/09/2026
+para separar la línea industrial de la de experiencias, y sale de su propio
+logotipo — la `o` roja de «spot Industries» —, levantado para que aguante la
+cartulina.
 
 Sobre ese impreso cae una sola fuente de luz real: **la bruma**, un campo WebGL
 que ocupa los primeros 92svh de cada mundo y se apaga hacia abajo hasta fundirse
@@ -203,11 +206,16 @@ salvo el latón estructural pasa AAA.
   foco, `::selection`, el hover de cualquier enlace, y exactamente una cláusula
   en cursiva del `h1` de cada página. Da además su color a la bruma de la Pista
   A. Nunca se usa como relleno de bloque ni para decorar.
-- **Latón vivo** — el mismo papel, reimpreso para la Pista B. `[data-pista='b']`
-  remapea exactamente dos variables — la luz (`--live`) y el latón estructural
-  (`--foil`, que baja a `#9C8358` para no confundirse con ella) — y nada más. La
-  bruma recibe la pista por uniforme y cambia con ella. Es un remapeo de token,
-  no un segundo sistema: ningún componente conoce la pista.
+- **Rojo vivo** — el mismo papel, reimpreso para la Pista B. `[data-pista='b']`
+  remapea exactamente **una** variable, la luz (`--live` → `--rojo`), y nada más.
+  La bruma recibe la pista por uniforme y cambia con ella. Es un remapeo de
+  token, no un segundo sistema: ningún componente conoce la pista.
+  El valor: el logotipo de Spot Industries mide `#ED2A39`, que da 4,71:1 sobre
+  cartulina y se cae por debajo del suelo AA en cuanto la bruma sube; `#FF5A4A`
+  mide 6,42:1 sobre cartulina limpia y 5,78:1 sobre el punto más claro de la
+  bruma. Antes la Pista B encendía en latón vivo `#CDA96E` y había que bajar el
+  latón estructural a `#9C8358` para que no se confundieran; con el rojo no hay
+  confusión posible y `--foil` se queda con el valor de la casa.
 
 ### Secondary
 - **Latón** — toda la estructura del impreso: rótulos de raíl, numerales de
@@ -520,6 +528,14 @@ siempre. Ningún resplandor se enciende en el centro de una página ni bajo un
 bloque de texto: el gradiente de corte de la bruma existe precisamente para que
 ninguna sesión se lea sobre luz.
 
+La regla se midió a escala de página y desde el 18/09/2026 vale también a escala
+de banda: **el telón** de la sesión «Cómo pensamos» lleva su propia película, y
+la lleva con la misma disciplina — entra por el borde superior de la banda,
+muere en cartulina al 97% de su alto, y el texto corrido que queda debajo se lee
+sobre papel limpio. Lo que no se admite sigue siendo lo mismo: una luz que se
+encienda en mitad de un bloque de lectura. Una banda con luz propia se aprueba
+midiendo el peor punto de la captura real con el texto oculto, no a ojo.
+
 ## Shapes
 
 Geometría de imprenta: **todo es recto**. No hay radio en ninguna superficie,
@@ -573,8 +589,10 @@ deformación de dominio, sobre un único triángulo a pantalla completa, sin
 librería.
 - **Sitio:** absoluta al tope de cada página de mundo, 92svh de alto,
   `z-index: 0`, `pointer-events: none`, `aria-hidden`. La portada no la lleva.
-- **Color:** toma la pista como uniforme — menta en la Pista A, latón en la
-  Pista B. Es la regla de una tinta por mundo llevada al fondo.
+- **Color:** toma la pista como uniforme — menta en la Pista A, rojo en la
+  Pista B. Es la regla de una tinta por mundo llevada al fondo. El shader
+  duplica la paleta fuera del sistema de tokens: si `--rojo` cambia, hay que
+  cambiar el vector `rojo` del fragment shader con él.
 - **Dirección:** la luz entra arriba y muere abajo (`smoothstep` sobre el eje
   vertical más una viñeta descentrada). Encima, un `::after` con gradiente a
   `--stock` corta lo que quede: **ninguna sesión se lee nunca sobre luz.**
@@ -585,6 +603,34 @@ librería.
   con `prefers-reduced-motion` dibuja un fotograma y para; fuera de pantalla un
   `IntersectionObserver` cancela el `requestAnimationFrame`. El DPR se limita a
   1,5.
+
+### El telón (componente firma)
+Una banda a sangre que lleva su propia película detrás de una sesión del
+programa. No es la bruma —que es del primer viewport— ni la película de la
+apertura: el telón es de **una** sesión, se recorta a su alto y muere en
+cartulina antes del cuerpo de lectura.
+- **Por qué existe:** el cliente pidió, sobre «Cómo pensamos», que «entre de
+  otra forma distinta y vuelva a tener un vídeo de fondo diferente», para que no
+  se leyera como la misma lámina que el diagnóstico. El telón es ese recurso, y
+  por eso hay exactamente uno en todo el sitio. Un segundo telón devolvería las
+  dos sesiones al empate que había que romper.
+- **Sitio:** hijo directo de la `<Sesion>` (ranura `fondo`, no dentro del
+  cuerpo), absoluto, 100vw, 78% del alto de la sesión, `z-index: 0`,
+  `aria-hidden`. La sesión se marca `sesion--telon` y todo lo demás —raíl
+  incluido— sube a `z-index: 1`.
+- **Velos:** uno vertical que sostiene el contraste y lleva la banda a cartulina
+  al 97%, y uno horizontal que apaga los dos cantos para que la banda no corte
+  la hoja con dos aristas.
+- **Movimiento:** deriva de ±3,5% ligada a `view()`, del visitante y no de un
+  reloj. Nunca un bucle temporal.
+- **Tres salidas de seguridad:** el vídeo no se pide siquiera en pantalla
+  estrecha, con ahorro de datos, con conexión lenta o con movimiento reducido —
+  queda el poster, que es un fotograma del mismo material; con
+  `prefers-reduced-motion` la deriva se anula; y un `IntersectionObserver`
+  **pausa** el vídeo al salir de pantalla, porque una banda de mitad de página
+  no descodifica lo que nadie mira.
+- **Material:** documentación real de la misma experiencia que sostiene la
+  apertura, en otro tramo, elegido sin caras reconocibles.
 
 ### El raíl de sesión (componente firma)
 Numeral romano en la serif sobre rótulo en versalitas de latón, colgado del hilo
@@ -700,6 +746,31 @@ dos pistas escalonan su texto y su marcador, y el pie llega. ~2,4s en total.
   el elemento raíz antes del primer pintado, guardado en `sessionStorage`.
   Volver a la portada desde un mundo no vuelve a hacer esperar.
 
+**El programa se imprime al bajar.** Desde el 18/09/2026 las entradas de lista
+—prácticas, cifras, territorios, principios, pasos y huecos de la Pista B— no
+están puestas de antemano: llegan desde 20px abajo y se asientan mientras cruzan
+la ventana. Es la clase `.entra` de `base.css`, y el movimiento va atado a
+`animation-timeline: view()`, no a un reloj: nada se mueve si el visitante no se
+mueve. Nace de un encargo explícito — «que no se sienta tan plano en algunos
+espacios», «quisiera un poco más de movilidad en algunos otros lugares».
+- **Las tres salidas:** sin animaciones ligadas al scroll no se declara ni un
+  fotograma y todo está impreso desde el principio; el bloque entero vive dentro
+  de `@supports` y de `@media not (prefers-reduced-motion: reduce)` —el corte
+  global a 1ms de `tokens.css` **no** neutraliza una animación de timeline,
+  porque ahí la duración no se usa—; y `view()` no gasta fuera de pantalla.
+
+**El cotejo ocurre.** En «El diagnóstico», la cadena muerta ya está puesta cuando
+el visitante llega y la viva se traza delante de él, eslabón a eslabón, con el
+hilo que los une bajando al mismo paso (`animation-range` escalonado por
+`nth-child`). Es la frase de la sesión dicha con el único recurso que el impreso
+no tiene: el tiempo del lector.
+
+**El anillo al pie del principio.** Cada principio lleva el anillo bajo su
+numeral, girando ±150° mientras cruza la ventana. Es el mismo criterio de la
+brújula, aplicado a la única forma del sistema, y responde a lo que el cliente
+señaló como lo que más le funciona de la página: «esa o que está girando me
+encanta».
+
 **El viaje entre páginas** usa transiciones de documento nativas
 (`@view-transition { navigation: auto }`): la hoja saliente se va 10px arriba en
 260ms, la entrante sube 22px en 460ms, y el anillo — compartido por nombre entre
@@ -734,7 +805,7 @@ tiene; la entrada de la portada las tiene. Un efecto sin las tres no entra.
 
 ### Do:
 - **Do** usar `var(--live)` para lo que está vivo y dejar que la pista decida el
-  color: el mundo Industrial ya remapea esa variable a latón `#CDA96E`.
+  color: el mundo Industrial ya remapea esa variable al rojo `#FF5A4A`.
 - **Do** construir cualquier sección nueva como una `<Sesion>` con numeral
   romano y rótulo: es lo que engancha el bloque al hilo y le da estado vivo.
 - **Do** tomar todo tamaño de texto de la escala (`var(--t-…)`) y buscar primero

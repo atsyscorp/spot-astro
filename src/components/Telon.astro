@@ -1,0 +1,171 @@
+---
+/* El telón: una banda a sangre que lleva su propia luz detrás de una sesión
+   del programa. Nace de una petición literal del cliente sobre «Cómo pensamos»
+   —«que entre de otra forma distinta y vuelva a tener un vídeo de fondo
+   diferente»—, así que no es un fondo decorativo: es el recurso que separa esa
+   sesión de la anterior para que las dos no se lean como la misma lámina.
+
+   No es la bruma ni la película: la bruma es del primer viewport y la película
+   es de la apertura. El telón es de una sesión, se recorta a su alto y muere en
+   cartulina antes de que empiece el texto corrido — la luz sigue entrando por
+   arriba, como manda el sistema.
+
+   Las tres salidas:
+   · sin la capacidad — nunca se pide el vídeo en pantalla estrecha, con ahorro
+     de datos, con conexión lenta o con movimiento reducido: queda el poster,
+     que es un fotograma del mismo material y no un hueco;
+   · con `prefers-reduced-motion` — no se carga, no se reproduce y la deriva de
+     scroll queda anulada;
+   · fuera de pantalla — el vídeo se pausa; una banda de mitad de página no
+     descodifica fotogramas que nadie mira.
+
+   El material es documentación real de la misma experiencia que ya sostiene la
+   apertura (Berkley Colombia Seguros), en un tramo distinto: letras corpóreas y
+   baño verde de sala, elegido —como los nueve fijos de la sala— sin caras
+   reconocibles, porque publicar personas identificables necesita cesión de
+   imagen y eso no se decide desde el código. */
+interface Props {
+  src: string;
+  poster: string;
+  /* Cuánto de la sesión cubre la luz antes de morir en cartulina. */
+  alto?: string;
+}
+const { src, poster, alto = '78%' } = Astro.props;
+---
+<div class="telon" style={`--telon-alto: ${alto}`} aria-hidden="true">
+  <video
+    class="telon__cinta"
+    poster={poster}
+    muted
+    loop
+    playsinline
+    preload="none"
+    data-src={src}
+  ></video>
+</div>
+
+<style>
+  .telon {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100vw;
+    height: var(--telon-alto);
+    transform: translateX(-50%);
+    z-index: 0;
+    overflow: hidden;
+    overflow: clip;
+    pointer-events: none;
+    background: var(--stock);
+  }
+
+  .telon__cinta {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* La fuente es 848x480: a ancho completo va blanda. Se asume, como en la
+       apertura — desenfoque leve y brillo bajo, para que lea como atmósfera. */
+    filter: saturate(0.98) brightness(0.56) contrast(1.05) blur(1.5px);
+    transform: scale(1.08);   /* come el borde del desenfoque y el de la deriva */
+  }
+
+  /* Dos velos. El plano sostiene el contraste del texto que pasa por encima;
+     el de abajo devuelve la banda a la cartulina antes del cuerpo de lectura.
+     Medido sobre la captura real de la banda a 1440 px, con el texto oculto y
+     tomando el punto más claro de cada zona: tinta 7,5:1 bajo el titular y
+     10,3:1 bajo el primer principio; cuerpo 8,9:1; latón del raíl 5,9:1.
+     Todo por encima del suelo AA, que es lo que exige la regla del contraste
+     sobre luz — el color no se aprueba contra la cartulina limpia. */
+  .telon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(10, 10, 10, 0.44) 0%,
+        rgba(10, 10, 10, 0.58) 36%,
+        rgba(10, 10, 10, 0.86) 72%,
+        var(--stock) 97%
+      ),
+      /* los cantos se apagan: la banda no corta la cartulina con dos aristas */
+      linear-gradient(to right, var(--stock) 0%, transparent 11%, transparent 89%, var(--stock) 100%);
+  }
+
+  /* La deriva: la banda respira mientras cruza la ventana. Atada a la posición
+     del visitante, no a un reloj — el mismo criterio que la sala y la brújula. */
+  @keyframes telon-deriva {
+    from { transform: scale(1.08) translateY(-3.5%); }
+    to   { transform: scale(1.08) translateY(3.5%); }
+  }
+  @supports (animation-timeline: view()) {
+    .telon__cinta {
+      animation: telon-deriva linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+  }
+
+  /* En columna estrecha lo que se ve es el poster, sin deriva que lo mueva ni
+     cantos que lo apaguen, y la columna de lectura cruza la banda entera: el
+     fotograma fijo queda debajo del texto en todo su ancho, no sólo en la
+     franja central. Con esta luz, medido igual sobre la captura a 390 px:
+     tinta 11,5:1, cuerpo 8,0:1, latón 4,87:1 en el peor punto. */
+  @media (max-width: 52rem) {
+    .telon__cinta { filter: saturate(0.88) brightness(0.4) contrast(1.05) blur(1.2px); }
+    .telon::after {
+      background: linear-gradient(
+        to bottom,
+        rgba(10, 10, 10, 0.62) 0%,
+        rgba(10, 10, 10, 0.74) 36%,
+        rgba(10, 10, 10, 0.9) 72%,
+        var(--stock) 97%
+      );
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .telon__cinta { animation: none; transform: scale(1.08); }
+  }
+</style>
+
+<script>
+  {
+    const capas = document.querySelectorAll<HTMLElement>('.telon');
+
+    for (const capa of capas) {
+      const cinta = capa.querySelector<HTMLVideoElement>('.telon__cinta');
+      if (!cinta) continue;
+
+      const quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const estrecho = window.matchMedia('(max-width: 52rem)').matches;
+      const conexion = (navigator as any).connection;
+      const ahorro = Boolean(conexion?.saveData);
+      const lenta = /(^|\W)(slow-2g|2g|3g)$/.test(conexion?.effectiveType ?? '');
+
+      if (quieto || estrecho || ahorro || lenta) continue;
+
+      const src = cinta.dataset.src;
+      if (!src) continue;
+
+      /* Ni se pide ni se reproduce hasta que la banda se acerca; y en cuanto
+         sale de pantalla se pausa. Una banda de mitad de página no gasta
+         descodificando lo que nadie mira. */
+      const ojo = new IntersectionObserver(
+        ([entrada]) => {
+          if (entrada.isIntersecting) {
+            if (!cinta.src) {
+              cinta.src = src;
+              cinta.load();
+            }
+            cinta.play().catch(() => { /* si el navegador lo bloquea, queda el poster */ });
+          } else if (!cinta.paused) {
+            cinta.pause();
+          }
+        },
+        { rootMargin: '25% 0px 25% 0px' }
+      );
+      ojo.observe(capa);
+    }
+  }
+</script>

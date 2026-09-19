@@ -18,7 +18,7 @@ const copias = 4;
     {Array.from({ length: copias }).map((_, i) => (
       <p class="refran__frase" aria-hidden={i > 0 ? 'true' : undefined}>
         <span>{frase}</span>
-        <Anillo class="refran__anillo" />
+        <span class="refran__anillo"><Anillo /></span>
       </p>
     ))}
   </div>
@@ -62,13 +62,20 @@ const copias = 4;
     white-space: nowrap;
   }
 
+  /* El anillo entre frase y frase. Iba envuelto en su propia clase suelta y
+     no recibía el atributo de ámbito de este componente: el SVG salía sin
+     medida y se comía la frase siguiente. Ahora va en un envoltorio de la
+     plantilla, que sí lo recibe, y a la medida que le toca — grande, porque es
+     el símbolo, no un punto de separación. */
   .refran__anillo {
-    width: 0.42em;
-    height: 0.42em;
+    display: block;
+    width: 0.78em;
+    height: 0.78em;
     flex: none;
     color: var(--stock);
-    opacity: 0.55;
+    opacity: 0.42;
   }
+  .refran__anillo :global(.anillo) { width: 100%; height: 100%; }
 
   @media (prefers-reduced-motion: reduce) {
     .refran__cinta { animation: none; width: auto; justify-content: center; }

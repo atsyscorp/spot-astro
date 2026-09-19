@@ -67,7 +67,9 @@ El símbolo de marca está en `brand/`, con su geometría medida documentada en
 |---|---|
 | `public/video/experiencias.mp4` | Bucle de 12 s recortado de `Spot expriences.mp4` (el original se conserva en la raíz). 848 × 480 en origen. |
 | `public/video/poster.webp` | Fotograma del mismo tramo. Es lo que ve quien no carga el vídeo. |
-| `public/sala/*.webp` | Tres fotogramas del mismo material, elegidos **sin caras identificables**. |
+| `public/video/pensamos.mp4` | Bucle de 7 s recortado del mismo original, tramo 3–10 s: letras corpóreas y baño verde de sala. Es el telón de la sesión «Cómo pensamos», pedido por el cliente el 15/09/2026. |
+| `public/video/pensamos-poster.webp` | Fotograma del segundo tramo. Es lo que se sirve en móvil y con movimiento reducido. |
+| `public/sala/*.webp` | Nueve fotogramas del mismo material, elegidos **sin caras identificables**. |
 | `public/clientes/*.webp` | Los trece logotipos, recortados de la página 9 del portafolio y pasados a tinta hueso. |
 | `public/brand/spot-wordmark-white.webp` | El logotipo oficial entregado por el cliente. |
 
@@ -75,9 +77,25 @@ El vídeo sólo se descarga si el visitante no pidió menos movimiento, no está
 ahorro de datos, la conexión no es lenta y la pantalla da el ancho. En el resto
 de casos se sirve el poster.
 
+El segundo tramo se cortó en 3–10 s por la misma razón: a partir del segundo 10
+el material entra en un plano cercano de dos personas con la cara legible, y ese
+plano no se publica sin cesión.
+
 **Sobre derechos de imagen:** en el material hay planos buenos de equipo y de
 asistentes que no se usaron. Publicar personas reconocibles necesita cesión de
 imagen; esa decisión es del cliente, no del código.
+
+## Reunión del 15/09/2026 — qué se pidió y qué se hizo
+
+| Lo que se pidió | Estado |
+|---|---|
+| «El diagnóstico y el cómo pensamos quedan muy planos, muy presentación» | **Hecho.** El cotejo del diagnóstico se traza al bajar en vez de estar impreso; «Cómo pensamos» se rehizo entera: telón con película propia, titular a tamaño de display y los tres principios en escalera. |
+| «Que el cómo pensamos entre de otra forma distinta y vuelva a tener un vídeo de fondo diferente» | **Hecho.** Componente `Telon` con un segundo tramo del material real, distinto del de la apertura. |
+| «Quisiera un poco más de movilidad en algunos otros lugares» | **Hecho.** Las entradas de lista de los dos mundos llegan desde abajo al cruzar la ventana (`.entra`), y cada principio lleva el anillo girando con el scroll. |
+| «Acentos rojos para diferenciar la parte industrial» | **Hecho.** La Pista B enciende en `#FF5A4A`, el rojo del logotipo Spot Industries levantado para la cartulina. Se ve en la portada, en la práctica IV de Experiencias y en todo el mundo Industrial. |
+| Más imágenes reales de eventos para la banda de sala, y vídeos complementarios | **Pendiente de material.** Camilo Altamar quedó en enviarlos. La banda de sala admite más fotogramas sin tocar el diseño: se añaden a `public/sala/` y a la lista de `Sala.astro`. |
+| Catálogo y portafolio de Spot Industries | **Recibido** (`resources/Catálogo SPOT LATAM 2026_compressed.pdf`, 26 páginas). Alimenta las sesiones «En preparación» de la Pista B; es el trabajo que sigue. |
+| Logotipos de clientes de restaurantes (El Corral, Burger King, Búfalo, Wings, Homeburger) y aéreo (Avianca, FedEx, DHL) | **Pendiente de material.** Mauricio Altamar quedó en recopilarlos. Hacen falta en vectorial. |
 
 ## Lo que falta, por orden de urgencia
 

@@ -7,8 +7,13 @@ interface Props {
 }
 const { n, rotulo, id, class: clase } = Astro.props;
 const conMargen = Astro.slots.has('margen');
+/* El fondo va como hijo directo de la sesión, no dentro del cuerpo: una banda
+   a sangre se mide contra la sesión entera y tiene que quedar por detrás del
+   raíl, no sólo por detrás de la columna de lectura. */
+const conFondo = Astro.slots.has('fondo');
 ---
 <section class:list={['sesion', clase]} id={id} data-sesion={n}>
+  {conFondo && <slot name="fondo" />}
   <p class="sesion__rail"><b>{n}</b><span>{rotulo}</span></p>
   <div class="sesion__cuerpo"><slot /></div>
   {conMargen && <aside class="sesion__margen"><slot name="margen" /></aside>}

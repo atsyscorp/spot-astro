@@ -7,6 +7,8 @@ import Apertura from '../../components/Apertura.astro';
 import Sala from '../../components/Sala.astro';
 import Refran from '../../components/Refran.astro';
 import Metodo from '../../components/Metodo.astro';
+import Telon from '../../components/Telon.astro';
+import Anillo from '../../components/Anillo.astro';
 import {
   tesis, principios, practicas, spotboxes, metodo,
   peso, territorios, clientesTitular, marca,
@@ -42,7 +44,7 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
     <p class="subtitular tesis__diagnostico">{tesis.diagnostico}</p>
 
     <div class="cotejo">
-      <div class="cotejo__lado cotejo__lado--muerto">
+      <div class="cotejo__lado cotejo__lado--muerto entra">
         <p class="medida cotejo__rotulo">El error común</p>
         <ol class="cotejo__pasos">
           {tesis.errorComun.map((p) => <li>{p}</li>)}
@@ -58,12 +60,14 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
     <p slot="margen">{tesis.remate}</p>
   </Sesion>
 
-  <Sesion n="II" rotulo="Cómo pensamos" id="principios">
-    <h2 class="subtitular">Tres principios no negociables.</h2>
+  <Sesion n="II" rotulo="Cómo pensamos" id="principios" class="sesion--telon pensamos">
+    <Telon slot="fondo" src="/video/pensamos.mp4" poster="/video/pensamos-poster.webp" />
+    <h2 class="subtitular pensamos__titulo">Tres principios no negociables.</h2>
     <ol class="principios">
-      {principios.map((p) => (
-        <li class="principio">
+      {principios.map((p, i) => (
+        <li class="principio entra" style={`--escalon: ${i}`}>
           <span class="principio__n">{p.n}</span>
+          <span class="principio__marca"><Anillo /></span>
           <h3 class="principio__titulo">{p.titulo}</h3>
           <p class="principio__cuerpo">{p.cuerpo}</p>
         </li>
@@ -75,14 +79,14 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
     <h2 class="subtitular">Cuatro prácticas.<br /><em>Un mismo estándar de impacto.</em></h2>
     <ul class="practicas">
       {practicasPista.map((p) => (
-        <li class="practica">
+        <li class="practica entra">
           <span class="practica__n">{p.n}</span>
           <h3 class="practica__titulo">{p.titulo}</h3>
           <p class="practica__cuerpo">{p.cuerpo}</p>
           <p class="nota practica__nota">{p.nota}</p>
         </li>
       ))}
-      <li class="practica practica--otra">
+      <li class="practica practica--otra entra">
         <span class="practica__n">{industrial.n}</span>
         <h3 class="practica__titulo">
           <a href="/industrial/">{industrial.titulo}</a>
@@ -106,7 +110,7 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
     <h2 class="subtitular"><em>La escala habla antes que nosotros.</em></h2>
     <dl class="peso">
       {peso.map((c) => (
-        <div class="cifra">
+        <div class="cifra entra">
           <Campo trazos={c.campo === 'trama' ? Math.round(c.marcas / 100) : c.marcas} />
           <dt class="cifra__lectura">
             <b>{c.cifra}</b> <span>{c.unidad}</span>
@@ -125,7 +129,7 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
     <h2 class="subtitular">Tres territorios.<br /><em>Un mismo estándar.</em></h2>
     <ul class="territorios">
       {territorios.map((t) => (
-        <li class="territorio">
+        <li class="territorio entra">
           <h3 class="territorio__titulo">{t.titulo}</h3>
           <p class="territorio__cuerpo">{t.cuerpo}</p>
           <ul class="territorio__nombres">
@@ -239,8 +243,60 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
   .cotejo__lado--vivo .cotejo__pasos li::before,
   .cotejo__lado--vivo .cotejo__pasos li::after { background: var(--live); opacity: 1; }
 
-  /* Principios: el primero manda, los otros dos lo sostienen. */
-  .principios { margin-top: var(--s4); display: grid; }
+  /* El cotejo ocurre, no está impreso. La cadena muerta ya está puesta cuando
+     el visitante llega; la viva se traza delante de él, eslabón a eslabón, y el
+     hilo que los une baja al mismo paso. Es la frase de la sesión —primero el
+     pensamiento, después el concepto, al final la ejecución— dicha con el
+     único recurso que el impreso no tiene: el tiempo del lector.
+
+     Tres salidas: sin animaciones ligadas al scroll el cotejo se imprime entero
+     (ni un fotograma declarado), con movimiento reducido igual, y `view()` no
+     gasta nada fuera de pantalla. */
+  @keyframes eslabon {
+    from { opacity: 0; transform: translateX(-12px); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes hilo {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media not (prefers-reduced-motion: reduce) {
+      .cotejo__lado--vivo .cotejo__pasos li,
+      .cotejo__lado--vivo .cotejo__pasos li + li::after {
+        animation: eslabon linear both;
+        animation-timeline: view();
+      }
+      .cotejo__lado--vivo .cotejo__pasos li + li::after {
+        animation-name: hilo;
+        transform-origin: top;
+      }
+      .cotejo__lado--vivo .cotejo__pasos li:nth-child(1) { animation-range: entry 14% entry 44%; }
+      .cotejo__lado--vivo .cotejo__pasos li:nth-child(2) { animation-range: entry 26% entry 56%; }
+      .cotejo__lado--vivo .cotejo__pasos li:nth-child(3) { animation-range: entry 38% entry 68%; }
+      .cotejo__lado--vivo .cotejo__pasos li:nth-child(2)::after { animation-range: entry 20% entry 30%; }
+      .cotejo__lado--vivo .cotejo__pasos li:nth-child(3)::after { animation-range: entry 32% entry 42%; }
+    }
+  }
+
+  /* --------------------------------------------------------------------
+     Cómo pensamos. El cliente pidió que esta sesión «entre de otra forma
+     distinta» y que traiga su propia película: es la única del programa que
+     llega con telón y la única cuyos principios bajan en escalera en vez de
+     apilarse. Que se lea distinta a la anterior es el encargo, no un capricho.
+     -------------------------------------------------------------------- */
+  .pensamos__titulo {
+    font-size: var(--t-display);
+    line-height: 1.06;
+    letter-spacing: -0.018em;
+    max-width: 16ch;
+    font-variation-settings: 'opsz' 46;
+  }
+
+  /* Principios: el primero manda, los otros dos lo sostienen — y cada uno
+     entra un escalón más adentro, como una idea que va cediendo el paso. */
+  .principios { margin-top: var(--s5); display: grid; }
   .principio {
     display: grid;
     grid-template-columns: 3.5rem minmax(0, 1fr);
@@ -248,23 +304,56 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
     padding-block: var(--s4);
     border-top: 1px solid var(--rule);
     align-items: start;
+    margin-left: calc(var(--escalon, 0) * var(--s4));
   }
   .principio:first-child { border-top: 0; padding-top: 0; }
   .principio__n {
-    grid-row: span 2;
+    grid-column: 1;
+    grid-row: 1;
     font-family: var(--display);
-    font-size: var(--t-sub);
+    font-style: italic;
+    font-size: var(--t-titulo);
     color: var(--foil);
-    line-height: 1.1;
-    font-variation-settings: 'opsz' 16;
+    line-height: 1;
+    font-variation-settings: 'opsz' 23;
   }
+  /* El anillo al pie del numeral: la única forma del sistema, girando con el
+     scroll como la brújula. La apertura del anillo hace visible el giro. */
+  /* El anillo va envuelto: una clase suelta sobre `<Anillo />` no recibe el
+     atributo de ámbito de esta página, así que la regla no engancharía. */
+  .principio__marca {
+    grid-column: 1;
+    grid-row: 2;
+    display: block;
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: var(--s2);
+    color: var(--foil-dim);
+  }
+  .principio__marca :global(.anillo) { width: 100%; height: 100%; }
   .principio__titulo {
+    grid-column: 2;
+    grid-row: 1;
     font-size: var(--t-entrada);
     line-height: 1.16;
     font-variation-settings: 'opsz' 28;
   }
   .principio:first-child .principio__titulo { font-size: var(--t-lema); }
-  .principio__cuerpo { max-width: 44ch; color: var(--ink-body); }
+  .principio__cuerpo { grid-column: 2; grid-row: 2; max-width: 44ch; color: var(--ink-body); }
+
+  @keyframes gira-anillo {
+    from { transform: rotate(-150deg); }
+    to   { transform: rotate(150deg); }
+  }
+  @supports (animation-timeline: view()) {
+    @media not (prefers-reduced-motion: reduce) {
+      .principio__marca {
+        animation: gira-anillo linear both;
+        animation-timeline: view();
+        animation-range: entry 0% exit 100%;
+      }
+    }
+  }
 
   /* Prácticas: entradas de programa, no tarjetas. */
   .practicas { margin-top: var(--s4); }
@@ -458,5 +547,9 @@ const industrial = practicas.find((p) => p.pista === 'b')!;
     .cotejo { grid-template-columns: 1fr; gap: var(--s3); }
     .clientes { columns: 1; }
     .principio, .practica { grid-template-columns: 2.5rem minmax(0, 1fr); }
+    /* La escalera es un gesto de página ancha: en columna estrecha comería la
+       medida de lectura sin decir nada. */
+    .principio { margin-left: 0; }
+    .principio__marca { width: 0.95rem; height: 0.95rem; }
   }
 </style>

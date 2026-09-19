@@ -35,7 +35,7 @@ const practica = practicas.find((p) => p.pista === 'b')!;
     </p>
     <ol class="metodo">
       {metodo.map((m) => (
-        <li class="paso">
+        <li class="paso entra">
           <span class="paso__n">{m.n}</span>
           <h3 class="paso__titulo">{m.titulo}</h3>
           <p class="paso__cuerpo">{m.cuerpo}</p>
@@ -52,7 +52,7 @@ const practica = practicas.find((p) => p.pista === 'b')!;
     </p>
     <ol class="huecos">
       {huecosIndustrial.map((h) => (
-        <li class="hueco">
+        <li class="hueco entra">
           <h3 class="hueco__titulo">{h.titulo}</h3>
           <p class="hueco__requiere">{h.requiere}</p>
           <p class="nota hueco__formato">{h.formato}</p>

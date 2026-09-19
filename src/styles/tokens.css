@@ -26,12 +26,18 @@
 
   /* Luz */
   --live:         #10E6B3;
+  /* El rojo del logotipo Spot Industries (#ED2A39 medido sobre el catálogo),
+     levantado a #FF5A4A para la cartulina: el de marca da 4,71:1 sobre negro y
+     se cae por debajo del suelo AA en cuanto la bruma sube; éste mide 6,42:1
+     sobre cartulina limpia y 5,78:1 sobre el punto más claro de la bruma.
+     Es la luz de la Pista B, decidida con el cliente el 15/09/2026. */
+  --rojo:         #FF5A4A;
 
   /* Pistas */
   --track-a:      var(--live);
   --track-a-field:#07211B;
-  --track-b:      var(--foil);
-  --track-b-field:#211A0E;
+  --track-b:      var(--rojo);
+  --track-b-field:#24100C;
 
   /* Filetes */
   --rule:         #2A2724;
@@ -93,9 +99,12 @@
   }
 }
 
-/* La Pista B se imprime con la otra tinta: el latón es su luz.
-   Un mundo, una tinta — el sistema no cambia, cambia el color que vive. */
+/* La Pista B se imprime con la otra luz: el rojo de Spot Industries.
+   Un mundo, una tinta — el sistema no cambia, cambia el color que vive.
+   Antes la Pista B encendía en latón vivo y había que bajar el latón
+   estructural para que no se confundieran; con el rojo ya no se confunden, así
+   que `--foil` se queda con el valor de la casa y el remapeo es de una sola
+   variable. */
 [data-pista='b'] {
-  --live: #CDA96E;
-  --foil: #9C8358;
+  --live: var(--rojo);
 }

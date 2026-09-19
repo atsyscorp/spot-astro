@@ -139,6 +139,37 @@ img, svg { display: block; max-width: 100%; }
 
 .sesion__cuerpo { grid-column: 2; min-width: 0; }
 
+/* Una sesión con telón: la banda va detrás, y todo lo que se lee va delante.
+   El raíl incluido — el hilo del programa no se mete debajo de la luz. */
+.sesion--telon > *:not(.telon) { position: relative; z-index: 1; }
+
+/* --------------------------------------------------------------------------
+   La entrada de una entrada. El programa se imprime a medida que el visitante
+   baja: cada entrada llega desde abajo y se asienta. No es un efecto de
+   aparición — es el mismo criterio de la sala y de la brújula, movimiento
+   atado a la posición del lector y no a un reloj, así que nada se mueve si él
+   no se mueve.
+
+   Las tres salidas: sin animaciones ligadas al scroll no se declara ni un
+   fotograma y la entrada está puesta desde el principio; con movimiento
+   reducido, igual; y `view()` no gasta nada fuera de pantalla por definición.
+   -------------------------------------------------------------------------- */
+
+@keyframes entra {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@supports (animation-timeline: view()) {
+  @media not (prefers-reduced-motion: reduce) {
+    .entra {
+      animation: entra linear both;
+      animation-timeline: view();
+      animation-range: entry 4% entry 58%;
+    }
+  }
+}
+
 /* La marginalia del programa: notas curatoriales en el margen exterior.
    Cuando no cabe columna, la nota cae bajo su sesión en vez de desaparecer. */
 .sesion__margen {
