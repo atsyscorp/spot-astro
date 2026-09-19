@@ -14,8 +14,20 @@
 
    Los nueve fotogramas están elegidos sin caras identificables. Hay planos
    buenos de equipo y de asistentes en el material, pero publicar personas
-   reconocibles necesita cesión de imagen y eso no se decide desde el código. */
-const fijos = [
+   reconocibles necesita cesión de imagen y eso no se decide desde el código.
+
+   La banda sirve a las dos pistas: recibe sus fotogramas, su carpeta y su pie,
+   y no sabe de qué mundo es. Por omisión, los nueve de Berkley. */
+export interface Fijo { archivo: string; alt: string }
+
+interface Props {
+  fijos?: Fijo[];
+  carpeta?: string;
+  titulo?: string;
+  pie?: string;
+}
+
+const porDefecto: Fijo[] = [
   { archivo: 'letras',           alt: 'Letras corpóreas del cliente montadas en la sala, con luz verde de fondo.' },
   { archivo: 'sala-verde',       alt: 'Sala bañada en luz verde antes de abrir, con la línea de tiempo del cliente proyectada.' },
   { archivo: 'montaje',          alt: 'Montaje de estructuras en el salón, todavía con el mobiliario sin colocar.' },
@@ -26,13 +38,20 @@ const fijos = [
   { archivo: 'camara',           alt: 'Operador montando una cámara sobre truss durante el montaje.' },
   { archivo: 'publico',          alt: 'Público en contraluz frente a la pantalla durante el evento.' },
 ];
+
+const {
+  fijos = porDefecto,
+  carpeta = 'sala',
+  titulo = 'Berkley Colombia Seguros · 10 años',
+  pie = 'Experiencia corporativa privada dirigida por Spot.',
+} = Astro.props;
 ---
 <figure class="sala">
   <div class="sala__carril">
     <div class="sala__fila">
       {fijos.map((f) => (
         <img
-          src={`/sala/${f.archivo}.webp`}
+          src={`/${carpeta}/${f.archivo}.webp`}
           alt={f.alt}
           width="848"
           height="480"
@@ -43,8 +62,8 @@ const fijos = [
   </div>
 
   <figcaption class="sala__pie">
-    <b>Berkley Colombia Seguros · 10 años</b>
-    <span>Experiencia corporativa privada dirigida por Spot.</span>
+    <b>{titulo}</b>
+    <span>{pie}</span>
   </figcaption>
 </figure>
 

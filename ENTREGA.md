@@ -74,6 +74,8 @@ El símbolo de marca está en `brand/`, con su geometría medida documentada en
 | `public/video/pensamos-poster.webp` | Fotograma del segundo tramo. Es lo que se sirve en móvil y con movimiento reducido. |
 | `public/sala/*.webp` | Nueve fotogramas del mismo material, elegidos **sin caras identificables**. |
 | `public/clientes/*.webp` | Los trece logotipos, recortados de la página 9 del portafolio y pasados a tinta hueso. |
+| `public/clientes-industrial/*.webp` | Los veintiún logotipos del muro de la página 25 del catálogo industrial, mismo tratamiento de tinta hueso. 292 KB. |
+| `public/taller/*.webp` | Nueve fotogramas de instalaciones propias, recortados del catálogo a la misma caja que los de la sala. 380 KB. |
 | `public/brand/spot-wordmark-white.webp` | El logotipo oficial entregado por el cliente. |
 
 El vídeo sólo se descarga si el visitante no pidió menos movimiento, no está en
@@ -98,7 +100,7 @@ imagen; esa decisión es del cliente, no del código.
 | «Acentos rojos para diferenciar la parte industrial» | **Hecho.** La Pista B enciende en `#FF5A4A`, el rojo del logotipo Spot Industries levantado para la cartulina. Se ve en la portada, en la práctica IV de Experiencias y en todo el mundo Industrial. |
 | Más imágenes reales de eventos para la banda de sala, y vídeos complementarios | **Pendiente de material.** Camilo Altamar quedó en enviarlos. La banda de sala admite más fotogramas sin tocar el diseño: se añaden a `public/sala/` y a la lista de `Sala.astro`. |
 | Catálogo y portafolio de Spot Industries | **Recibido y aplicado.** El catálogo 2026 (26 páginas) es ahora la fuente de `src/data/industrial.ts` y de las diez sesiones de la Pista B. |
-| Logotipos de clientes de restaurantes (El Corral, Burger King, Búfalo, Wings, Homeburger) y aéreo (Avianca, FedEx, DHL) | **Pendiente de material.** Mauricio Altamar quedó en recopilarlos. Hacen falta en vectorial. |
+| Logotipos de clientes de restaurantes (El Corral, Burger King, Búfalo, Wings, Homeburger) y aéreo (Avianca, FedEx, DHL) | **Hecho con el material existente.** El muro de la página 25 del catálogo trae veintiuno, incluidos El Corral, Burger King, Buffalo Wings, Home Burgers y FedEx; están en el sitio en tinta hueso. Avianca y DHL no aparecen en ese muro. Falta el vectorial y, sobre todo, la autorización escrita. |
 
 ## Lo que falta, por orden de urgencia
 
@@ -122,22 +124,32 @@ cifras de dos cosas distintas y así se publican, pero conviene que el cliente
 confirme las dos por escrito: son las únicas afirmaciones de antigüedad del
 sitio.
 
-### 2. Dos entradas todavía en preparación
+### 2. Una entrada todavía en preparación
 
-De las seis sesiones que la Pista B declaraba vacías, cuatro se llenaron con el
-catálogo. Quedan dos, y ninguna se puede resolver desde el código:
+De las seis sesiones que la Pista B declaraba vacías, cinco se llenaron con el
+catálogo. Queda una, y no se puede resolver desde el código:
 
-1. **Proyectos** — dos o tres proyectos reales: sector, problema, intervención y
-   resultado verificable. El catálogo enseña lo que la casa sabe hacer; un
-   proyecto enseña lo que resolvió. Un párrafo por proyecto, más el nombre del
-   cliente si autoriza aparecer.
-2. **Clientes industriales** — confirmación de quién puede aparecer y sus
-   logotipos en vectorial. La página 25 del catálogo trae el muro completo, pero
-   en raster; y en la reunión del 15/09 se nombraron cadenas de restaurantes y
-   empresas del sector aéreo, sin confirmación por escrito.
+**Proyectos** — dos o tres proyectos reales: sector, problema, intervención y
+resultado verificable. El catálogo enseña lo que la casa sabe hacer; un proyecto
+enseña lo que resolvió. Un párrafo por proyecto, más el nombre del cliente si
+autoriza aparecer.
 
 Mientras tanto el sitio no inventa nada: enseña la forma del hueco. Es honesto y
 además le dice al cliente exactamente qué entregar.
+
+**Aparte, y de más riesgo:** el muro de clientes de la Pista B publica veintiún
+marcas sacadas de la página 25 del catálogo, igual que la Pista A publica trece
+del portafolio. **Ninguno de los dos muros tiene autorización escrita de uso de
+marca.** Un muro de logotipos en un PDF interno no es un permiso para publicarlos
+en abierto. Hay que confirmar, marca por marca, quién puede aparecer antes de
+quitar el `noindex`. Dos avisos concretos:
+
+- El logotipo veintiuno se transcribe como **«Beer»** —un grifo en círculo y la
+  palabra BEER con la R final invertida— porque no se identificó la razón social.
+  Hay que ponerle su nombre real o quitarlo.
+- En la reunión del 15/09 se nombraron **Avianca y DHL**, que **no aparecen en el
+  muro del catálogo** y por eso no están en el sitio. Si son clientes, tienen que
+  llegar como material.
 
 ### 3. Logotipos de cliente en vectorial
 
@@ -149,15 +161,16 @@ conviene cambiarlo.
 
 ### 4. Fotografía
 
-La Pista A ya tiene material propio: la banda de sala y los dos tramos de vídeo
-salen de la documentación de Berkley Colombia Seguros. Camilo Altamar quedó en
-enviar más imágenes de eventos y vídeos complementarios.
+Las dos pistas ya tienen banda de imagen propia: la Pista A con nueve fotogramas
+de Berkley Colombia Seguros, y la Pista B con nueve de instalaciones propias
+sacados del catálogo —deck en plataforma de aeropuerto, rodillos, soldadura,
+ball transfers, demarcación—. Las dos con el mismo criterio: sin caras
+reconocibles.
 
-La Pista B **no tiene ninguna imagen en el sitio**. El catálogo trae fotografía
-real de producto —decks, estanterías, básculas, bandas, estructuras— pero
-incrustada en el PDF y recomprimida; para usarla en web hacen falta los
-originales. Es lo que más le falta hoy a la Pista B: diez sesiones de texto sin
-una sola fotografía del taller.
+Lo que sigue faltando son **los originales**. Lo que hay salió del interior de
+dos PDF, así que viene ya comprimido una vez; a tamaños mayores se notará. Y
+Camilo Altamar quedó en enviar más imágenes de eventos y vídeos complementarios
+para la Pista A.
 
 ### 5. Decisiones de producto todavía abiertas
 

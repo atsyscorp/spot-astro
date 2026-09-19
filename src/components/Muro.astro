@@ -11,11 +11,20 @@
 
    Sin `loading="lazy"`: el navegador decide la carga diferida con la posición
    SIN transformar, así que las placas que la marquesina trae a pantalla no se
-   pedían nunca y el muro salía vacío. Son trece archivos y 100 KB. */
-import { clientesLogos } from '../data/clientes';
+   pedían nunca y el muro salía vacío. Son 100 KB en la Pista A y 240 en la B.
 
-const mitad = Math.ceil(clientesLogos.length / 2);
-const columnas = [clientesLogos.slice(0, mitad), clientesLogos.slice(mitad)];
+   El muro sirve a las dos pistas: recibe su lista y su carpeta, y no sabe de
+   qué mundo es. Por omisión, los trece de Experiencias. */
+import { clientesLogos, type Cliente } from '../data/clientes';
+
+interface Props {
+  logos?: Cliente[];
+  carpeta?: string;
+}
+const { logos = clientesLogos, carpeta = 'clientes' } = Astro.props;
+
+const mitad = Math.ceil(logos.length / 2);
+const columnas = [logos.slice(0, mitad), logos.slice(mitad)];
 ---
 <div class="muro">
   {columnas.map((col, i) => (
@@ -24,7 +33,7 @@ const columnas = [clientesLogos.slice(0, mitad), clientesLogos.slice(mitad)];
         {[...col, ...col].map((c, j) => (
           <li class:list={['placa', j >= col.length && 'placa--eco']}>
             <img
-              src={`/clientes/${c.archivo}.webp`}
+              src={`/${carpeta}/${c.archivo}.webp`}
               alt={j < col.length ? c.nombre : ''}
               aria-hidden={j >= col.length ? 'true' : undefined}
               width={c.w}

@@ -3,11 +3,29 @@ import Mundo from '../../layouts/Mundo.astro';
 import Sesion from '../../components/Sesion.astro';
 import Apertura from '../../components/Apertura.astro';
 import Anillo from '../../components/Anillo.astro';
+import Muro from '../../components/Muro.astro';
+import Sala from '../../components/Sala.astro';
 import { metodo } from '../../data/spot';
 import { industrial } from '../../data/industrial';
 import { huecosIndustrial } from '../../data/pendiente';
+import { clientesIndustriales } from '../../data/clientes-industrial';
 
 const { tesis, frentes, productos, servicios, medida, software, demarcacion, cobertura, herencia, contacto } = industrial;
+
+/* Nueve fotogramas del propio catálogo, recortados a la misma caja que los de
+   la sala de la Pista A y con el mismo criterio: sin caras reconocibles. Son
+   instalaciones reales de la casa, no fotografía de banco. */
+const taller = [
+  { archivo: 'deck-plataforma', alt: 'Deck de carga con ball transfers instalado en plataforma de aeropuerto, con aeronaves de carga al fondo.' },
+  { archivo: 'avion-noche',     alt: 'Aeronave en posición de noche junto a la pasarela, sobre plataforma demarcada.' },
+  { archivo: 'rodillos',        alt: 'Línea de rodillos sobre bastidor rojo, vista a ras.' },
+  { archivo: 'soldadura',       alt: 'Soldadura en taller sobre lámina, con el arco encendido.' },
+  { archivo: 'ball-transfer',   alt: 'Superficie de ball transfers en detalle, con guía naranja al borde.' },
+  { archivo: 'deck-perforado',  alt: 'Decks metálicos perforados alineados antes de su instalación.' },
+  { archivo: 'terminal',        alt: 'Bahía de terminal de carga con las guías del deck montadas.' },
+  { archivo: 'deck-rayado',     alt: 'Deck de rodillos con bandas de demarcación amarillas.' },
+  { archivo: 'demarcacion',     alt: 'Piso de bodega demarcado, con viga guía amarilla a lo largo del carril.' },
+];
 ---
 <Mundo
   pista="b"
@@ -81,6 +99,13 @@ const { tesis, frentes, productos, servicios, medida, software, demarcacion, cob
     </ol>
   </Sesion>
 
+  <Sala
+    fijos={taller}
+    carpeta="taller"
+    titulo="Instalaciones propias"
+    pie="Fotografía del catálogo Spot Industries 2026."
+  />
+
   <Sesion n="IV" rotulo="A la medida" id="medida">
     <h2 class="subtitular">Cuando el catálogo <em>no lo resuelve.</em></h2>
     <p class="plomo">
@@ -144,7 +169,7 @@ const { tesis, frentes, productos, servicios, medida, software, demarcacion, cob
   </Sesion>
 
   <Sesion n="IX" rotulo="En preparación" id="en-preparacion" class="sesion--pendiente">
-    <h2 class="subtitular">Dos entradas de este programa <em>todavía no se han impreso.</em></h2>
+    <h2 class="subtitular">Una entrada de este programa <em>todavía no se ha impreso.</em></h2>
     <p class="plomo">
       Están declaradas, no disimuladas. Cada una dice qué va en su sitio y en qué
       formato se entrega. Aquí no se publica nada que no se pueda sostener.
@@ -164,27 +189,38 @@ const { tesis, frentes, productos, servicios, medida, software, demarcacion, cob
     <p slot="margen">Cada entrada ocupará su sitio en cuanto exista, sin rehacer el programa.</p>
   </Sesion>
 
-  <Sesion n="X" rotulo="Hablemos" id="hablemos">
-    <h2 class="titular">Hablemos.</h2>
-    <p class="plomo">
-      Si su operación tiene una decisión pendiente y no un pliego de compras,
-      esta es la conversación correcta.
-    </p>
-    <ul class="contacto">
-      <li>
-        <a class="contacto__enlace" href={`tel:${contacto.oficinaHref}`}>{contacto.oficina}</a>
-        <i class="contacto__rotulo">Oficina</i>
-      </li>
-      {contacto.moviles.map((m) => (
-        <li>
-          <a class="contacto__enlace" href={`tel:${m.href}`}>{m.numero}</a>
-          <i class="contacto__rotulo">Móvil</i>
-        </li>
-      ))}
-      {contacto.correos.map((c) => (
-        <li><a class="contacto__enlace" href={`mailto:${c}`}>{c}</a></li>
-      ))}
-    </ul>
+  <Sesion n="X" rotulo="Hablemos" id="hablemos" class="sesion--cierre">
+    <div class="cierre">
+      <div class="cierre__decir">
+        <h2 class="titular">Hablemos.</h2>
+        <p class="plomo">
+          Si su operación tiene una decisión pendiente y no un pliego de compras,
+          esta es la conversación correcta.
+        </p>
+        <ul class="contacto">
+          <li>
+            <a class="contacto__enlace" href={`tel:${contacto.oficinaHref}`}>{contacto.oficina}</a>
+            <i class="contacto__rotulo">Oficina</i>
+          </li>
+          {contacto.moviles.map((m) => (
+            <li>
+              <a class="contacto__enlace" href={`tel:${m.href}`}>{m.numero}</a>
+              <i class="contacto__rotulo">Móvil</i>
+            </li>
+          ))}
+          {contacto.correos.map((c) => (
+            <li><a class="contacto__enlace" href={`mailto:${c}`}>{c}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <figure class="cierre__prueba">
+        <figcaption class="cierre__pie">
+          Veintiún operaciones <em>que ya pesan con nosotros.</em>
+        </figcaption>
+        <Muro logos={clientesIndustriales} carpeta="clientes-industrial" />
+      </figure>
+    </div>
   </Sesion>
 </Mundo>
 
@@ -460,6 +496,31 @@ const { tesis, frentes, productos, servicios, medida, software, demarcacion, cob
     width: var(--w);
     height: 1px;
     background: var(--foil-faint);
+  }
+
+  /* El cierre: lo que decimos a la izquierda, quién ya nos eligió a la
+     derecha. Misma pieza que el cierre de la Pista A. */
+  .cierre {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: var(--s5);
+    align-items: start;
+    margin-top: var(--s2);
+  }
+  .cierre__decir { align-self: center; }
+  .cierre__prueba { margin: 0; }
+  .cierre__pie {
+    font-family: var(--display);
+    font-size: var(--t-menor);
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: var(--s2);
+    max-width: 26ch;
+  }
+  .cierre__pie em { font-style: italic; color: var(--live); }
+
+  @media (max-width: 62rem) {
+    .cierre { grid-template-columns: 1fr; gap: var(--s4); }
   }
 
   .contacto { margin-top: var(--s3); display: grid; gap: var(--s2); }
