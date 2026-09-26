@@ -3,6 +3,7 @@ import Base from './Base.astro';
 import Marca from '../components/Marca.astro';
 import Bruma from '../components/Bruma.astro';
 import Pelicula from '../components/Pelicula.astro';
+import Vitrina from '../components/Vitrina.astro';
 import Brujula from '../components/Brujula.astro';
 import Hilo, { type Capitulo } from '../components/Hilo.astro';
 import { marca } from '../data/spot';
@@ -12,13 +13,17 @@ interface Props {
   descripcion: string;
   pista: 'a' | 'b';
   nombre: string;
-  /* 'pelicula' sólo donde hay material real. La Pista B no tiene grabación
-     propia todavía, y no se le presta la de la otra pista. */
-  fondo?: 'bruma' | 'pelicula';
+  /* 'pelicula' sólo donde hay material real. 'claro' es la vitrina de fondo
+     blanco pedida para Industrial el 19/09/2026 — exige `videoClaro` y
+     `posterClaro`. */
+  fondo?: 'bruma' | 'pelicula' | 'claro';
+  /* El vídeo y su poster para la vitrina, cuando `fondo="claro"`. */
+  videoClaro?: string;
+  posterClaro?: string;
   /* Las sesiones de esta pista, para el hilo de capítulos de la cinta. */
   capitulos: Capitulo[];
 }
-const { titulo, descripcion, pista, nombre, fondo = 'bruma', capitulos } = Astro.props;
+const { titulo, descripcion, pista, nombre, fondo = 'bruma', videoClaro, posterClaro, capitulos } = Astro.props;
 const otra = pista === 'a'
   ? { nombre: 'Industrial', href: '/industrial/', letra: 'B' }
   : { nombre: 'Experiencias', href: '/experiencias/', letra: 'A' };
@@ -42,13 +47,15 @@ const letra = pista === 'a' ? 'A' : 'B';
     <Hilo capitulos={capitulos} />
   </header>
 
-  {fondo === 'pelicula' ? <Pelicula /> : <Bruma pista={pista} />}
+  <div class="mundo__hero">
+    {fondo === 'pelicula' ? <Pelicula /> : fondo === 'claro' ? <Vitrina video={videoClaro!} poster={posterClaro!} /> : <Bruma pista={pista} />}
+
+    <div class="hoja portadilla">
+      <slot name="apertura" />
+    </div>
+  </div>
 
   <Brujula />
-
-  <div class="hoja portadilla">
-    <slot name="apertura" />
-  </div>
 
   <main id="contenido" class="hoja programa">
     <span id="programa" class="ancla" aria-hidden="true"></span>
@@ -129,6 +136,14 @@ const letra = pista === 'a' ? 'A' : 'B';
   }
   .cinta__otra:hover { color: var(--live); }
 
+  /* Envoltorio del fondo de apertura (bruma, película o vitrina) y su
+     portadilla. Sin position propio, a propósito: `position: static` no
+     establece bloque contenedor, así que la bruma/película/vitrina de
+     dentro se sigue posicionando contra la página exactamente igual que
+     antes de que este div existiera. Lo único que aporta es un ancestro
+     común donde `[data-fondo='claro']` remapea la tinta para la vitrina,
+     sin mover ni un píxel el fondo de las dos pistas que no lo usan. */
+  .mundo__hero { display: contents; }
   .portadilla { position: relative; z-index: 1; }
   .programa { padding-bottom: var(--s6); z-index: 1; }
   .ancla { display: block; height: 0; scroll-margin-top: calc(var(--cinta) + var(--s2)); }

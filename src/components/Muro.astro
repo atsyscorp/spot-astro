@@ -14,7 +14,19 @@
    pedían nunca y el muro salía vacío. Son 100 KB en la Pista A y 240 en la B.
 
    El muro sirve a las dos pistas: recibe su lista y su carpeta, y no sabe de
-   qué mundo es. Por omisión, los trece de Experiencias. */
+   qué mundo es. Por omisión, los trece de Experiencias. Desde la unificación
+   del 19/09/2026 cada logo puede traer su propia `carpeta` (la lista
+   combinada mezcla `clientes/` y `clientes-industrial/`); `carpeta` como prop
+   sigue siendo el valor por omisión para quien no la traiga consigo.
+
+   Siguen siendo dos columnas siempre — tres apretaría la placa en pantalla
+   angosta y este muro no tiene JavaScript para recomponerse al vuelo. Lo que
+   sí cambia con la lista unificada es la duración: si el número de
+   logotipos crece, el recorrido dura más, para que cada uno se quede en
+   pantalla el mismo tiempo que se quedaba antes de unificar (línea base: los
+   veintiuno de industrial en 42s). Es la opción que ATSYS planteó en la
+   reunión del 19/09 — "dejamos la velocidad... dejando las dos [columnas]" —
+   y que Camilo aceptó. */
 import { clientesLogos, type Cliente } from '../data/clientes';
 
 interface Props {
@@ -25,15 +37,16 @@ const { logos = clientesLogos, carpeta = 'clientes' } = Astro.props;
 
 const mitad = Math.ceil(logos.length / 2);
 const columnas = [logos.slice(0, mitad), logos.slice(mitad)];
+const duracion = Math.round((42 * mitad) / 11);
 ---
-<div class="muro">
+<div class="muro" style={`--muro-duracion:${duracion}s`}>
   {columnas.map((col, i) => (
     <div class="muro__columna" data-col={i}>
       <ul class="muro__cinta">
         {[...col, ...col].map((c, j) => (
           <li class:list={['placa', j >= col.length && 'placa--eco']}>
             <img
-              src={`/${carpeta}/${c.archivo}.webp`}
+              src={`/${c.carpeta ?? carpeta}/${c.archivo}.webp`}
               alt={j < col.length ? c.nombre : ''}
               aria-hidden={j >= col.length ? 'true' : undefined}
               width={c.w}
@@ -64,7 +77,7 @@ const columnas = [logos.slice(0, mitad), logos.slice(mitad)];
   .muro__cinta {
     display: grid;
     gap: var(--s2);
-    animation: sube 42s linear infinite;
+    animation: sube var(--muro-duracion, 42s) linear infinite;
     will-change: transform;
   }
   /* La columna derecha recorre lo mismo pero en sentido contrario: una sube

@@ -5,10 +5,10 @@ import Apertura from '../../components/Apertura.astro';
 import Anillo from '../../components/Anillo.astro';
 import Muro from '../../components/Muro.astro';
 import Sala from '../../components/Sala.astro';
+import Galeria from '../../components/Galeria.astro';
 import { metodo } from '../../data/spot';
 import { industrial } from '../../data/industrial';
-import { huecosIndustrial } from '../../data/pendiente';
-import { clientesIndustriales } from '../../data/clientes-industrial';
+import { clientesUnificados } from '../../data/clientes-unificados';
 
 /* Las diez sesiones de esta pista, para el hilo de capítulos de la cinta.
    El rótulo es el mismo que lleva el raíl de cada sesión. */
@@ -41,6 +41,23 @@ const taller = [
   { archivo: 'deck-rayado',     alt: 'Deck de rodillos con bandas de demarcación amarillas.' },
   { archivo: 'demarcacion',     alt: 'Piso de bodega demarcado, con viga guía amarilla a lo largo del carril.' },
 ];
+
+/* Obra en sitio, septiembre 2026: nueve fotografías entregadas por Mauricio
+   Altamar (`Recursos_Industries/`, fuera del repositorio), convertidas a
+   `public/taller-2026/`. Cerramientos de seguridad y estaciones de pesaje en
+   instalación real — distinto material del catálogo 2026 que alimenta
+   `taller`. */
+const obraReciente = [
+  { archivo: 'deck-camion', alt: 'Deck de rodillos instalado en el furgón de un cliente, visto desde la puerta trasera.' },
+  { archivo: 'jaula-interior', alt: 'Cerramiento de seguridad para máquina, visto desde dentro en planta.' },
+  { archivo: 'jaula-planta', alt: 'Cerramiento de seguridad instalado en planta, vista general.' },
+  { archivo: 'jaula-almacen', alt: 'Cerramiento de seguridad con estibas resguardadas en su interior.' },
+  { archivo: 'jaula-instalacion', alt: 'Instalación del cerramiento de seguridad, con personal en obra.' },
+  { archivo: 'corredor-malla', alt: 'Corredor de malla de seguridad a lo largo de la planta.' },
+  { archivo: 'instalacion-escalera', alt: 'Técnico instalando la malla superior del cerramiento desde una escalera.' },
+  { archivo: 'jaula-doble-puerta', alt: 'Cerramiento de seguridad con doble puerta corrediza, ya instalado.' },
+  { archivo: 'estaciones-pesaje', alt: 'Línea de estaciones de pesaje lista para operar.' },
+];
 ---
 <Mundo
   pista="b"
@@ -48,11 +65,15 @@ const taller = [
   capitulos={capitulos}
   titulo="Industrial — Spot"
   descripcion="Setenta y cinco años al servicio de la industria nacional. Sistemas para movilización de carga, estanterías, equipos de medición, mantenimiento y calibración, y fabricación a la medida. Cobertura nacional."
+  fondo="claro"
+  videoClaro="/video/industrial-con-dhl.mp4"
+  posterClaro="/video/industrial-con-dhl-poster.webp"
 >
   <Apertura slot="apertura" letra="B" pista="Industrial">
     <h1 slot="titular" class="titular">
       {tesis.titular[0]}<br /><em>{tesis.titular[1]}</em>
     </h1>
+    <p slot="titular" class="nota apertura__tradicion">{tesis.tradicion}</p>
     <p slot="plomo" class="plomo">{tesis.cuerpo}</p>
     <ol slot="tira" class="tira">
       {frentes.map((f) => (
@@ -122,6 +143,13 @@ const taller = [
     pie="Fotografía del catálogo Spot Industries 2026."
   />
 
+  <Galeria
+    fotos={obraReciente}
+    carpeta="taller-2026"
+    titulo="Obra en sitio"
+    pie="Fotografía propia, septiembre 2026."
+  />
+
   <Sesion n="IV" rotulo="A la medida" id="medida">
     <h2 class="subtitular">Cuando el catálogo <em>no lo resuelve.</em></h2>
     <p class="plomo">
@@ -185,21 +213,11 @@ const taller = [
   </Sesion>
 
   <Sesion n="IX" rotulo="Proyectos" id="proyectos" class="sesion--pendiente">
-    <h2 class="subtitular">Esta entrada <em>todavía no se ha impreso.</em></h2>
+    <h2 class="subtitular">Próximamente.</h2>
     <p class="plomo">
-      El catálogo enseña lo que la casa sabe hacer. Un proyecto enseña lo que
-      resolvió, y eso se publica cuando existe verificado, no antes. Está
-      declarada, no disimulada: dice qué va en su sitio y en qué formato.
+      Dos o tres proyectos reales, con resultado verificable. Se publican
+      cuando existan confirmados, no antes.
     </p>
-    {huecosIndustrial.map((h) => (
-      <div class="hueco entra">
-        <p class="hueco__requiere">{h.requiere}</p>
-        <p class="nota hueco__formato">{h.formato}</p>
-        <div class="renglones" aria-hidden="true">
-          <i style="--w:100%"></i><i style="--w:88%"></i><i style="--w:47%"></i>
-        </div>
-      </div>
-    ))}
     <p slot="margen">Ocupará su sitio en cuanto exista, sin rehacer el programa.</p>
   </Sesion>
 
@@ -230,9 +248,9 @@ const taller = [
 
       <figure class="cierre__prueba">
         <figcaption class="cierre__pie">
-          Veintiún operaciones <em>que ya pesan con nosotros.</em>
+          Treinta y cuatro operaciones <em>que ya pesan con nosotros.</em>
         </figcaption>
-        <Muro logos={clientesIndustriales} carpeta="clientes-industrial" />
+        <Muro logos={clientesUnificados} />
       </figure>
     </div>
   </Sesion>
@@ -272,7 +290,7 @@ const taller = [
   .frentes { margin-top: var(--s4); }
   .frente {
     display: grid;
-    grid-template-columns: 3.5rem minmax(0, 1fr);
+    grid-template-columns: 4.5rem minmax(0, 1fr);
     gap: 0.35rem var(--s3);
     padding-block: var(--s4);
     border-top: 1px solid var(--rule);
@@ -281,7 +299,9 @@ const taller = [
     grid-row: span 2;
     font-family: var(--display);
     font-style: italic;
-    font-size: var(--t-marca);
+    font-size: var(--t-practica-n);
+    opacity: 0.55;
+    text-align: right;
     color: var(--foil);
     line-height: 1;
     font-variation-settings: 'opsz' 18;
@@ -463,35 +483,6 @@ const taller = [
   .paso__titulo { font-size: var(--t-menor); line-height: 1.15; }
   .paso__cuerpo { max-width: 52ch; }
 
-  /* Las entradas sin contenido se imprimen como entradas del programa: título
-     en tinta apagada, lo que falta, y el formato de entrega al margen. Debajo,
-     los renglones que todavía no se han impreso. La ausencia se dibuja con el
-     mismo cuidado que lo escrito. */
-  /* Queda un solo hueco, así que ya no es una lista numerada: es la entrada
-     que falta, con sus renglones sin imprimir debajo. Cuando llegue el
-     material, este bloque se reemplaza por los proyectos y la sesión conserva
-     su sitio y su numeral. */
-  .hueco {
-    margin-top: var(--s4);
-    padding-top: var(--s3);
-    border-top: 1px solid var(--rule);
-  }
-  .hueco__requiere { max-width: 56ch; color: var(--ink-body); }
-  .hueco__formato { max-width: 56ch; margin-top: var(--s1); }
-
-  .renglones {
-    margin-top: var(--s4);
-    display: grid;
-    gap: 0.95rem;
-    max-width: 32rem;
-  }
-  .renglones i {
-    display: block;
-    width: var(--w);
-    height: 1px;
-    background: var(--foil-faint);
-  }
-
   /* El cierre: lo que decimos a la izquierda, quién ya nos eligió a la
      derecha. Misma pieza que el cierre de la Pista A. */
   .cierre {
@@ -539,8 +530,12 @@ const taller = [
   h1.titular em { font-style: italic; color: var(--live); }
   h2.subtitular em { font-style: italic; color: var(--ink); }
 
+  /* La cifra de tradición, bajada de titular a nota chica el 19/09/2026. */
+  .apertura__tradicion { margin-top: var(--s2); }
+
   @media (max-width: 52rem) {
-    .frente, .familia { grid-template-columns: 2.5rem minmax(0, 1fr); }
+    .frente { grid-template-columns: 3.25rem minmax(0, 1fr); }
+    .familia { grid-template-columns: 2.5rem minmax(0, 1fr); }
     .familia__detalle { letter-spacing: 0.1em; font-size: var(--t-micro); }
     .piezas, .par { grid-template-columns: 1fr; gap: var(--s2); }
   }

@@ -10,7 +10,14 @@
    quienes no se equivocan al elegir» es la afirmación de mayor riesgo del
    sitio. El portafolio las presenta así, pero eso no es una autorización. */
 
-export type Cliente = { archivo: string; nombre: string; w: number; h: number };
+export type Cliente = {
+  archivo: string;
+  nombre: string;
+  w: number;
+  h: number;
+  /** Carpeta de origen del recorte, para cuando una lista mezcla las dos pistas. */
+  carpeta?: string;
+};
 
 export const clientesLogos: Cliente[] = [
   { archivo: 'motorola-solutions', nombre: 'Motorola Solutions', w: 157, h: 136 },

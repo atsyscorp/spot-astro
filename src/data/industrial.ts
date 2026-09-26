@@ -11,16 +11,23 @@
    proyectos con resultado verificable y la lista confirmada de clientes. */
 
 export const industrial = {
-  /* Portada del catálogo, literal: «Por tradición · 75 años de experiencia al
-     servicio de la industria nacional». La cifra de 30 años aparece repetida
-     en las páginas de equipos de medición y de servicios, siempre acotada a
-     sistemas de pesaje. Son dos cifras distintas de dos cosas distintas, y así
-     se publican. */
+  /* El titular de apertura cambió el 19/09/2026, a pedido explícito de
+     Camilo Altamar: «hacemos que su operación no se detenga», mostrando de
+     entrada a quién sirve la casa en vez de abrir con una cifra. La cifra de
+     tradición baja del cartel a una nota chica, y de 75 a 50 —«un número más
+     fácil de manejar», dicho suyo— porque así se pidió esta vez.
+
+     Esto NO reemplaza el «setenta y cinco años» que declara la portada del
+     catálogo, ni el «más de treinta» de los equipos de medición: esos dos
+     siguen exactos, con su propia confirmación escrita pendiente, en la
+     sesión de herencia ALW más abajo. Esta nota es la síntesis de mercadeo
+     que el cliente pidió para el cartel de entrada, no una tercera cifra del
+     catálogo — por eso no lleva el mismo candado de confirmación. */
   tesis: {
-    titular: ['Setenta y cinco años', 'al servicio de la industria.'],
+    titular: ['Hacemos que su operación', 'no se detenga.'],
     cuerpo:
       'Spot Industries diseña, fabrica y mantiene lo que mueve, almacena y pesa la carga de una operación. Tres frentes bajo un mismo criterio: producto de catálogo cuando lo resuelve, fabricación a la medida cuando no, y el mantenimiento que sostiene a los dos.',
-    tradicion: 'Por tradición',
+    tradicion: 'Más de 50 años al servicio de la industria.',
   },
 
   /* Las tres entradas de la página 2 del catálogo, en su orden y con su

@@ -32,6 +32,12 @@
      sobre cartulina limpia y 5,78:1 sobre el punto más claro de la bruma.
      Es la luz de la Pista B, decidida con el cliente el 15/09/2026. */
   --rojo:         #FF5A4A;
+  /* El mismo rojo, sin levantar: es el que se mide directo del logotipo. Se
+     usa cuando la Pista B se imprime en papel claro (ver más abajo) — ahí no
+     hace falta subirlo, porque un rojo saturado ya contrasta más sobre papel
+     que sobre cartulina negra; el levantado es la corrección para el fondo
+     oscuro, no el rojo por defecto. */
+  --rojo-logo:    #ED2A39;
 
   /* Pistas */
   --track-a:      var(--live);
@@ -55,6 +61,7 @@
   --t-entrada:    clamp(1.35rem, 2.5vw, 1.8rem); /* entrada de programa */
   --t-menor:      clamp(1.15rem, 2.1vw, 1.5rem); /* estación y paso */
   --t-marca:      1.5rem;      /* logotipo y numeral de raíl */
+  --t-practica-n: clamp(2rem, 4.2vw, 2.75rem); /* numeral de práctica/frente: grande y tenue, pedido en la reunión del 19/09/2026 */
   --t-sub:        1.125rem;    /* rótulo de cinta, numeral de entrada */
   --t-nota:       1rem;        /* nota curatorial */
   --t-lead:       1.1875rem;   /* entradilla */
@@ -100,12 +107,33 @@
   }
 }
 
-/* La Pista B se imprime con la otra luz: el rojo de Spot Industries.
-   Un mundo, una tinta — el sistema no cambia, cambia el color que vive.
-   Antes la Pista B encendía en latón vivo y había que bajar el latón
-   estructural para que no se confundieran; con el rojo ya no se confunden, así
-   que `--foil` se queda con el valor de la casa y el remapeo es de una sola
-   variable. */
+/* La Pista B se imprime en papel, no en cartulina negra: pedido el
+   19/09/2026 («cambiar el fondo del spot industries a blanco... para que se
+   dé un contraste más fuerte»), confirmado el 24/09/2026 para toda la pista,
+   no sólo la apertura. Remapea el sistema entero de tinta y cartulina en un
+   solo sitio — cinta, programa, muro de clientes, pie — porque todo lo que
+   ya vivía de estas variables cambia de fondo sin que se le toque una línea.
+
+   El rojo de pista sube un escalón menos que en cartulina: `--rojo` es el
+   levantado para fondo oscuro (6,42:1 sobre negro); aquí basta el rojo real
+   del logotipo (`--rojo-logo`), que sobre este papel ya mide por encima de
+   3:1 — de sobra para texto grande y para acentos, que es todo lo que lo
+   usa. */
 [data-pista='b'] {
-  --live: var(--rojo);
+  --stock:      #F5F1E9;
+  --stock-deep: #EAE4D6;
+  --placa:      #FFFFFF;
+  --placa-viva: #FBF6EC;
+
+  --ink:        #1B1815;
+  --ink-body:   #3B362E;
+  --ink-quiet:  #6B6458;
+
+  --foil-dim:   #B8A67E;
+  --foil-faint: #E4DCC8;
+  --rule:       #DDD6C8;
+
+  --live:       var(--rojo-logo);
+
+  color-scheme: light;
 }

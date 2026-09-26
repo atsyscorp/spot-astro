@@ -28,7 +28,13 @@ const src = '/brand/spot-wordmark-white.webp';
     width: auto;
     height: var(--marca-alto, 1.75rem);
     opacity: 0.94;
-    transition: opacity 200ms var(--ease);
+    transition: opacity 200ms var(--ease), filter 200ms var(--ease);
   }
   a.marca:hover img { opacity: 1; }
+
+  /* El logotipo que entregó el cliente es blanco sobre transparente: no
+     sirve tal cual sobre el papel claro de la Pista B. Se invierte por CSS
+     —blanco a negro, sin tocar el alfa— en vez de pedir un segundo archivo:
+     es la misma geometría exacta, sólo con la tinta que le toca al fondo. */
+  [data-pista='b'] .marca img { filter: invert(1); }
 </style>
