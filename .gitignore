@@ -7,3 +7,7 @@ dist/
 
 # Local Netlify folder
 .netlify
+
+
+# Insumos crudos de Industrial: pesados (fotos+video sin comprimir), nunca al repo.
+Recursos_Industries/

@@ -1,0 +1,574 @@
+<title>Parte de obra · Spot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+
+<style>
+  :root {
+    --paper:      #F7F5F0;
+    --paper-deep: #EFEBE2;
+    --ink:        #191714;
+    --ink-body:   #3B362E;
+    --ink-quiet:  #6B6458;
+    --rule:       #DFD9CC;
+    --rule-firm:  #C6BDA9;
+    --brass:      #8A6B2F;
+    --track-a:    #0B7D62;
+    --track-b:    #B23A2B;
+    --flag:       #F3EADF;
+    --ok:         #0B7D62;
+    --warn:       #B23A2B;
+
+    --display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --text: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    --t-title: clamp(2.1rem, 6vw, 3.4rem);
+    --t-h2:    clamp(1.5rem, 3.4vw, 2rem);
+    --t-h3:    1.1875rem;
+    --t-body:  1.0312rem;
+    --t-small: 0.9062rem;
+    --t-label: 0.6875rem;
+
+    --rail: 4.5rem;
+    --measure: 63ch;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #131211;
+      --paper-deep: #0B0B0A;
+      --ink:        #EDE9E1;
+      --ink-body:   #C9C4BA;
+      --ink-quiet:  #A39C8E;
+      --rule:       #2A2724;
+      --rule-firm:  #443E36;
+      --brass:      #B8935A;
+      --track-a:    #10E6B3;
+      --track-b:    #FF5A4A;
+      --flag:       #1B1815;
+      --ok:         #10E6B3;
+      --warn:       #FF5A4A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:      #131211;
+    --paper-deep: #0B0B0A;
+    --ink:        #EDE9E1;
+    --ink-body:   #C9C4BA;
+    --ink-quiet:  #A39C8E;
+    --rule:       #2A2724;
+    --rule-firm:  #443E36;
+    --brass:      #B8935A;
+    --track-a:    #10E6B3;
+    --track-b:    #FF5A4A;
+    --flag:       #1B1815;
+    --ok:         #10E6B3;
+    --warn:       #FF5A4A;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink-body);
+    font-family: var(--text);
+    font-size: var(--t-body);
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .hoja {
+    max-width: 62rem;
+    margin-inline: auto;
+    padding-inline: max(1rem, 4vw);
+    padding-block: clamp(2.5rem, 7vw, 5rem) 4rem;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--display);
+    font-weight: 400;
+    color: var(--ink);
+    margin: 0;
+    text-wrap: balance;
+    letter-spacing: -0.012em;
+  }
+
+  p { margin: 0; }
+  ul, ol { margin: 0; padding: 0; }
+
+  a { color: inherit; text-decoration-color: var(--rule-firm); text-underline-offset: 0.2em; }
+  a:hover { color: var(--brass); text-decoration-color: var(--brass); }
+  :focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+
+  code, .mono {
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.875em;
+    color: var(--ink);
+  }
+
+  .rotulo {
+    font-size: var(--t-label);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+
+  .hilo {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 10;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    border-bottom: 1px solid var(--rule);
+  }
+  @supports not (background: color-mix(in srgb, red 50%, transparent)) {
+    .hilo { background: var(--paper); }
+  }
+
+  .hilo__hoja {
+    max-width: 62rem;
+    margin-inline: auto;
+    padding-inline: max(1rem, 4vw);
+  }
+
+  .hilo__lista {
+    display: flex;
+    align-items: stretch;
+    gap: 1.15rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .hilo__lista::-webkit-scrollbar { display: none; }
+  .hilo__lista li { list-style: none; flex: none; }
+  .hilo__lista--corre {
+    mask-image: linear-gradient(to right, #000 calc(100% - 3rem), transparent);
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 3rem), transparent);
+  }
+
+  .hilo__paso {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5em;
+    padding-block: 0.8rem;
+    text-decoration: none;
+    color: var(--ink-quiet);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--rule);
+    transition: color 320ms ease, border-color 320ms ease;
+  }
+  .hilo__paso b {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 0.9375rem;
+    line-height: 1;
+    color: var(--brass);
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+  }
+  .hilo__paso span {
+    font-size: var(--t-label);
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+  .hilo__paso:hover { color: var(--ink); }
+  .hilo__paso[aria-current="true"] { color: var(--brass); border-bottom-color: var(--brass); }
+
+  .sesion, .parte { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 4rem); }
+
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+  @media (max-width: 56rem) {
+    .hilo__lista { gap: 0.95rem; }
+    .hilo__paso { gap: 0.4em; }
+    .hilo__paso span { display: none; }
+    .hilo__paso[aria-current="true"] span { display: inline; }
+  }
+
+  .parte { display: grid; gap: 1.5rem; }
+  .parte__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.6rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--rule-firm);
+  }
+  .parte h1 { font-size: var(--t-title); line-height: 1.04; letter-spacing: -0.022em; }
+  .parte h1 em { font-style: italic; color: var(--brass); }
+  .parte__plomo { max-width: var(--measure); font-size: 1.125rem; line-height: 1.55; }
+
+  .cifras {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border-block: 1px solid var(--rule);
+    margin-top: 2.5rem;
+  }
+  .cifra { background: var(--paper); padding: 1rem 1.1rem; display: grid; gap: 0.15rem; }
+  .cifra b {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 1.75rem;
+    line-height: 1;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .cifra span { font-size: var(--t-small); color: var(--ink-quiet); }
+
+  .sesion {
+    display: grid;
+    grid-template-columns: var(--rail) minmax(0, 1fr);
+    gap: 0 1.75rem;
+    padding-top: 2.75rem;
+    margin-top: 2.75rem;
+    border-top: 1px solid var(--rule);
+  }
+  .sesion__rail { display: grid; gap: 0.3rem; align-content: start; }
+  .sesion__rail b { font-family: var(--display); font-weight: 400; font-size: 1.4rem; line-height: 1; color: var(--brass); }
+  .sesion__cuerpo { display: grid; gap: 1.1rem; min-width: 0; }
+  .sesion h2 { font-size: var(--t-h2); line-height: 1.12; }
+  .sesion h2 em { font-style: italic; color: var(--ink-quiet); }
+  .sesion p, .sesion li { max-width: var(--measure); }
+
+  h3 { font-size: var(--t-h3); line-height: 1.25; margin-top: 0.6rem; }
+
+  .lista { display: grid; gap: 0.7rem; }
+  .lista li { list-style: none; padding-left: 1.1rem; position: relative; }
+  .lista li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.72em;
+    width: 0.5rem; height: 1px;
+    background: var(--rule-firm);
+  }
+
+  .dicho {
+    display: grid;
+    gap: 0.35rem;
+    padding: 0.9rem 0 0.9rem 1.1rem;
+    border-left: 2px solid var(--track-a);
+    max-width: var(--measure);
+  }
+  .dicho p { font-family: var(--display); font-style: italic; font-size: 1.125rem; line-height: 1.4; color: var(--ink); }
+  .dicho cite { font-style: normal; font-size: var(--t-small); color: var(--ink-quiet); }
+  .dicho--b { border-left-color: var(--track-b); }
+
+  .tabla-caja { overflow-x: auto; margin-block: 0.4rem; }
+  table { border-collapse: collapse; width: 100%; font-size: var(--t-small); }
+  th, td { text-align: left; padding: 0.6rem 0.9rem 0.6rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { font-weight: 500; font-size: var(--t-label); letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass); white-space: nowrap; }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: 0; }
+
+  .pista { display: inline-flex; align-items: baseline; gap: 0.45em; font-size: var(--t-label); letter-spacing: 0.16em; text-transform: uppercase; }
+  .pista::before { content: ''; width: 0.55em; height: 0.55em; border-radius: 50%; }
+  .pista--a { color: var(--track-a); }
+  .pista--a::before { background: var(--track-a); }
+  .pista--b { color: var(--track-b); }
+  .pista--b::before { background: var(--track-b); }
+
+  .estado { display: inline-flex; align-items: center; gap: 0.4em; font-size: var(--t-label); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+  .estado::before { content: ''; width: 0.5em; height: 0.5em; border-radius: 50%; flex: none; }
+  .estado--hecho { color: var(--ok); }
+  .estado--hecho::before { background: var(--ok); }
+  .estado--pendiente { color: var(--warn); }
+  .estado--pendiente::before { background: var(--warn); }
+
+  .nota { font-family: var(--display); font-style: italic; font-size: var(--t-small); color: var(--ink-quiet); max-width: var(--measure); }
+
+  .enlace-fuerte { font-family: var(--display); font-size: 1.0625rem; word-break: break-word; }
+
+  .pie {
+    margin-top: 3.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule-firm);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    font-size: var(--t-small);
+    color: var(--ink-quiet);
+  }
+
+  @media (max-width: 40rem) {
+    :root { --rail: 0rem; }
+    .sesion { grid-template-columns: 1fr; gap: 0.9rem; }
+    .sesion__rail { display: flex; align-items: baseline; gap: 0.7rem; }
+  }
+</style>
+
+<nav class="hilo" aria-label="Capítulos del parte">
+  <div class="hilo__hoja">
+    <ol class="hilo__lista">
+      <li><a class="hilo__paso" href="#c1" aria-current="true"><b>I</b><span>La reunión</span></a></li>
+      <li><a class="hilo__paso" href="#c2"><b>II</b><span>Prácticas</span></a></li>
+      <li><a class="hilo__paso" href="#c3"><b>III</b><span>Logotipos</span></a></li>
+      <li><a class="hilo__paso" href="#c4"><b>IV</b><span>Pendientes</span></a></li>
+      <li><a class="hilo__paso" href="#c5"><b>V</b><span>Siguiente sesión</span></a></li>
+    </ol>
+  </div>
+</nav>
+
+<div class="hoja">
+
+  <header class="parte">
+    <div class="parte__meta">
+      <span class="rotulo">Parte de obra</span>
+      <span class="rotulo" style="color: var(--ink-quiet)">spotlatam.com</span>
+      <span class="rotulo" style="color: var(--ink-quiet)">24 · 09 · 2026</span>
+      <span class="rotulo" style="color: var(--ink-quiet)">ATSYS</span>
+    </div>
+
+    <h1>Lo de la reunión del 19 de<br><em>septiembre, aplicado.</em></h1>
+
+    <p class="parte__plomo">
+      Se revisaron las notas y la transcripción de la reunión de Camilo y
+      Mauricio Altamar del 19/09/2026 (<code>resources/</code>) y se aplicó lo
+      que se podía resolver desde el código. Lo que dependía de material que
+      el cliente no ha entregado —vídeo, enlace de calendario, código de
+      Connect Loop— queda declarado, no inventado.
+    </p>
+
+    <div class="cifras">
+      <div class="cifra"><b>2</b><span>cambios aplicados</span></div>
+      <div class="cifra"><b>34</b><span>logotipos ya unificados</span></div>
+      <div class="cifra"><b>3</b><span>pendientes de material</span></div>
+      <div class="cifra"><b>1</b><span>conflicto por resolver</span></div>
+    </div>
+  </header>
+
+  <!-- I -->
+  <section class="sesion" id="c1">
+    <p class="sesion__rail"><b>I</b><span class="rotulo">La reunión</span></p>
+    <div class="sesion__cuerpo">
+      <h2>Lo que se pidió, con sus palabras.</h2>
+      <p>
+        Reunión de 40 minutos entre Camilo Altamar, Mauricio Altamar y ATSYS.
+        Quedaron cuatro decisiones acordadas, dos pedidos que necesitan
+        material del cliente, y una sesión de seguimiento agendada.
+      </p>
+
+      <div class="dicho">
+        <p>«Los números que hay dentro de prácticas están como un poquito desalineados… aumentémosles un poco tamaño y que queden más justificados, mejor alineados.»</p>
+        <cite>ATSYS y Camilo Altamar · 00:03:08–00:04:01</cite>
+      </div>
+
+      <div class="dicho">
+        <p>«Independientemente que unos sean por experiencias y otros sean industrias, al final es Spot… movamos todas las marcas [a las dos pistas].»</p>
+        <cite>Camilo Altamar · 00:15:26</cite>
+      </div>
+
+      <div class="dicho dicho--b">
+        <p>«Un fondo blanco con un video de fondo… hacemos que su operación no se detenga, y un slider con los logos de las compañías.»</p>
+        <cite>Camilo Altamar · 00:23:21–00:29:15</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- II -->
+  <section class="sesion" id="c2">
+    <p class="sesion__rail"><b>II</b><span class="rotulo">Prácticas</span></p>
+    <div class="sesion__cuerpo">
+      <span class="estado estado--hecho">Hecho</span>
+      <h2>El numeral crece, baja de tinta y se alinea a un borde común.</h2>
+      <p>
+        El problema no era sólo el tamaño: «I», «II», «III» y «IV» tienen
+        anchos distintos en la itálica del display, así que alineados a la
+        izquierda cada uno arrancaba en el mismo punto pero parecía
+        desordenado frente al título. La corrección los alinea a la
+        <strong>derecha</strong> de una columna más ancha: ahora comparten un
+        borde, no un punto de partida.
+      </p>
+
+      <div class="tabla-caja">
+        <table>
+          <thead><tr><th>Propiedad</th><th>Antes</th><th>Ahora</th></tr></thead>
+          <tbody>
+            <tr><td>Tamaño</td><td class="num">1.5rem fijo</td><td class="num">clamp(2rem, 4.2vw, 2.75rem)</td></tr>
+            <tr><td>Opacidad</td><td class="num">100%</td><td class="num">55%</td></tr>
+            <tr><td>Alineación</td><td>Izquierda</td><td>Derecha, columna de 4.5rem</td></tr>
+            <tr><td>Dónde</td><td>Sólo Prácticas (Pista A)</td><td>Prácticas y Frentes (Pista A y B — mismo patrón de código)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="nota">
+        Token nuevo en <code>tokens.css</code>: <code>--t-practica-n</code>. Se
+        aplicó también a los tres frentes de la Pista B porque el propio
+        código los describe como «el mismo patrón que las prácticas de la
+        Pista A» — no estaba pedido línea por línea en la reunión, revísalo
+        si prefieres dejar la Pista B como estaba.
+      </p>
+    </div>
+  </section>
+
+  <!-- III -->
+  <section class="sesion" id="c3">
+    <p class="sesion__rail"><b>III</b><span class="rotulo">Logotipos</span></p>
+    <div class="sesion__cuerpo">
+      <span class="estado estado--hecho">Hecho</span>
+      <h2>Un solo muro de treinta y cuatro marcas, en las dos pistas.</h2>
+      <p>
+        <code>src/data/clientes-unificados.ts</code> junta los trece
+        logotipos del portafolio y los veintiuno del catálogo industrial.
+        <code>Muro.astro</code> ya sabe de qué carpeta traer la imagen de cada
+        uno, así que ninguna placa se recortó de nuevo. La Pista B pasó de
+        decir «Veintiún operaciones» a «Treinta y cuatro».
+      </p>
+
+      <div class="tabla-caja">
+        <table>
+          <thead><tr><th>Pista</th><th>Antes</th><th>Ahora</th></tr></thead>
+          <tbody>
+            <tr><td><span class="pista pista--a">Experiencias</span></td><td class="num">13 logotipos</td><td class="num">34 logotipos</td></tr>
+            <tr><td><span class="pista pista--b">Industrial</span></td><td class="num">21 logotipos</td><td class="num">34 logotipos</td></tr>
+            <tr><td>Marquesina</td><td class="num">42s, 2 columnas</td><td class="num">65s, 2 columnas</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        La duración de la marquesina escala con el tamaño de la lista, para
+        que ningún logotipo pase menos tiempo en pantalla que antes de
+        unificar. Se descartaron las tres columnas que se mencionaron en la
+        reunión como alternativa: en pantalla angosta habrían apretado la
+        placa, y este componente no tiene JavaScript para recomponerse según
+        el ancho.
+      </p>
+      <p class="nota">
+        Sin cambio de riesgo legal, pero sin mejora tampoco: ninguna de las
+        treinta y cuatro marcas tiene autorización escrita de uso. Antes
+        estaba repartido en dos muros de 13 y 21; ahora es un solo bloque de
+        34 mostrado el doble de veces. <code>ENTREGA.md</code> queda
+        actualizado con esto.
+      </p>
+    </div>
+  </section>
+
+  <!-- IV -->
+  <section class="sesion" id="c4">
+    <p class="sesion__rail"><b>IV</b><span class="rotulo">Pendientes</span></p>
+    <div class="sesion__cuerpo">
+      <h2>Lo que no se resuelve desde el código.</h2>
+
+      <span class="estado estado--pendiente">Pendiente de material</span>
+      <h3>Enlace de calendario de Camilo</h3>
+      <p>
+        Se pegó directo en el chat de Meet, no en un canal que quede en este
+        repositorio. Hace falta que lo reenvíe (correo, WhatsApp o un archivo
+        en <code>resources/</code>) para montar el botón «Agendar una
+        llamada» en Experiencias.
+      </p>
+
+      <span class="estado estado--pendiente">Pendiente de material</span>
+      <h3>Connect Loop (bot de WhatsApp)</h3>
+      <p>
+        Camilo crea la cuenta y genera el código de integración; hasta que
+        llegue no hay nada que insertar en el sitio.
+      </p>
+
+      <span class="estado estado--pendiente">Pendiente de material y de una decisión</span>
+      <h3>Rediseño de la apertura de la Pista B</h3>
+      <p>
+        Fondo blanco, vídeo de fondo con opacidad, titular «Hacemos que su
+        operación no se detenga», logotipos más arriba: necesita el mejor
+        vídeo de movilización de palets que Mauricio ofreció mandar «hoy o
+        mañana», y que no ha llegado a <code>resources/</code>.
+      </p>
+      <div class="dicho dicho--b">
+        <p>«Bajémosle de 75 a 50, que es un número más fácil de manejar.»</p>
+        <cite>Camilo Altamar, sobre la cifra de tradición · 00:24:31</cite>
+      </div>
+      <p>
+        Esto choca con un pendiente que ya existía: la confirmación escrita
+        de los <strong>setenta y cinco años</strong> tal como los declara el
+        catálogo, para la sesión de herencia ALW. No se tocó
+        <code>industrial.ts</code> hasta que el cliente diga cuál de las dos
+        cifras queda — cambiar un número sin esa confirmación sería
+        exactamente lo que este sitio se prohibió hacer desde el principio.
+      </p>
+
+      <span class="estado estado--hecho">Confirmado, sin cambio de código</span>
+      <h3>Astro en vez de WordPress</h3>
+      <p>
+        Es lo que el sitio ya es desde el primer commit. La reunión ratifica
+        la decisión, no la origina.
+      </p>
+    </div>
+  </section>
+
+  <!-- V -->
+  <section class="sesion" id="c5">
+    <p class="sesion__rail"><b>V</b><span class="rotulo">Siguiente sesión</span></p>
+    <div class="sesion__cuerpo">
+      <h2>Sábado 26 de septiembre, 10:00 a.m.</h2>
+      <p>
+        Agendada al cierre de la reunión, con Camilo, Mauricio y ATSYS. Para
+        llegar con algo que mostrar hacen falta las tres piezas de la sección
+        anterior: el vídeo de Mauricio, el enlace de calendario y el código
+        de Connect Loop.
+      </p>
+      <p class="nota">
+        Detalle técnico completo — commits, tokens, componentes — en
+        <code>ENTREGA.md</code> del repositorio. Este parte no lo repite.
+      </p>
+    </div>
+  </section>
+
+  <footer class="pie">
+    <span>Parte de obra · sitio Spot</span>
+    <span>Fuente: acta y transcripción de la reunión del 19/09/2026</span>
+    <span>Nada publicado en el sitio procede de otra fuente.</span>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var pasos = Array.prototype.slice.call(document.querySelectorAll('.hilo__paso'));
+    var lista = document.querySelector('.hilo__lista');
+    if (!pasos.length || !lista) return;
+
+    var capitulos = pasos
+      .map(function (a) { return document.querySelector(a.getAttribute('href')); })
+      .filter(Boolean);
+    if (capitulos.length !== pasos.length || !('IntersectionObserver' in window)) return;
+
+    var visibles = new Set();
+
+    function marcar() {
+      var activo = 0;
+      for (var i = 0; i < capitulos.length; i++) {
+        if (visibles.has(capitulos[i])) { activo = i; break; }
+      }
+      pasos.forEach(function (a, i) {
+        if (i === activo) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+
+      var paso = pasos[activo];
+      var caja = paso.getBoundingClientRect();
+      var marco = lista.getBoundingClientRect();
+      if (caja.left < marco.left + 8) {
+        lista.scrollLeft += caja.left - marco.left - 8;
+      } else if (caja.right > marco.right - 8) {
+        lista.scrollLeft += caja.right - marco.right + 8;
+      }
+    }
+
+    var ojo = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (e.isIntersecting) visibles.add(e.target);
+        else visibles.delete(e.target);
+      });
+      marcar();
+    }, { rootMargin: '-25% 0px -60% 0px' });
+
+    capitulos.forEach(function (c) { ojo.observe(c); });
+    marcar();
+
+    function medir() {
+      lista.classList.toggle('hilo__lista--corre', lista.scrollWidth > lista.clientWidth + 2);
+    }
+    medir();
+    window.addEventListener('resize', medir, { passive: true });
+  })();
+</script>

@@ -60,6 +60,9 @@ Todo el texto vive en `src/data/`, no en las plantillas:
   ciudad, ni una acreditación.
 - `src/data/pendiente.ts` — los huecos de la línea Industrial, declarados en vez
   de rellenados. Cambiar este archivo cambia lo que el sitio pide.
+- `src/data/clientes-unificados.ts` — junta `clientes.ts` y `clientes-industrial.ts`
+  en una sola lista, acordado el 19/09/2026. La usan las dos pistas; no recorta
+  logotipos nuevos, sólo une los que ya existían.
 
 El símbolo de marca está en `brand/`, con su geometría medida documentada en
 `brand/README.md`.
@@ -101,6 +104,54 @@ imagen; esa decisión es del cliente, no del código.
 | Más imágenes reales de eventos para la banda de sala, y vídeos complementarios | **Pendiente de material.** Camilo Altamar quedó en enviarlos. La banda de sala admite más fotogramas sin tocar el diseño: se añaden a `public/sala/` y a la lista de `Sala.astro`. |
 | Catálogo y portafolio de Spot Industries | **Recibido y aplicado.** El catálogo 2026 (26 páginas) es ahora la fuente de `src/data/industrial.ts` y de las diez sesiones de la Pista B. |
 | Logotipos de clientes de restaurantes (El Corral, Burger King, Búfalo, Wings, Homeburger) y aéreo (Avianca, FedEx, DHL) | **Hecho con el material existente.** El muro de la página 25 del catálogo trae veintiuno, incluidos El Corral, Burger King, Buffalo Wings, Home Burgers y FedEx; están en el sitio en tinta hueso. Avianca y DHL no aparecen en ese muro. Falta el vectorial y, sobre todo, la autorización escrita. |
+
+## Reunión del 19/09/2026 — qué se pidió y qué se hizo
+
+| Lo que se pidió | Estado |
+|---|---|
+| «Los números de la sección de prácticas están desalineados; aumentarlos un poco y reducir la opacidad» | **Hecho.** El numeral de cada práctica (Pista A) y de cada frente (Pista B, mismo patrón) crece, baja a 55% de opacidad y se alinea a la derecha de una columna más ancha — así «I», «II», «III» y «IV» comparten un mismo borde en vez de empezar cada uno donde le alcance el trazo. Token nuevo: `--t-practica-n` en `tokens.css`. |
+| «Unificar la lista de logotipos: que las mismas treinta y cuatro marcas se muestren en las dos pistas» (Acordada) | **Hecho.** `src/data/clientes-unificados.ts` junta los trece de `clientes.ts` y los veintiuno de `clientes-industrial.ts`; `Muro.astro` ya sabe leer la carpeta de cada logo (algunos vienen de `clientes/`, otros de `clientes-industrial/`) y la usa en ambas pistas. La marquesina sigue en dos columnas — tres apretaba en pantalla angosta — pero el recorrido pasó de 42s a 65s para que, con más del doble de logotipos, cada uno se quede en pantalla el mismo tiempo que antes. El pie de la Pista B se actualizó de «Veintiún operaciones» a «Treinta y cuatro operaciones». |
+| «Un menú tipo drawer para saltar entre Experiencias e Industrial sin volver a la portada» | **Hecho, ronda anterior.** El hilo de capítulos de la cinta (commit `866b5a6`) ya resuelve esto: un solo menú a cualquier ancho, con las sesiones de la pista y salto directo entre mundos. |
+| «Seguir con JavaScript estático (Astro) en vez de WordPress, priorizando velocidad y bajo mantenimiento» | **Confirmado, sin cambio de código.** Es lo que el sitio ya es desde el primer commit; esta reunión ratifica la decisión, no la origina. |
+| Vincular el calendario de Camilo en la interfaz, para agendar llamada | **Pendiente de material.** En la reunión se pegó el enlace directamente en el chat de Meet, no en un canal que quede en este repositorio. Hace falta que Camilo lo mande de nuevo (correo, WhatsApp o un archivo en `resources/`) para montar el botón «Agendar una llamada». |
+| Integrar Connect Loop (bot de WhatsApp) en el sitio | **Pendiente de material.** Camilo crea la cuenta y genera el código; hasta que ese código llegue no hay nada que insertar. |
+| Rediseño de la apertura de la Pista B: fondo blanco, video de fondo con opacidad, titular «Hacemos que su operación no se detenga», logotipos más arriba, cifra de tradición reducida a un texto pequeño | **Hecho con placeholder, el 24/09/2026.** El usuario aceptó avanzar sin esperar el material: `Vitrina.astro` pinta la apertura de Industrial en papel claro (`[data-fondo='claro']` en `tokens.css`, remapea `--stock`/`--ink` sólo ahí) con `public/taller/deck-plataforma.webp` como fondo mientras llega el vídeo de Mauricio — sustituir el `<img>` por un `<video>` cuando llegue, sin tocar nada más. El titular ya dice «Hacemos que su operación no se detenga.» y la cifra bajó a una nota chica: «Más de 50 años al servicio de la industria.» Los logotipos más arriba y el slider de compañías del hero **no** se hicieron — piden más estructura de la que cabía en esta pasada; siguen pendientes. |
+| ¿Choca el «50 años» del cartel con la confirmación pendiente de los «75 años» del catálogo? | **No, están separados a propósito.** El «más de 50 años» nuevo vive sólo en `tesis.tradicion`, la síntesis de mercadeo que el cliente pidió para el cartel de entrada. El «setenta y cinco años» y el «más de treinta» que declara el catálogo siguen intactos en la sesión de herencia ALW, con su propia confirmación escrita pendiente — ver punto 1 de «Lo que falta». Ninguna cifra del catálogo se tocó. |
+| Fecha de la próxima sesión | **Agendada.** Sábado 26/09/2026, 10:00 a.m. |
+
+Acta y transcripción en `resources/Reunión normal (Camilo Altamar)_ 2026_09_19...pdf`.
+El parte de obra de esta ronda está en `resources/PARTE-DE-OBRA-2026-09-19.html`.
+
+**Actualización del 24/09/2026, tarde — llegó el material de Mauricio:**
+
+- **Insumos crudos en `Recursos_Industries/`, fuera del repositorio a propósito**
+  (454 MB: un vídeo 4K de 439 MB, dos vídeos verticales y diez fotos). Ahora en
+  `.gitignore`. Nueve fotos ya convertidas a WebP en `public/taller-2026/`
+  (~2 MB en total); la décima no se convirtió porque en el propio cuadro sale un
+  letrero de «prohibido tomar fotos» — falta que Mauricio confirme si esa zona
+  se puede publicar.
+- **Vitrina de Industrial:** ya no es una foto fija. `Vitrina.astro` carga un
+  vídeo real (mismo mecanismo de carga condicional que `Pelicula` en
+  Experiencias — no se pide en móvil, con ahorro de datos o con
+  `prefers-reduced-motion`), recortado del 4K de Mauricio a 12s/848×480, igual
+  perfil que `experiencias.mp4`. El usuario vio dos recortes — uno con el
+  furgón de DHL a la vista, otro que lo deja fuera de cuadro — y eligió el
+  primero: **`public/video/industrial-con-dhl.mp4`**, en producción. El
+  segundo sigue existiendo, sin usar: `public/video/industrial-sin-dhl.mp4`.
+  **El furgón lleva el logotipo de DHL visible.** DHL no tiene autorización de
+  marca confirmada — es el mismo pendiente del muro de clientes (más abajo),
+  no uno nuevo, pero publicarlo en abierto pesa igual. Si la confirmación no
+  llega, cambiar a la versión sin DHL es una sola línea en
+  `src/pages/industrial/index.astro` (`videoClaro`/`posterClaro`).
+- **Galería nueva, `Galeria.astro`:** rejilla fija de las nueve fotos de obra
+  reciente (cerramientos de seguridad y estaciones de pesaje instalándose),
+  aparte de `Sala` — que sigue atada al scroll y sigue mostrando sólo el
+  material del catálogo 2026. Pedida porque una sola banda en movimiento no
+  alcanzaba para enseñar el material nuevo con calma.
+- **Sesión IX, Proyectos:** el texto largo («esta entrada todavía no se ha
+  impreso», con el desglose de qué hace falta y en qué formato) se cambió por
+  un «Próximamente.» corto, a pedido del usuario. `pendiente.ts` conserva el
+  detalle completo para uso interno; ya no se imprime en el sitio.
 
 ## Lo que falta, por orden de urgencia
 
@@ -154,12 +205,14 @@ rehacer el programa.
 Mientras tanto el sitio no inventa nada: enseña la forma del hueco. Es honesto y
 además le dice al cliente exactamente qué entregar.
 
-**Aparte, y de más riesgo:** el muro de clientes de la Pista B publica veintiún
-marcas sacadas de la página 25 del catálogo, igual que la Pista A publica trece
-del portafolio. **Ninguno de los dos muros tiene autorización escrita de uso de
-marca.** Un muro de logotipos en un PDF interno no es un permiso para publicarlos
-en abierto. Hay que confirmar, marca por marca, quién puede aparecer antes de
-quitar el `noindex`. Dos avisos concretos:
+**Aparte, y de más riesgo:** desde el 19/09/2026 el muro de clientes es uno solo
+—treinta y cuatro marcas, las veintiuna de la página 25 del catálogo más las
+trece del portafolio— y se publica igual en las dos pistas, por acuerdo
+explícito del cliente. **Ninguna de las treinta y cuatro tiene autorización
+escrita de uso de marca**, la unificación no cambia eso: un muro de logotipos
+en un PDF interno no es un permiso para publicarlos en abierto. Hay que
+confirmar, marca por marca, quién puede aparecer antes de quitar el `noindex`.
+Dos avisos concretos:
 
 - El logotipo veintiuno se transcribe como **«Beer»** —un grifo en círculo y la
   palabra BEER con la R final invertida— porque no se identificó la razón social.
