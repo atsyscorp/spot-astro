@@ -16,6 +16,7 @@ const { letra, pista } = Astro.props;
   <div class="apertura__cuerpo">
     <slot name="titular" />
     <div class="apertura__plomo"><slot name="plomo" /></div>
+    <div class="apertura__acciones"><slot name="acciones" /></div>
   </div>
 
   <div class="apertura__tira">
@@ -72,6 +73,15 @@ const { letra, pista } = Astro.props;
   .apertura__cuerpo { grid-column: 2; min-width: 0; }
   .apertura__plomo { margin-top: var(--s3); max-width: 46ch; }
 
+  /* Acciones: opcional — las pistas que no lo llenan no pagan el espacio. */
+  .apertura__acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2);
+    margin-top: var(--s4);
+  }
+  .apertura__acciones:empty { display: none; }
+
   /* La tira de prueba: lo que sostiene la afirmación, antes del programa. */
   .apertura__tira {
     grid-column: 2;
@@ -116,6 +126,43 @@ const { letra, pista } = Astro.props;
       padding-block: var(--s5) var(--s3);
     }
     .apertura__rail i { display: none; }
+  }
+</style>
+
+<style is:global>
+  /* Global a propósito: quien llena `slot="acciones"` es la página que usa
+     `<Apertura>` (el `<a class="apertura__accion">` vive en su plantilla,
+     no en la de este componente), así que el hash de scope de Astro nunca
+     va a coincidir si esta regla se queda `scoped`. Encontrado el 26/09/2026
+     al ver los botones renderizados como texto subrayado plano: el CSS
+     existía, apuntaba a un `[data-astro-cid-…]` que la página nunca puso. */
+  .apertura__accion {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.9em 1.5em;
+    font-family: var(--mono);
+    font-size: var(--t-rotulo);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    transition: background-color 260ms var(--ease), color 260ms var(--ease), border-color 260ms var(--ease);
+  }
+  /* Tinta contra papel, no rojo contra papel: el rojo de marca mide bien
+     como texto sobre claro, pero no como fondo de botón con texto encima a
+     este tamaño — --ink/--stock sí despeja el mínimo de contraste a
+     cualquier tamaño. El rojo queda para el estado vivo del hover. */
+  .apertura__accion--viva {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--stock);
+  }
+  .apertura__accion--viva:hover { background: var(--live); border-color: var(--live); }
+  .apertura__accion:not(.apertura__accion--viva):hover {
+    background: var(--ink);
+    color: var(--stock);
   }
 </style>
 

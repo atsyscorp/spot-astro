@@ -1,13 +1,11 @@
 ---
-/* La vitrina: fondo claro con vídeo propio detrás, para la apertura de
-   Industrial.
+/* La vitrina: el vídeo propio detrás de la apertura de Industrial.
 
-   Pedido explícito el 19/09/2026: «cambiar el fondo del spot industries a
-   blanco... para que se dé un contraste más fuerte», con un vídeo de fondo
-   con opacidad (Camilo Altamar). Mauricio Altamar entregó el material el
-   24/09/2026 — 4K, 37s, el deck de rodillos visto desde dentro de un furgón
-   de DHL — y el usuario eligió esa toma completa en vez del encuadre que la
-   dejaba fuera de cuadro (ambos recortes siguen existiendo: ver
+   Pedido explícito el 19/09/2026: «un video de fondo con opacidad»
+   (Camilo Altamar). Mauricio Altamar entregó el material el 24/09/2026 —
+   4K, 37s, el deck de rodillos visto desde dentro de un furgón de DHL — y el
+   usuario eligió esa toma completa en vez del encuadre que la dejaba fuera
+   de cuadro (ambos recortes siguen existiendo: ver
    `public/video/industrial-sin-dhl.mp4`).
 
    Carga como `Pelicula`, la misma pieza de Experiencias: el vídeo no se pide
@@ -15,10 +13,11 @@
    no está ahorrando datos, la conexión no es lenta y la pantalla da el
    ancho. Hasta entonces, y siempre en móvil, lo que se ve es el poster.
 
-   Misma altura que `Bruma`, pero sin su remate: desde el 24/09/2026 toda la
-   Pista B es papel claro (`tokens.css`, remapeo de `[data-pista='b']`), así
-   que no hay una cartulina oscura debajo con la que fundirse — el vídeo sólo
-   se apaga hacia el mismo papel que ya trae el programa.
+   Vivió sobre papel claro del 24/09 al 26/09/2026; ese remapeo se revirtió
+   en `tokens.css` (picklerobot.com como referencia, cliente pidió volver a
+   cartulina negra). Misma altura y el mismo remate que `Bruma`: `--stock`
+   vuelve a ser el negro real, así que el vídeo se apaga hacia la cartulina
+   como antes del 24/09, sin necesitar un caso especial.
 
    ADVERTENCIA que no se resuelve desde el código: el furgón lleva el
    logotipo de DHL a la vista, y DHL no tiene autorización de marca
@@ -58,15 +57,32 @@ const { video, poster } = Astro.props;
     height: 100%;
     object-fit: cover;
     object-position: center 30%;
-    opacity: 0.4;
+    opacity: 0.62;
   }
 
-  /* Lava el vídeo para que el titular no compita con él. */
+  /* El deck en movimiento es la prueba, no una atmósfera: se ve fuerte del
+     lado derecho, donde no hay texto, y se apaga hacia la izquierda —donde
+     se lee el titular— y hacia abajo, donde empieza el programa. */
   .vitrina::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, transparent 0%, var(--stock) 62%);
+    background:
+      linear-gradient(to right, var(--stock) 0%, color-mix(in srgb, var(--stock) 60%, transparent) 48%, transparent 76%),
+      linear-gradient(to bottom, transparent 0%, transparent 55%, var(--stock) 84%);
+  }
+  @supports not (background: color-mix(in srgb, red 50%, transparent)) {
+    .vitrina::after {
+      background: linear-gradient(to bottom, transparent 0%, transparent 55%, var(--stock) 84%);
+    }
+  }
+
+  @media (max-width: 52rem) {
+    /* Angosto no tiene lado limpio: la columna se apaga entera, más suave. */
+    .vitrina__cinta { opacity: 0.4; }
+    .vitrina::after {
+      background: linear-gradient(to bottom, transparent 0%, var(--stock) 60%);
+    }
   }
 </style>
 

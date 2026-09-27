@@ -10,11 +10,14 @@
    `Sala`: donde aparece una persona, va pequeña y de espaldas o en plano
    general, nunca en primer plano.
 
-   Ajuste del mismo día: la primera versión recortaba cada foto a una caja
-   4:3 fija sin forma de ver el resto — varias vienen en retrato y perdían la
-   mitad del cuadro sin remedio. Ahora la miniatura es más baja (recorta más,
-   sí, pero pesa menos en la página) y cada una abre un visor a pantalla
-   completa con la fotografía entera, sin recortar. */
+   Ajuste del 24/09: la primera versión recortaba cada foto a una caja 4:3
+   fija sin forma de ver el resto; cada una abre un visor a pantalla completa
+   con la fotografía entera, sin recortar.
+
+   Ajuste del 26/09, visto en picklerobot.com: su mosaico de fotografías es a
+   sangre y sin separación entre placas — una pared de pruebas, no una
+   rejilla con margen. Este componente pasa a sangre (mismo recurso que
+   `Sala`) y el espacio entre fotos baja a cero. */
 export interface Foto { archivo: string; alt: string }
 
 interface Props {
@@ -75,6 +78,9 @@ const { fotos, carpeta, titulo, pie } = Astro.props;
     flex-wrap: wrap;
     align-items: baseline;
     gap: 0.5em 1.2em;
+    max-width: var(--page);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
     margin-bottom: var(--s3);
   }
   .galeria__pie b {
@@ -91,11 +97,13 @@ const { fotos, carpeta, titulo, pie } = Astro.props;
     color: var(--ink-quiet);
   }
 
+  /* A sangre, como `Sala`: el mosaico no vive en la columna de lectura. */
   .galeria__rejilla {
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2px;
-    background: var(--placa);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
   }
   .galeria__disparador {
     display: block;
@@ -107,7 +115,7 @@ const { fotos, carpeta, titulo, pie } = Astro.props;
   .galeria__disparador img {
     display: block;
     width: 100%;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     background: var(--placa);
     filter: saturate(0.82) brightness(0.86);
@@ -116,15 +124,16 @@ const { fotos, carpeta, titulo, pie } = Astro.props;
   .galeria__disparador:hover img,
   .galeria__disparador:focus-visible img { filter: saturate(1) brightness(1); }
 
-  @media (max-width: 62rem) {
-    .galeria__rejilla { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  }
   @media (max-width: 40rem) {
     .galeria__rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 
-  /* El visor: la fotografía entera, sin recortar. */
-  .galeria__visor {
+  /* El visor: la fotografía entera, sin recortar.
+     `[hidden]` empata en especificidad con `.galeria__visor` y el navegador
+     resuelve el empate por orden de cascada — esta regla, al ir después,
+     ganaba y el visor se veía siempre, abierto o no. De ahí el `:not([hidden])`. */
+  .galeria__visor[hidden] { display: none; }
+  .galeria__visor:not([hidden]) {
     position: fixed;
     inset: 0;
     z-index: 40;

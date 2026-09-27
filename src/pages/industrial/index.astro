@@ -75,6 +75,10 @@ const obraReciente = [
     </h1>
     <p slot="titular" class="nota apertura__tradicion">{tesis.tradicion}</p>
     <p slot="plomo" class="plomo">{tesis.cuerpo}</p>
+    <div slot="acciones">
+      <a class="apertura__accion apertura__accion--viva" href="#hablemos">Hablemos</a>
+      <a class="apertura__accion" href="#productos">Ver productos</a>
+    </div>
     <ol slot="tira" class="tira">
       {frentes.map((f) => (
         <li>
@@ -85,8 +89,39 @@ const obraReciente = [
     </ol>
   </Apertura>
 
+  <figure class="prueba">
+    <figcaption class="prueba__pie">
+      Treinta y cuatro operaciones <em>que ya pesan con nosotros.</em>
+    </figcaption>
+    <Muro logos={clientesUnificados} />
+  </figure>
+
+  <section class="motor">
+    <div class="motor__negro">
+      <p class="motor__afirmacion">El método <em>no cambia</em> de pista.</p>
+    </div>
+    <div class="motor__claro">
+      <h2 class="subtitular">Cinco estaciones.<br /><em>Un mismo criterio.</em></h2>
+      <p class="plomo">
+        Las cinco estaciones que dirigen un summit dirigen también un proyecto
+        industrial. Lo que cambia es qué se mide al final.
+      </p>
+      <ol class="motor__pasos">
+        {metodo.map((m) => (
+          <li><b>{m.n}</b><span>{m.titulo}</span></li>
+        ))}
+      </ol>
+      <a class="apertura__accion apertura__accion--viva motor__enlace" href="#metodo">Ver el método completo</a>
+    </div>
+  </section>
+
   <Sesion n="I" rotulo="Qué hacemos" id="frentes">
-    <h2 class="subtitular">Tres frentes.<br /><em>Un mismo taller detrás.</em></h2>
+    <h2 class="subtitular subtitular--grande">Tres frentes.<br /><em>Un mismo taller detrás.</em></h2>
+    <ol class="pestanas">
+      {frentes.map((f) => (
+        <li><a href={f.ancla}><b>{f.n}</b><span>{f.titulo}</span></a></li>
+      ))}
+    </ol>
     <ol class="frentes">
       {frentes.map((f) => (
         <li class="frente entra">
@@ -98,6 +133,28 @@ const obraReciente = [
     </ol>
     <p slot="margen">Los tres frentes son los del catálogo de productos y servicios 2026.</p>
   </Sesion>
+
+  <Sala
+    fijos={taller}
+    carpeta="taller"
+    titulo="Instalaciones propias"
+    pie="Fotografía del catálogo Spot Industries 2026."
+  />
+
+  <Galeria
+    fotos={obraReciente}
+    carpeta="taller-2026"
+    titulo="Obra en sitio"
+    pie="Fotografía propia, septiembre 2026."
+  />
+
+  <div class="afirmacion corchete">
+    <div class="afirmacion__decir">
+      <h2 class="titular afirmacion__titulo">Diseñamos, fabricamos<br /><em>y mantenemos.</em></h2>
+      <a class="apertura__accion apertura__accion--viva" href="#productos">Ver el catálogo</a>
+    </div>
+    <p class="afirmacion__cuerpo">{tesis.cuerpo}</p>
+  </div>
 
   <Sesion n="II" rotulo="Productos" id="productos">
     <h2 class="subtitular">Lo que mueve, almacena <em>y pesa.</em></h2>
@@ -135,20 +192,6 @@ const obraReciente = [
       ))}
     </ol>
   </Sesion>
-
-  <Sala
-    fijos={taller}
-    carpeta="taller"
-    titulo="Instalaciones propias"
-    pie="Fotografía del catálogo Spot Industries 2026."
-  />
-
-  <Galeria
-    fotos={obraReciente}
-    carpeta="taller-2026"
-    titulo="Obra en sitio"
-    pie="Fotografía propia, septiembre 2026."
-  />
 
   <Sesion n="IV" rotulo="A la medida" id="medida">
     <h2 class="subtitular">Cuando el catálogo <em>no lo resuelve.</em></h2>
@@ -223,8 +266,8 @@ const obraReciente = [
 
   <Sesion n="X" rotulo="Hablemos" id="hablemos" class="sesion--cierre">
     <div class="cierre">
-      <div class="cierre__decir">
-        <h2 class="titular">Hablemos.</h2>
+      <div class="cierre__decir corchete">
+        <h2 class="titular">¿Listo para que su operación<br /><em>no se detenga?</em></h2>
         <p class="plomo">
           Si su operación tiene una decisión pendiente y no un pliego de compras,
           esta es la conversación correcta.
@@ -245,13 +288,6 @@ const obraReciente = [
           ))}
         </ul>
       </div>
-
-      <figure class="cierre__prueba">
-        <figcaption class="cierre__pie">
-          Treinta y cuatro operaciones <em>que ya pesan con nosotros.</em>
-        </figcaption>
-        <Muro logos={clientesUnificados} />
-      </figure>
     </div>
   </Sesion>
 </Mundo>
@@ -285,6 +321,98 @@ const obraReciente = [
     color: var(--ink);
   }
   .tira a { text-decoration: none; }
+
+  /* El motor: explicador a dos columnas, como «The Dill Autonomy Engine» de
+     picklerobot.com — panel oscuro con la afirmación, panel claro con el
+     contenido. Aquí el motor real de la casa es el método, no un algoritmo:
+     traducido con lo que hay, no con lo que Pickle tiene. */
+  .motor {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: var(--s6);
+  }
+  .motor__negro {
+    display: grid;
+    align-content: center;
+    padding: var(--s5) var(--gutter);
+  }
+  .motor__afirmacion {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(1.75rem, 3.4vw, 2.6rem);
+    line-height: 1.18;
+    color: var(--ink);
+    max-width: 18ch;
+  }
+  .motor__afirmacion em { color: var(--live); }
+  .motor__claro {
+    padding: var(--s5) var(--gutter);
+    background: var(--placa);
+  }
+  .motor__pasos {
+    margin-top: var(--s4);
+    display: grid;
+    gap: 0.6rem;
+  }
+  .motor__pasos li { display: flex; align-items: baseline; gap: 0.7em; }
+  .motor__pasos b {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--foil);
+    font-size: var(--t-chico);
+  }
+  .motor__enlace { margin-top: var(--s4); }
+
+  @media (max-width: 52rem) {
+    .motor { grid-template-columns: 1fr; }
+  }
+
+  /* Las pestañas: navegación rápida a los tres frentes, con el aire de la
+     barra de pestañas de picklerobot.com — sin JavaScript de por medio,
+     porque cada una ya salta a su propia sesión completa más abajo; esto
+     es la promesa visual, la sesión de siempre sigue siendo el contenido. */
+  .pestanas {
+    margin-top: var(--s4);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    border: 1px solid var(--rule);
+  }
+  .pestanas li { border-right: 1px solid var(--rule); }
+  .pestanas li:last-child { border-right: 0; }
+  .pestanas a {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5em;
+    padding: 0.85em 1.4em;
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: var(--t-rotulo);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-quiet);
+    transition: background-color 220ms var(--ease), color 220ms var(--ease);
+  }
+  .pestanas a:hover { background: var(--placa); color: var(--ink); }
+  .pestanas b { font-family: var(--display); font-style: italic; color: var(--live); }
+
+  /* La afirmación intermedia: el «We Pick Things» de Pickle, con lo que la
+     casa puede probar de sí misma en una frase, no en una promesa suelta. */
+  .afirmacion {
+    margin-top: var(--s6);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--s5);
+    align-items: center;
+  }
+  .afirmacion__titulo { margin-bottom: var(--s3); }
+  .afirmacion__titulo em { color: var(--live); }
+  .afirmacion__cuerpo { font-size: var(--t-lead); max-width: 42ch; }
+
+  @media (max-width: 52rem) {
+    .afirmacion { grid-template-columns: 1fr; gap: var(--s3); }
+  }
 
   /* Los tres frentes: entradas de programa, como las prácticas de la Pista A. */
   .frentes { margin-top: var(--s4); }
@@ -483,30 +611,46 @@ const obraReciente = [
   .paso__titulo { font-size: var(--t-menor); line-height: 1.15; }
   .paso__cuerpo { max-width: 52ch; }
 
-  /* El cierre: lo que decimos a la izquierda, quién ya nos eligió a la
-     derecha. Misma pieza que el cierre de la Pista A. */
-  .cierre {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-    gap: var(--s5);
-    align-items: start;
-    margin-top: var(--s2);
+  /* El cierre: el muro de clientes ya abre la pista, justo después del
+     hero — aquí sólo queda la conversación, sin repetir la prueba. */
+  .cierre { max-width: 40rem; margin-top: var(--s2); }
+
+  /* El corchete: el gesto que picklerobot.com repite para enmarcar una
+     afirmación (verde en su mundo; aquí, el rojo de pista). Es dos filetes
+     que se cruzan en una esquina — nada nuevo para un sistema que ya vive de
+     filetes hairline, sólo una forma distinta de cortarlos. */
+  .corchete {
+    position: relative;
+    padding-inline: var(--s4);
   }
-  .cierre__decir { align-self: center; }
-  .cierre__prueba { margin: 0; }
-  .cierre__pie {
+  .corchete::before,
+  .corchete::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: var(--s3);
+    border-block: 1px solid var(--live);
+  }
+  .corchete::before { left: 0; border-left: 1px solid var(--live); }
+  .corchete::after { right: 0; border-right: 1px solid var(--live); }
+
+  @media (max-width: 40rem) {
+    .corchete { padding-inline: var(--s2); }
+  }
+
+  /* La prueba de clientes, subida a justo después del hero: mismo pie que
+     antes tenía el cierre, ahora abre la pista en vez de cerrarla. */
+  .prueba { margin-top: var(--s5); }
+  .prueba__pie {
     font-family: var(--display);
     font-size: var(--t-menor);
     line-height: 1.2;
     color: var(--ink);
     margin-bottom: var(--s2);
-    max-width: 26ch;
+    max-width: 34ch;
   }
-  .cierre__pie em { font-style: italic; color: var(--live); }
-
-  @media (max-width: 62rem) {
-    .cierre { grid-template-columns: 1fr; gap: var(--s4); }
-  }
+  .prueba__pie em { font-style: italic; color: var(--live); }
 
   .contacto { margin-top: var(--s3); display: grid; gap: var(--s2); }
   .contacto li { display: flex; align-items: baseline; gap: var(--s2); flex-wrap: wrap; }
@@ -529,6 +673,18 @@ const obraReciente = [
 
   h1.titular em { font-style: italic; color: var(--live); }
   h2.subtitular em { font-style: italic; color: var(--ink); }
+
+  /* La afirmación grande y centrada: lo que en picklerobot.com abre cada
+     bloque técnico antes de la pestaña o la lista. Se usa en la primera
+     sesión del panel claro — no en cada título, que seguiría siendo un
+     alarde vacío si se repitiera diez veces. */
+  .subtitular--grande {
+    font-size: clamp(1.875rem, 4.4vw, 3.1rem);
+    line-height: 1.16;
+    text-align: center;
+    max-width: 40rem;
+    margin-inline: auto;
+  }
 
   /* La cifra de tradición, bajada de titular a nota chica el 19/09/2026. */
   .apertura__tradicion { margin-top: var(--s2); }

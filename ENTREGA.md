@@ -153,6 +153,122 @@ El parte de obra de esta ronda está en `resources/PARTE-DE-OBRA-2026-09-19.html
   un «Próximamente.» corto, a pedido del usuario. `pendiente.ts` conserva el
   detalle completo para uso interno; ya no se imprime en el sitio.
 
+**Actualización del 26/09/2026 — el hero de Industrial gana acción, con
+`picklerobot.com` como referencia de estructura (no de estilo: la Pista B
+sigue en su propio papel claro, tipografía y latón, no se importó su
+paleta):**
+
+- **Dos botones nuevos en la apertura:** «Hablemos» (sólido, salta a
+  `#hablemos`) y «Ver productos» (contorno, salta a `#productos`), en un
+  slot nuevo y opcional de `Apertura.astro` (`slot="acciones"`) que
+  Experiencias no usa y no paga en espacio. El botón sólido usa tinta y papel
+  —nunca rojo de fondo con texto encima: a este tamaño de letra no despejaba
+  4,5:1—; el rojo de marca queda para el estado de hover.
+- **El vídeo del deck ya no es atmósfera, es la prueba:** opacidad de 0,4 a
+  0,62, con un velo direccional que lo despeja del todo del lado derecho
+  —donde no hay texto— y lo apaga hacia la izquierda, donde se lee el
+  titular. En pantalla angosta, sin lado limpio, vuelve al lavado parejo de
+  antes.
+
+Sin captura de pantalla en esta ronda: la extensión de Chrome no estaba
+conectada y no había tiempo para levantar un Chrome headless con CDP. Falta
+la vista real en escritorio y móvil antes de darlo por definitivo.
+
+**Actualización del mismo 26/09/2026, más tarde — reunión del cliente,
+picklerobot.com pasa de referencia de estructura a referencia de mundo
+completo:** la entrada de arriba decía que la Pista B seguía en papel claro
+«no de estilo, no se importó su paleta» — eso cambió en esta misma fecha, más
+tarde. El cliente pidió expresamente adoptar el esquema de Pickle Robot
+(negro con acento) para toda la Industrial, revirtiendo la decisión del
+24/09. Vía `AskUserQuestion` se resolvieron las dos ambigüedades reales:
+
+1. **Color:** negro real, no el naranja de Pickle — el acento es el rojo de
+   marca (`--rojo`, el ya levantado para cartulina, decidido el 15/09).
+   `[data-pista='b']` en `tokens.css` vuelve a ser una sola línea
+   (`--live: var(--rojo)`), como antes del 24/09. Cae también el filtro de
+   inversión del logotipo en `Marca.astro` (ya no hace falta sobre negro) y
+   el `theme-color` condicional de `Base.astro`.
+2. **Estructura:** se reordena al esquema real de Pickle — prueba de cliente
+   arriba, no al final. El muro de 34 logotipos se movió de la sesión de
+   cierre a justo después del hero (antes de la sesión I), y la banda `Sala`
+   más la `Galeria` de obra reciente se adelantaron de entre Servicios/A la
+   medida a justo después de «Qué hacemos». Las diez sesiones numeradas
+   (I–X) no cambiaron de número ni de contenido: sólo se reubicó lo que no
+   lleva numeral. El cierre (sesión X) ya no repite el muro — queda sólo la
+   conversación, con un titular que se hace eco del titular del hero.
+
+Se conserva a propósito, por regla del propio encargo: tipografía (Source
+Serif 4 + Archivo) y filetes hairline. Sin capturas, esta primera pasada se
+quedó en recolorear y reordenar sin tocar la disposición real de cada
+sección — el usuario lo notó («veo lo mismo») y con razón.
+
+**Misma tarde, más tarde — Chrome por fin conectado, capturas reales de
+picklerobot.com (no memoria, no WebFetch en texto):** su disposición real no
+es "todo negro": el negro es la portada, el muro de clientes y el cierre; el
+cuerpo del catálogo —donde Pickle explica su tecnología— es **papel**, no
+cartulina. Tampoco usa tarjetas de icono+título+texto para sus tres pilares:
+es una barra de pestañas con contenido a dos columnas debajo, y un titular
+grande y centrado abre cada bloque. Con eso:
+
+- **Panel claro reutilizable** (`[data-panel='claro']` en `tokens.css`, antes
+  `[data-fondo='claro']` de la ronda del 24/09, ahora de alcance local, no de
+  pista entera): envuelve la sesión I y las sesiones II a IX en
+  `industrial/index.astro`. `Sala` y `Galeria` quedan fuera, a propósito —
+  meterlas dentro rompía su propio fondo a sangre (una lección de esta
+  ronda: cambiar variables no basta si nada las pinta; hubo que agregar
+  `background`/`color` explícitos a la regla).
+- **Titular grande y centrado** (`.subtitular--grande`) para la afirmación
+  que abre «Qué hacemos», con la lista de frentes left-aligned debajo —
+  mismo patrón que Pickle: centrado para la afirmación, alineado a la
+  izquierda para el detalle.
+- **Corchete** (`.corchete`, dos filetes en escuadra) enmarca el cierre —
+  el gesto que Pickle repite en verde para sus afirmaciones; aquí en rojo.
+- **Galería a sangre:** `Galeria.astro` pasa de rejilla contenida con
+  espacio a mosaico a sangre sin separación, 3 columnas cuadradas — como
+  el mural de fotos de Pickle, no como una rejilla con margen.
+- **Bug real encontrado y corregido:** los botones «Hablemos»/«Ver
+  productos» se veían como texto subrayado plano, no como botones — el
+  CSS vivía en `Apertura.astro` con su propio hash de scope de Astro, pero
+  el `<a>` que lo usa se escribe en `industrial/index.astro` (vía slot), que
+  trae un hash distinto. Nunca calzaban. Se movió a `<style is:global>`.
+
+Verificado en el propio navegador esta vez, escritorio y móvil. Sigue sin
+correr el `DESIGN.md`/revisor de cierre que el proceso de Impeccable pide
+para un cambio de mundo — pendiente para una ronda con más margen de tiempo.
+
+Brief de dirección completo en `.impeccable/surfaces/src-pages-industrial-index-astro.md`.
+
+**Aviso para la próxima revisión con el cliente:** el logotipo de DHL en el
+vídeo del hero se lee muy claro en las capturas de esta ronda — más
+legible de lo que parecía en los fotogramas sueltos que se revisaron el
+24/09. Sigue siendo el mismo pendiente de autorización de marca, pero
+conviene decidirlo pronto: el recorte sin DHL ya existe y el cambio es de
+una sola línea.
+
+**Misma tarde, tercera pasada — «quiero la referencia completa, no lo
+mismo»:** las dos rondas anteriores recolorearon y reordenaron sin construir
+las piezas estructurales que hacen que picklerobot.com se lea distinto a un
+listado de catálogo. Esta pasada las agrega, todas con contenido real:
+
+- **El motor** (sección nueva, entre el muro de clientes y «Qué hacemos»):
+  panel oscuro con una afirmación + panel de papel con «El método» —
+  traducción de «The Dill Autonomy Engine», con las cinco estaciones que
+  Spot ya tenía en `data/spot.ts` en vez de inventar una tecnología que la
+  casa no vende.
+- **Pestañas** (`.pestanas`, dentro de la sesión «Qué hacemos»): fila con
+  borde que salta a Productos/Servicios/A la medida — la barra de pestañas
+  de Pickle, sin el JavaScript de pestañas: cada una ya abre su propia
+  sesión completa más abajo, así que no hay contenido que recortar para
+  caber en una pestaña.
+- **La afirmación intermedia** (entre el mural de fotos y «Productos»):
+  «Diseñamos, fabricamos y mantenemos.» con corchete y botón — la
+  traducción de «We Pick Things», con la tesis que ya existía en
+  `industrial.ts`, no una frase nueva.
+
+Nada de esto quita contenido: las diez sesiones numeradas siguen completas,
+con todo el catálogo, todos los productos, todo el texto que ya estaba.
+Verificado en el navegador, escritorio y móvil, antes de este deploy.
+
 ## Lo que falta, por orden de urgencia
 
 Estas son las únicas cosas que impiden publicar. Ninguna se puede resolver desde

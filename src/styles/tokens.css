@@ -32,12 +32,6 @@
      sobre cartulina limpia y 5,78:1 sobre el punto más claro de la bruma.
      Es la luz de la Pista B, decidida con el cliente el 15/09/2026. */
   --rojo:         #FF5A4A;
-  /* El mismo rojo, sin levantar: es el que se mide directo del logotipo. Se
-     usa cuando la Pista B se imprime en papel claro (ver más abajo) — ahí no
-     hace falta subirlo, porque un rojo saturado ya contrasta más sobre papel
-     que sobre cartulina negra; el levantado es la corrección para el fondo
-     oscuro, no el rojo por defecto. */
-  --rojo-logo:    #ED2A39;
 
   /* Pistas */
   --track-a:      var(--live);
@@ -74,6 +68,10 @@
   /* Tipografía */
   --display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --text:    'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Pila técnica: sólo para el rótulo de botón y de pestaña de la Pista B,
+     donde el brief (picklerobot.com) pide una caja de máquina, no de
+     imprenta. Ninguna familia nueva que autohospedar: system-ui monoespaciada. */
+  --mono:    ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
 
   /* Compás vertical: un solo ritmo en toda la obra */
   --step: 0.5rem;
@@ -107,33 +105,13 @@
   }
 }
 
-/* La Pista B se imprime en papel, no en cartulina negra: pedido el
-   19/09/2026 («cambiar el fondo del spot industries a blanco... para que se
-   dé un contraste más fuerte»), confirmado el 24/09/2026 para toda la pista,
-   no sólo la apertura. Remapea el sistema entero de tinta y cartulina en un
-   solo sitio — cinta, programa, muro de clientes, pie — porque todo lo que
-   ya vivía de estas variables cambia de fondo sin que se le toque una línea.
-
-   El rojo de pista sube un escalón menos que en cartulina: `--rojo` es el
-   levantado para fondo oscuro (6,42:1 sobre negro); aquí basta el rojo real
-   del logotipo (`--rojo-logo`), que sobre este papel ya mide por encima de
-   3:1 — de sobra para texto grande y para acentos, que es todo lo que lo
-   usa. */
+/* La Pista B se imprime con la otra luz: el rojo de Spot Industries.
+   Un mundo, una tinta — el sistema no cambia, cambia el color que vive. */
 [data-pista='b'] {
-  --stock:      #F5F1E9;
-  --stock-deep: #EAE4D6;
-  --placa:      #FFFFFF;
-  --placa-viva: #FBF6EC;
-
-  --ink:        #1B1815;
-  --ink-body:   #3B362E;
-  --ink-quiet:  #6B6458;
-
-  --foil-dim:   #B8A67E;
-  --foil-faint: #E4DCC8;
-  --rule:       #DDD6C8;
-
-  --live:       var(--rojo-logo);
-
-  color-scheme: light;
+  --live: var(--rojo);
 }
+
+/* El panel claro se probó el 24/09 y se revirtió el 26/09/2026 por decisión
+   del cliente: Industrial no tiene modo claro. Lo que queda del brief de
+   picklerobot.com (paneles de contraste dentro de un mismo mundo) vive ahora
+   en `--placa` puntual (`.motor__claro`), no en un remapeo de tinta. */
