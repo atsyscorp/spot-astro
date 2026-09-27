@@ -43,6 +43,9 @@ const letra = pista === 'a' ? 'A' : 'B';
         <span class="medida">Pista {otra.letra}</span>
         <span>{otra.nombre}</span>
       </a>
+      {pista === 'b' && (
+        <a class="cinta__cta" href="#hablemos">Hablemos</a>
+      )}
     </div>
     <Hilo capitulos={capitulos} />
   </header>
@@ -136,6 +139,35 @@ const letra = pista === 'a' ? 'A' : 'B';
   }
   .cinta__otra:hover { color: var(--live); }
 
+  /* Fidelidad total al brief (picklerobot.com), sólo Pista B: caja de
+     logotipo, rótulo de pista en mono, y el botón de contacto pinneado a la
+     derecha de la cinta — el «CONTACT» que Pickle no suelta al hacer scroll.
+     Pista A no se toca: nada de esto lleva `[data-pista='b']` sin motivo. */
+  :global([data-pista='b']) .cinta__marca {
+    border: 1px solid var(--rule);
+    padding: 0.4rem 0.65rem;
+    display: inline-flex;
+    align-items: center;
+  }
+  :global([data-pista='b']) .cinta__nombre { font-family: var(--mono); letter-spacing: 0.02em; }
+
+  .cinta__cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.55em 1.1em;
+    font-family: var(--mono);
+    font-size: var(--t-rotulo);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    background: var(--live);
+    border: 1px solid var(--live);
+    color: var(--stock);
+    transition: opacity 200ms var(--ease);
+  }
+  .cinta__cta:hover { opacity: 0.84; }
+
   /* Envoltorio del fondo de apertura (bruma, película o vitrina) y su
      portadilla. Sin position propio, a propósito: `position: static` no
      establece bloque contenedor, así que la bruma/película/vitrina de
@@ -180,12 +212,14 @@ const letra = pista === 'a' ? 'A' : 'B';
   @media (max-width: 52rem) {
     .cinta__pista .medida { display: none; }
     .cinta__otra span:last-child { display: none; }
+    .cinta__cta { padding: 0.5em 0.8em; }
     .pie__hoja { grid-template-columns: 1fr; }
     .pie__datos { justify-items: start; text-align: left; }
   }
   @media (max-width: 34rem) {
     .cinta__hoja { gap: var(--s2); }
     .cinta__nombre { font-size: var(--t-nota); }
+    :global([data-pista='b']) .cinta__marca { padding: 0.3rem 0.5rem; }
   }
 </style>
 

@@ -108,6 +108,30 @@ const { capitulos } = Astro.props;
   }
   .hilo__paso[aria-current='true'] b { color: var(--live); }
 
+  /* Fidelidad total al brief (picklerobot.com), sólo Pista B: el hilo deja de
+     leerse como raíl tumbado y se lee como la barra de pestañas de Pickle —
+     segmentos con borde compartido, mono, activo relleno de luz de pista.
+     Pista A conserva el travesaño de latón tal como estaba. */
+  :global([data-pista='b']) .hilo__lista { gap: 0; }
+  :global([data-pista='b']) .hilo__paso {
+    border: 1px solid var(--rule);
+    margin-right: -1px;
+    padding: 0.6rem 0.95rem;
+    font-family: var(--mono);
+  }
+  :global([data-pista='b']) .hilo__paso:last-child { margin-right: 0; }
+  :global([data-pista='b']) .hilo__paso b {
+    font-family: var(--mono);
+    font-style: normal;
+    letter-spacing: 0;
+  }
+  :global([data-pista='b']) .hilo__paso[aria-current='true'] {
+    background: var(--live);
+    border-color: var(--live);
+    color: var(--stock);
+  }
+  :global([data-pista='b']) .hilo__paso[aria-current='true'] b { color: var(--stock); }
+
   /* En columna estrecha sólo el capítulo activo conserva su rótulo. Mismo
      menú, menos tinta — no una versión aparte. */
   @media (max-width: 72rem) {

@@ -395,7 +395,12 @@ const obraReciente = [
     transition: background-color 220ms var(--ease), color 220ms var(--ease);
   }
   .pestanas a:hover { background: var(--placa); color: var(--ink); }
-  .pestanas b { font-family: var(--display); font-style: italic; color: var(--live); }
+  .pestanas b { font-family: var(--mono); color: var(--live); }
+  /* La primera pestaña llena de luz por defecto, como «AUTONOMY» en
+     picklerobot.com: no todo estado activo tiene que decidirlo el scroll. */
+  .pestanas li:first-child a { background: var(--live); color: var(--stock); }
+  .pestanas li:first-child a:hover { background: var(--live); color: var(--stock); }
+  .pestanas li:first-child b { color: var(--stock); }
 
   /* La afirmación intermedia: el «We Pick Things» de Pickle, con lo que la
      casa puede probar de sí misma en una frase, no en una promesa suelta. */
