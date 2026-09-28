@@ -32,14 +32,21 @@ import { clientesLogos, type Cliente } from '../data/clientes';
 interface Props {
   logos?: Cliente[];
   carpeta?: string;
+  /* 'vertical' (por omisión): dos columnas subiendo/bajando, cada logo en su
+     placa — Experiencias, sin tocar. 'horizontal': una sola cinta corriendo
+     de izquierda a derecha sin placa, pedida el 27/09/2026 para que el muro
+     de Industrial calque la fila de clientes de picklerobot.com. */
+  orientacion?: 'vertical' | 'horizontal';
 }
-const { logos = clientesLogos, carpeta = 'clientes' } = Astro.props;
+const { logos = clientesLogos, carpeta = 'clientes', orientacion = 'vertical' } = Astro.props;
 
 const mitad = Math.ceil(logos.length / 2);
-const columnas = [logos.slice(0, mitad), logos.slice(mitad)];
-const duracion = Math.round((42 * mitad) / 11);
+const columnas = orientacion === 'horizontal' ? [logos] : [logos.slice(0, mitad), logos.slice(mitad)];
+const duracion = orientacion === 'horizontal'
+  ? Math.max(24, Math.round(logos.length * 2.6))
+  : Math.round((42 * mitad) / 11);
 ---
-<div class="muro" style={`--muro-duracion:${duracion}s`}>
+<div class:list={['muro', orientacion === 'horizontal' && 'muro--horizontal']} style={`--muro-duracion:${duracion}s`}>
   {columnas.map((col, i) => (
     <div class="muro__columna" data-col={i}>
       <ul class="muro__cinta">
@@ -131,5 +138,43 @@ const duracion = Math.round((42 * mitad) / 11);
     .muro__cinta { animation: none; }
     /* Sin movimiento sobra la copia que existe sólo para cerrar el bucle. */
     .placa--eco { display: none; }
+  }
+
+  /* La cinta horizontal: una sola fila, sin placa, corriendo de izquierda a
+     derecha — picklerobot.com, no la marquesina vertical de Experiencias. */
+  .muro--horizontal {
+    grid-template-columns: 1fr;
+    height: auto;
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  }
+  .muro--horizontal .muro__cinta {
+    display: flex;
+    align-items: center;
+    gap: var(--s5);
+    width: max-content;
+    animation-name: corre;
+  }
+  .muro--horizontal .placa {
+    height: auto;
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+  .muro--horizontal .placa img { max-height: 2.25rem; }
+
+  @keyframes corre {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+
+  @media (max-width: 52rem) {
+    .muro--horizontal { height: auto; }
+    .muro--horizontal .muro__cinta { gap: var(--s4); }
+    .muro--horizontal .placa img { max-height: 1.75rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .muro--horizontal { overflow: auto; }
   }
 </style>
