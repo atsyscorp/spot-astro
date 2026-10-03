@@ -30,45 +30,50 @@ claro y se lee como una casa de automatización física seria — la promesa es
 "seguimos operando", no "aquí está nuestro catálogo"; rechaza el orden de PDF
 (frentes → productos → servicios → …) como estructura de persuasión.
 
-OWN-WORLD: negro real —no el papel claro del 24/09, revertido por decisión
-del cliente el 26/09— con el rojo de marca (`--rojo`, el ya levantado para
-fondo oscuro) como único acento; nunca el naranja de Pickle Robot, que no es
-la tinta de la casa. Tipografía y latón del Programa de Sala se mantienen:
-Source Serif 4 + Archivo, filetes hairline, jamás tarjetas con sombra.
+OWN-WORLD: negro cartulina como base, con tres bandas que invierten a claro —
+el panel derecho del motor, la sesión I completa y la afirmación-corchete —
+calcando la alternancia oscuro/claro de picklerobot.com. Historia completa:
+negro puro desde el 26/09 (reversión de un primer ensayo claro), fidelidad
+literal de estructura sin color el 27/09, y el 01/10/2026 el cliente pidió ir
+hasta el final y calcar también esa alternancia. `.claro` / `.sesion--claro`
+(tokens.css) remapean los mismos tokens que ya usa cada componente —igual que
+`[data-pista='b']` remapea `--live`— así que ningún componente aprende un
+color nuevo: el negro cartulina se vuelve el papel (`#EDE9E1`, el mismo hueso
+que ya era tinta), la tinta hueso se vuelve tinta real (`#0A0A0A`), y lo vivo
+se oscurece a `#B3261A` (el mismo rojo de marca, bajado de luz en vez de
+subido, para seguir pasando AA sobre papel claro). Nunca el verde ni el
+naranja de Pickle — el acento sigue siendo el rojo de la casa en las dos
+luces. Tipografía y latón del Programa de Sala se mantienen: Source Serif 4 +
+Archivo, filetes hairline, jamás tarjetas con sombra ni esquinas redondeadas.
 
 STORY: el visitante ve el deck trabajando de entrada, ve a quién sirve Spot
-—34 logos subidos justo después del hero, no al final del programa—, entiende
-los tres frentes como pilares de capacidad, confía en la herencia de más de
-70 años como prueba (no hay testimonio de cliente real que inventar, así que
-no se inventa uno), y termina en un cierre de contacto directo.
+—34 logos subidos justo después del hero—, entra en el motor (el método
+explicado a dos paneles, oscuro-claro, como el Dill Autonomy Engine), sigue
+en una banda clara ininterrumpida por los tres frentes con su barra de
+pestañas, vuelve a negro para las dos galerías de obra real, respira en el
+corchete claro ("Diseñamos, fabricamos y mantenemos" — el «We Pick Things» de
+Pickle, probado con lo que la casa puede demostrar hoy), y termina el resto
+del programa en negro hasta el cierre de contacto.
 
-FIRST VIEWPORT: vídeo del deck a ancho completo detrás del titular, texto a la
-izquierda, dos CTA (Hablemos / Ver productos) — misma composición de la ronda
-anterior, con el fondo vuelto a negro y el acento vuelto a rojo.
+FIRST VIEWPORT: sin cambios de esta ronda — vídeo del deck a ancho completo
+detrás del titular, texto a la izquierda, dos CTA (Hablemos / Ver productos).
 
-FORM: mundo pinneado por el brief del cliente (picklerobot.com). Decisión del
-26/09 (traducir, nunca calcar) revisada por el usuario el 27/09/2026: pidió
-fidelidad literal a la estructura de picklerobot.com por encima de la
-traducción templada, y se ejecutó — geometría, composición y tratamiento de
-imagen replicados con la mayor fidelidad técnica posible; color e identidad
-siguen siendo de la casa (rojo `--rojo`, nunca el verde ni el naranja de
-Pickle). Cambios concretos de esta ronda: se completó la reversión de
-claro→negro pendiente desde el 26/09 (tres envoltorios `data-panel="claro"`
-quitados de `industrial/index.astro`, la regla muerta quitada de
-`tokens.css`); `.motor__claro` pasa de blanco a `--placa` (panel de contraste
-sin blanco, honrando el veto del cliente al papel claro); los enlaces de
-acción sueltos (`.motor__enlace` y las dos acciones de la apertura) se
-unifican bajo `.apertura__accion`, el botón rectangular ya existente en el
-sistema —sin radio, con variante llena y variante de línea—, igual que los
-botones reales de picklerobot.com; se añadió `--mono` (pila de sistema, sin
-autohospedar) sólo para el rótulo de esos botones y de `.pestanas`, la caja
-de máquina que pide el brief. Tipografía de titular (Source Serif 4 + cursiva
-viva) y el raíl de numerales romanos no se tocan: son identidad propia de
-Spot sin equivalente en Pickle, y la prioridad del pedido pone estructura y
-color por delante de un cambio de familia tipográfica no pedido explícitamente
-para el cuerpo del programa.
+FORM: mundo pinneado por el brief del cliente (picklerobot.com), ronda sobre
+ronda hacia mayor fidelidad literal. Cambios concretos de esta ronda (01/10):
+tres bandas claras reinstaladas (`.motor__claro`, `<Sesion n="I">` completa,
+`.afirmacion.corchete`) vía `.claro`/`.sesion--claro`, con bleed a 100vw igual
+al truco ya usado por el filete entre sesiones; espaciado de `.motor`,
+`.afirmacion`, `.pestanas` ensanchado (de `--s4`/`--s6` a `clamp(--s6, 16vh,
+10rem)` y `--s5`) para acercarse al aire generoso de la referencia. Pendiente
+de verificación encontrada en el camino: un `color` sin `var()` explícito en
+un elemento dentro de una banda clara hereda el valor YA RESUELTO del body
+(cartulina), no la variable — se corrigió fijando `color: var(--ink-body)`
+en la propia regla `.claro, .sesion--claro`; cualquier nuevo elemento de texto
+sin color propio dentro de estas bandas hereda correctamente a partir de ahí.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the
 finish review, the verdict, DESIGN.md, and every shipping raster carrying its
 provenance. Pendiente de esta ronda: correr `impeccable critique` y el
-finish-reviewer antes de dar el build por cerrado.
+finish-reviewer antes de dar el build por cerrado; actualizar DESIGN.md
+(`Dónde el sistema es delgado` y `Colors`/`Don't`) para registrar que la
+Pista B ya no es "un solo esquema sin modo claro" — eso ahora es falso.

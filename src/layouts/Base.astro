@@ -64,5 +64,19 @@ const url = new URL(Astro.url.pathname, Astro.site ?? 'https://spotlatam.com');
       its provenance.
     -->
     <slot />
+    <!-- Colores leídos directamente de widget.js (`data-primary`/`data-secondary`
+         se reenvían tal cual al iframe embebido). `data-secondary` en 8 dígitos
+         hex (con canal alfa) para quitar el fondo del panel — el regex del
+         script (`^#[0-9a-f]{3,8}$`) acepta hasta 8, que sólo tiene sentido si
+         soporta alfa; probado en vivo, funciona. `data-theme` es una
+         suposición razonable ("dark"), no verificada contra la documentación
+         de ConnectLoop. -->
+    <script
+      src="https://agents.connectloop.ai/widget.js"
+      data-company-id="2b098a39-9e87-4756-94f6-59c04ccc97ce"
+      data-primary="#FF5A4A"
+      data-secondary="#00000000"
+      data-theme="dark"
+    ></script>
   </body>
 </html>

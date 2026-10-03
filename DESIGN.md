@@ -179,7 +179,10 @@ el reel de eventos a sangre con titular serif encima que domina esta categoría.
 Aquí no hay hero de vídeo, ni tarjetas, ni sombras, ni iconos de glifo.
 
 **Key Characteristics:**
-- Fondo negro cartulina `#0A0A0A` en las tres páginas; sin modo claro.
+- Fondo negro cartulina `#0A0A0A` como base en las tres páginas. Desde el
+  01/10/2026, la Pista B invierte esa base en tres bandas claras (`.claro` /
+  `.sesion--claro`, tokens.css) calcando la alternancia oscuro/claro de
+  picklerobot.com; la Pista A y la portada siguen sin modo claro.
 - Una sola familia de display (Source Serif 4 variable, `opsz` declarada en cada
   uso) y una sola de texto (Archivo, cifras tabulares). Ambas subsetadas y
   servidas desde el propio dominio.
@@ -866,7 +869,11 @@ tiene; la entrada de la portada las tiene. Un efecto sin las tres no entra.
 - **Don't** encender luz en el centro de la página ni bajo un bloque de texto. La
   luz entra arriba y muere abajo.
 - **Don't** usar tarjetas, cajas, fondos de bloque ni bordes completos para
-  agrupar. La agrupación se hace con filete superior y rejilla.
+  agrupar contenido. La agrupación se hace con filete superior y rejilla. Esto
+  no prohíbe la banda clara a sangre completa de la Pista B (`.claro` /
+  `.sesion--claro`): es el fondo de una sección entera, calcado de
+  picklerobot.com, no una caja agrupando elementos — dentro de la banda, la
+  agrupación sigue siendo filete y rejilla.
 - **Don't** añadir sombras, `text-shadow`, `backdrop-filter` ni ningún efecto de
   elevación: el build no tiene ni uno.
 - **Don't** poner un kicker o rótulo en versalitas apilado encima de un titular.
@@ -944,5 +951,16 @@ lo confunda con una decisión:
   decisión de producto no existe material fotográfico propio con derechos
   confirmados, y los clientes se listan en tipografía porque no hay logotipos
   vectoriales. El sistema no tiene todavía reglas de tratamiento de imagen.
-- **Un solo esquema.** `color-scheme: dark` y fondo negro fijo. No hay modo claro
-  ni lo contempla ninguna regla.
+- **`color-scheme: dark` es global y no se declara nada distinto para las
+  bandas claras de la Pista B.** `.claro`/`.sesion--claro` invierten los
+  tokens de color, no el `color-scheme` del documento: los controles nativos
+  del navegador (scrollbar, autofill, `::selection` por defecto donde no se
+  tematiza) siguen pidiendo tema oscuro dentro de una banda que es papel
+  claro. No se ha visto ningún control nativo real sobre esas bandas todavía;
+  si aparece uno, hay que revisar si necesita su propio `color-scheme: light`
+  local.
+- **Cualquier elemento de texto sin `color` propio dentro de `.claro` o
+  `.sesion--claro` hereda del `body` fuera de ese alcance, no del remapeo.**
+  `color: var(--ink-body)` está reafirmado en la propia regla por esto —
+  queda documentado porque es la clase de bug que vuelve a aparecer si otro
+  componente nuevo asume que basta con cambiar las variables.

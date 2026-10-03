@@ -111,7 +111,47 @@
   --live: var(--rojo);
 }
 
-/* El panel claro se probó el 24/09 y se revirtió el 26/09/2026 por decisión
-   del cliente: Industrial no tiene modo claro. Lo que queda del brief de
-   picklerobot.com (paneles de contraste dentro de un mismo mundo) vive ahora
-   en `--placa` puntual (`.motor__claro`), no en un remapeo de tinta. */
+/* El panel claro, historia completa: se probó el 24/09, se revirtió el
+   26/09/2026 por decisión del cliente (Industrial sin modo claro), y el
+   27/09 se pidió fidelidad literal de estructura a picklerobot.com sin
+   tocar el color. El 01/10/2026 el cliente pidió ir hasta el final: calcar
+   también la alternancia clara/oscura de la referencia. Esta regla la
+   reinstala, sólo para la Pista B.
+
+   `.claro` y `.sesion--claro` invierten cartulina y tinta dentro de su
+   propio alcance — el negro cartulina se vuelve el papel, la tinta hueso se
+   vuelve tinta real — remapeando los mismos tokens que ya usa cada
+   componente, igual que `[data-pista='b']` remapea `--live`. Ningún
+   componente aprende un color nuevo; lee los mismos nombres con otro valor.
+   Valores literales (no `var()` encadenado a los tokens que esta misma
+   regla sobreescribe, para no capturar el valor nuevo por error) medidos
+   sobre el papel `#EDE9E1`: tinta 16,35:1, cuerpo 15,25:1, queda 6,01:1,
+   latón 5,91:1 (mismo valor que latón-queda — ver nota del 01/10 más abajo,
+   un primer valor de latón pasaba el papel pero no `--placa`), vivo (rojo
+   oscurecido a `#B3261A`, el mismo rojo de marca bajado de luz en vez de
+   subido) 5,40:1. */
+.claro, .sesion--claro {
+  /* `color` se reafirma aquí a propósito: un texto sin color propio (un
+     `<span>`, un `<li>`) hereda el valor YA RESUELTO del `body` más cercano
+     que lo fija con `var()`, no la variable en sí — y ese `body` vive fuera
+     de este alcance, resuelto en cartulina. Sin esta línea, ese texto sale
+     tinta-sobre-tinta: invisible sobre el papel. */
+  color: var(--ink-body);
+  --stock:      #EDE9E1;
+  --stock-deep: #E2DCCC;
+  --ink:        #0A0A0A;
+  --ink-body:   #171310;
+  --ink-quiet:  #5C564A;
+  /* `--foil` se calibró primero contra el papel puro (#EDE9E1, 4,83:1) y se
+     pasó por alto `--placa` (#E2DCCC), el fondo que usa `.motor__pasos b`:
+     ahí caía a 4,27:1, bajo el piso AA. Encontrado en `/impeccable critique`
+     del 01/10/2026. Reutiliza el valor de `--foil-dim` en vez de uno nuevo —
+     5,23:1 sobre `--placa` y 5,91:1 sobre el papel, los dos papeles que el
+     latón toca dentro de una banda clara. */
+  --foil:       #6A5436;
+  --foil-dim:   #6A5436;
+  --foil-faint: #D9D3C6;
+  --placa:      #E2DCCC;
+  --rule:       #D9D3C6;
+  --live:       #B3261A;
+}

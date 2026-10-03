@@ -1,703 +1,158 @@
 ---
-import Mundo from '../../layouts/Mundo.astro';
-import Sesion from '../../components/Sesion.astro';
-import Apertura from '../../components/Apertura.astro';
+/* Industrial en construcción (01/10/2026). La sesión completa que vivía aquí
+   —motor, tres frentes, catálogo, galerías— se retira a pedido del cliente:
+   no servía como estaba y la pista se está reconstruyendo por otra vía, a la
+   medida de lo que de verdad necesita. Esto es un marcador de sitio, no una
+   versión reducida del programa: cuando el contenido real esté listo, esta
+   página se reemplaza entera, no se completa encima de esto. */
+import Base from '../../layouts/Base.astro';
+import Marca from '../../components/Marca.astro';
 import Anillo from '../../components/Anillo.astro';
-import Muro from '../../components/Muro.astro';
-import Sala from '../../components/Sala.astro';
-import Galeria from '../../components/Galeria.astro';
-import { metodo } from '../../data/spot';
-import { industrial } from '../../data/industrial';
-import { clientesUnificados } from '../../data/clientes-unificados';
-
-/* Las diez sesiones de esta pista, para el hilo de capítulos de la cinta.
-   El rótulo es el mismo que lleva el raíl de cada sesión. */
-const capitulos = [
-  { n: 'I',    rotulo: 'Qué hacemos',    id: 'frentes' },
-  { n: 'II',   rotulo: 'Productos',      id: 'productos' },
-  { n: 'III',  rotulo: 'Servicios',      id: 'servicios' },
-  { n: 'IV',   rotulo: 'A la medida',    id: 'medida' },
-  { n: 'V',    rotulo: 'Software',       id: 'software' },
-  { n: 'VI',   rotulo: 'Dónde operamos', id: 'cobertura' },
-  { n: 'VII',  rotulo: 'La herencia',    id: 'herencia' },
-  { n: 'VIII', rotulo: 'El método',      id: 'metodo' },
-  { n: 'IX',   rotulo: 'Proyectos',      id: 'proyectos' },
-  { n: 'X',    rotulo: 'Hablemos',       id: 'hablemos' },
-];
-
-const { tesis, frentes, productos, servicios, medida, software, demarcacion, cobertura, herencia, contacto } = industrial;
-
-/* Nueve fotogramas del propio catálogo, recortados a la misma caja que los de
-   la sala de la Pista A y con el mismo criterio: sin caras reconocibles. Son
-   instalaciones reales de la casa, no fotografía de banco. */
-const taller = [
-  { archivo: 'deck-plataforma', alt: 'Deck de carga con ball transfers instalado en plataforma de aeropuerto, con aeronaves de carga al fondo.' },
-  { archivo: 'avion-noche',     alt: 'Aeronave en posición de noche junto a la pasarela, sobre plataforma demarcada.' },
-  { archivo: 'rodillos',        alt: 'Línea de rodillos sobre bastidor rojo, vista a ras.' },
-  { archivo: 'soldadura',       alt: 'Soldadura en taller sobre lámina, con el arco encendido.' },
-  { archivo: 'ball-transfer',   alt: 'Superficie de ball transfers en detalle, con guía naranja al borde.' },
-  { archivo: 'deck-perforado',  alt: 'Decks metálicos perforados alineados antes de su instalación.' },
-  { archivo: 'terminal',        alt: 'Bahía de terminal de carga con las guías del deck montadas.' },
-  { archivo: 'deck-rayado',     alt: 'Deck de rodillos con bandas de demarcación amarillas.' },
-  { archivo: 'demarcacion',     alt: 'Piso de bodega demarcado, con viga guía amarilla a lo largo del carril.' },
-];
-
-/* Obra en sitio, septiembre 2026: nueve fotografías entregadas por Mauricio
-   Altamar (`Recursos_Industries/`, fuera del repositorio), convertidas a
-   `public/taller-2026/`. Cerramientos de seguridad y estaciones de pesaje en
-   instalación real — distinto material del catálogo 2026 que alimenta
-   `taller`. */
-const obraReciente = [
-  { archivo: 'deck-camion', alt: 'Deck de rodillos instalado en el furgón de un cliente, visto desde la puerta trasera.' },
-  { archivo: 'jaula-interior', alt: 'Cerramiento de seguridad para máquina, visto desde dentro en planta.' },
-  { archivo: 'jaula-planta', alt: 'Cerramiento de seguridad instalado en planta, vista general.' },
-  { archivo: 'jaula-almacen', alt: 'Cerramiento de seguridad con estibas resguardadas en su interior.' },
-  { archivo: 'jaula-instalacion', alt: 'Instalación del cerramiento de seguridad, con personal en obra.' },
-  { archivo: 'corredor-malla', alt: 'Corredor de malla de seguridad a lo largo de la planta.' },
-  { archivo: 'instalacion-escalera', alt: 'Técnico instalando la malla superior del cerramiento desde una escalera.' },
-  { archivo: 'jaula-doble-puerta', alt: 'Cerramiento de seguridad con doble puerta corrediza, ya instalado.' },
-  { archivo: 'estaciones-pesaje', alt: 'Línea de estaciones de pesaje lista para operar.' },
-];
+import { marca } from '../../data/spot';
 ---
-<Mundo
-  pista="b"
-  nombre="Industrial"
-  capitulos={capitulos}
+<Base
   titulo="Industrial — Spot"
-  descripcion="Setenta y cinco años al servicio de la industria nacional. Sistemas para movilización de carga, estanterías, equipos de medición, mantenimiento y calibración, y fabricación a la medida. Cobertura nacional."
-  fondo="claro"
-  videoClaro="/video/industrial-con-dhl.mp4"
-  posterClaro="/video/industrial-con-dhl-poster.webp"
+  descripcion="La pista industrial de Spot está en construcción."
+  pista="b"
 >
-  <Apertura slot="apertura" letra="B" pista="Industrial">
-    <h1 slot="titular" class="titular">
-      {tesis.titular[0]}<br /><em>{tesis.titular[1]}</em>
-    </h1>
-    <p slot="titular" class="nota apertura__tradicion">{tesis.tradicion}</p>
-    <p slot="plomo" class="plomo">{tesis.cuerpo}</p>
-    <div slot="acciones">
-      <a class="apertura__accion apertura__accion--viva" href="#hablemos">Hablemos</a>
-      <a class="apertura__accion" href="#productos">Ver productos</a>
-    </div>
-    <ol slot="tira" class="tira">
-      {frentes.map((f) => (
-        <li>
-          <b>{f.n}</b>
-          <span><a href={f.ancla}>{f.titulo}</a></span>
-        </li>
-      ))}
-    </ol>
-  </Apertura>
+  <div class="obra">
+    <header class="obra__cinta hoja">
+      <Marca href="/" />
+      <a class="obra__otra" href="/experiencias/">
+        <span class="medida">Pista A</span>
+        <span>Experiencias</span>
+      </a>
+    </header>
 
-  <figure class="prueba">
-    <figcaption class="prueba__pie">
-      Treinta y cuatro operaciones <em>que ya pesan con nosotros.</em>
-    </figcaption>
-    <Muro logos={clientesUnificados} orientacion="horizontal" />
-  </figure>
-
-  <section class="motor">
-    <div class="motor__negro">
-      <p class="motor__afirmacion">El método <em>no cambia</em> de pista.</p>
-    </div>
-    <div class="motor__claro">
-      <h2 class="subtitular">Cinco estaciones.<br /><em>Un mismo criterio.</em></h2>
-      <p class="plomo">
-        Las cinco estaciones que dirigen un summit dirigen también un proyecto
-        industrial. Lo que cambia es qué se mide al final.
+    <main class="obra__cuerpo hoja">
+      <p class="obra__rail" aria-hidden="true"><b>B</b><i>Pista</i></p>
+      <div class="obra__anillo"><Anillo /></div>
+      <p class="obra__rotulo">Industrial</p>
+      <h1 class="obra__titular">En construcción<em>.</em></h1>
+      <p class="obra__plomo">
+        Esta pista se está reconstruyendo. Vuelve pronto, o escríbenos
+        directamente si tu operación no puede esperar.
       </p>
-      <ol class="motor__pasos">
-        {metodo.map((m) => (
-          <li><b>{m.n}</b><span>{m.titulo}</span></li>
-        ))}
-      </ol>
-      <a class="apertura__accion apertura__accion--viva motor__enlace" href="#metodo">Ver el método completo</a>
-    </div>
-  </section>
-
-  <Sesion n="I" rotulo="Qué hacemos" id="frentes">
-    <h2 class="subtitular subtitular--grande">Tres frentes.<br /><em>Un mismo taller detrás.</em></h2>
-    <ol class="pestanas">
-      {frentes.map((f) => (
-        <li><a href={f.ancla}><b>{f.n}</b><span>{f.titulo}</span></a></li>
-      ))}
-    </ol>
-    <ol class="frentes">
-      {frentes.map((f) => (
-        <li class="frente entra">
-          <span class="frente__n">{f.n}</span>
-          <h3 class="frente__titulo"><a href={f.ancla}>{f.titulo}</a></h3>
-          <p class="frente__cuerpo">{f.cuerpo}</p>
-        </li>
-      ))}
-    </ol>
-    <p slot="margen">Los tres frentes son los del catálogo de productos y servicios 2026.</p>
-  </Sesion>
-
-  <Sala
-    fijos={taller}
-    carpeta="taller"
-    titulo="Instalaciones propias"
-    pie="Fotografía del catálogo Spot Industries 2026."
-  />
-
-  <Galeria
-    fotos={obraReciente}
-    carpeta="taller-2026"
-    titulo="Obra en sitio"
-    pie="Fotografía propia, septiembre 2026."
-  />
-
-  <div class="afirmacion corchete">
-    <div class="afirmacion__decir">
-      <h2 class="titular afirmacion__titulo">Diseñamos, fabricamos<br /><em>y mantenemos.</em></h2>
-      <a class="apertura__accion apertura__accion--viva" href="#productos">Ver el catálogo</a>
-    </div>
-    <p class="afirmacion__cuerpo">{tesis.cuerpo}</p>
+      <ul class="obra__contacto">
+        {marca.correos.map((c) => <li><a href={`mailto:${c}`}>{c}</a></li>)}
+        <li><a href={`tel:${marca.telefonoHref}`}>{marca.telefono}</a></li>
+      </ul>
+      <a class="obra__volver" href="/">Volver a la portada</a>
+    </main>
   </div>
-
-  <Sesion n="II" rotulo="Productos" id="productos">
-    <h2 class="subtitular">Lo que mueve, almacena <em>y pesa.</em></h2>
-    <ol class="familias">
-      {productos.map((p) => (
-        <li class="familia entra">
-          <span class="familia__n">{p.n}</span>
-          <h3 class="familia__titulo">{p.titulo}</h3>
-          <p class="familia__cuerpo">{p.cuerpo}</p>
-          {p.detalle.length > 0 && (
-            <ul class="familia__detalle">
-              {p.detalle.map((d) => <li>{d}</li>)}
-            </ul>
-          )}
-        </li>
-      ))}
-    </ol>
-    <p slot="margen">Nueve familias declaradas en el catálogo. Cada una se fabrica también a la medida.</p>
-  </Sesion>
-
-  <Sesion n="III" rotulo="Servicios" id="servicios">
-    <h2 class="subtitular">Un equipo que mide mal <em>cuesta más que uno parado.</em></h2>
-    <p class="plomo servicios__plomo">
-      Personal técnico propio para el mantenimiento, y laboratorios acreditados
-      ONAC para la calibración. La acreditación es del laboratorio aliado, no
-      de la casa: se dice como es.
-    </p>
-    <ol class="servicios">
-      {servicios.map((s) => (
-        <li class="servicio entra">
-          <span class="servicio__n">{s.n}</span>
-          <h3 class="servicio__titulo">{s.titulo}</h3>
-          <p class="servicio__cuerpo">{s.cuerpo}</p>
-        </li>
-      ))}
-    </ol>
-  </Sesion>
-
-  <Sesion n="IV" rotulo="A la medida" id="medida">
-    <h2 class="subtitular">Cuando el catálogo <em>no lo resuelve.</em></h2>
-    <p class="plomo">
-      Diseño y fabricación sobre el requerimiento de cada cliente. Lo que sale
-      del taller cuando la pieza que hace falta no existe todavía.
-    </p>
-    <ul class="piezas">
-      {medida.piezas.map((p) => (
-        <li class="pieza entra">
-          <span class="pieza__marca"><Anillo /></span>
-          <span>{p}</span>
-        </li>
-      ))}
-    </ul>
-    <p slot="margen">{medida.remate}</p>
-  </Sesion>
-
-  <Sesion n="V" rotulo="Software" id="software">
-    <h2 class="subtitular">La medición <em>también se administra.</em></h2>
-    <div class="par">
-      <div class="par__entrada entra">
-        <h3 class="par__titulo">{software.titulo}</h3>
-        <p class="par__cuerpo">{software.cuerpo}</p>
-      </div>
-      <div class="par__entrada entra">
-        <h3 class="par__titulo">{demarcacion.titulo}</h3>
-        <p class="par__cuerpo">{demarcacion.cuerpo}</p>
-      </div>
-    </div>
-  </Sesion>
-
-  <Sesion n="VI" rotulo="Dónde operamos" id="cobertura">
-    <h2 class="subtitular">{cobertura.titulo}.</h2>
-    <ul class="ciudades">
-      {cobertura.ciudades.map((c) => <li class="entra">{c}</li>)}
-    </ul>
-    <p class="nota ciudades__nota">{cobertura.nota}</p>
-  </Sesion>
-
-  <Sesion n="VII" rotulo="La herencia" id="herencia">
-    <h2 class="subtitular">{herencia.titulo}</h2>
-    <p class="plomo">{herencia.cuerpo}</p>
-    <p slot="margen">{herencia.nota}</p>
-  </Sesion>
-
-  <Sesion n="VIII" rotulo="El método" id="metodo">
-    <h2 class="subtitular">El método no cambia de pista.</h2>
-    <p class="plomo metodo__plomo">
-      Las cinco estaciones que dirigen un summit dirigen también un proyecto
-      industrial. Lo que cambia es qué se mide al final.
-    </p>
-    <ol class="metodo">
-      {metodo.map((m) => (
-        <li class="paso entra">
-          <span class="paso__n">{m.n}</span>
-          <h3 class="paso__titulo">{m.titulo}</h3>
-          <p class="paso__cuerpo">{m.cuerpo}</p>
-        </li>
-      ))}
-    </ol>
-  </Sesion>
-
-  <Sesion n="IX" rotulo="Proyectos" id="proyectos" class="sesion--pendiente">
-    <h2 class="subtitular">Próximamente.</h2>
-    <p class="plomo">
-      Dos o tres proyectos reales, con resultado verificable. Se publican
-      cuando existan confirmados, no antes.
-    </p>
-    <p slot="margen">Ocupará su sitio en cuanto exista, sin rehacer el programa.</p>
-  </Sesion>
-
-  <Sesion n="X" rotulo="Hablemos" id="hablemos" class="sesion--cierre">
-    <div class="cierre">
-      <div class="cierre__decir corchete">
-        <h2 class="titular">¿Listo para que su operación<br /><em>no se detenga?</em></h2>
-        <p class="plomo">
-          Si su operación tiene una decisión pendiente y no un pliego de compras,
-          esta es la conversación correcta.
-        </p>
-        <ul class="contacto">
-          <li>
-            <a class="contacto__enlace" href={`tel:${contacto.oficinaHref}`}>{contacto.oficina}</a>
-            <i class="contacto__rotulo">Oficina</i>
-          </li>
-          {contacto.moviles.map((m) => (
-            <li>
-              <a class="contacto__enlace" href={`tel:${m.href}`}>{m.numero}</a>
-              <i class="contacto__rotulo">Móvil</i>
-            </li>
-          ))}
-          {contacto.correos.map((c) => (
-            <li><a class="contacto__enlace" href={`mailto:${c}`}>{c}</a></li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </Sesion>
-</Mundo>
+</Base>
 
 <style>
-  .metodo__plomo, .servicios__plomo { margin-top: var(--s2); }
+  .obra { min-height: 100svh; display: flex; flex-direction: column; }
 
-  /* La tira de la apertura: los tres frentes del catálogo, que es el índice
-     de la casa. */
-  .tira {
+  .obra__cinta {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--s3) var(--s4);
-    margin: 0;
-    padding: 0;
-    list-style: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s3);
+    padding-block: var(--s2);
+    border-bottom: 1px solid var(--rule);
   }
-  .tira li { display: grid; gap: 0.25rem; }
-  .tira b {
-    font-family: var(--display);
-    font-style: italic;
-    font-weight: 400;
-    font-size: var(--t-sub);
-    line-height: 1;
+  .obra__otra {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75em;
+    font-size: var(--t-chico);
+    text-decoration: none;
+    color: var(--ink-quiet);
+  }
+  .obra__otra:hover { color: var(--live); }
+  .medida {
+    font-size: var(--t-rotulo);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
     color: var(--foil);
   }
-  .tira span {
-    font-size: var(--t-micro);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ink);
-  }
-  .tira a { text-decoration: none; }
 
-  /* El motor: explicador a dos columnas, como «The Dill Autonomy Engine» de
-     picklerobot.com — panel oscuro con la afirmación, panel claro con el
-     contenido. Aquí el motor real de la casa es el método, no un algoritmo:
-     traducido con lo que hay, no con lo que Pickle tiene. */
-  .motor {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-top: var(--s6);
-  }
-  .motor__negro {
+  .obra__cuerpo {
+    flex: 1;
     display: grid;
     align-content: center;
-    padding: var(--s5) var(--gutter);
+    justify-items: start;
+    gap: var(--s2);
+    padding-block: var(--s6);
+    position: relative;
   }
-  .motor__afirmacion {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: clamp(1.75rem, 3.4vw, 2.6rem);
-    line-height: 1.18;
-    color: var(--ink);
-    max-width: 18ch;
-  }
-  .motor__afirmacion em { color: var(--live); }
-  .motor__claro {
-    padding: var(--s5) var(--gutter);
-    background: var(--placa);
-  }
-  .motor__pasos {
-    margin-top: var(--s4);
-    display: grid;
-    gap: 0.6rem;
-  }
-  .motor__pasos li { display: flex; align-items: baseline; gap: 0.7em; }
-  .motor__pasos b {
-    font-family: var(--display);
-    font-style: italic;
-    color: var(--foil);
-    font-size: var(--t-chico);
-  }
-  .motor__enlace { margin-top: var(--s4); }
-
-  @media (max-width: 52rem) {
-    .motor { grid-template-columns: 1fr; }
-  }
-
-  /* Las pestañas: navegación rápida a los tres frentes, con el aire de la
-     barra de pestañas de picklerobot.com — sin JavaScript de por medio,
-     porque cada una ya salta a su propia sesión completa más abajo; esto
-     es la promesa visual, la sesión de siempre sigue siendo el contenido. */
-  .pestanas {
-    margin-top: var(--s4);
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0;
-    border: 1px solid var(--rule);
-  }
-  .pestanas li { border-right: 1px solid var(--rule); }
-  .pestanas li:last-child { border-right: 0; }
-  .pestanas a {
+  .obra__rail {
+    margin: 0;
     display: flex;
     align-items: baseline;
     gap: 0.5em;
-    padding: 0.85em 1.4em;
-    text-decoration: none;
-    font-family: var(--mono);
+  }
+  .obra__rail b {
+    font-family: var(--display);
+    font-size: var(--t-rail-letra);
+    line-height: 1;
+    color: var(--foil);
+  }
+  .obra__rail i {
+    font-style: normal;
     font-size: var(--t-rotulo);
-    letter-spacing: 0.06em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--ink-quiet);
-    transition: background-color 220ms var(--ease), color 220ms var(--ease);
   }
-  .pestanas a:hover { background: var(--placa); color: var(--ink); }
-  .pestanas b { font-family: var(--mono); color: var(--live); }
-  /* La primera pestaña llena de luz por defecto, como «AUTONOMY» en
-     picklerobot.com: no todo estado activo tiene que decidirlo el scroll. */
-  .pestanas li:first-child a { background: var(--live); color: var(--stock); }
-  .pestanas li:first-child a:hover { background: var(--live); color: var(--stock); }
-  .pestanas li:first-child b { color: var(--stock); }
-
-  /* La afirmación intermedia: el «We Pick Things» de Pickle, con lo que la
-     casa puede probar de sí misma en una frase, no en una promesa suelta. */
-  .afirmacion {
-    margin-top: var(--s6);
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: var(--s5);
-    align-items: center;
+  .obra__anillo {
+    position: absolute;
+    top: var(--s6);
+    right: var(--gutter);
+    width: clamp(6rem, 16vw, 11rem);
+    height: clamp(6rem, 16vw, 11rem);
+    color: var(--foil-faint);
+    opacity: 0.5;
   }
-  .afirmacion__titulo { margin-bottom: var(--s3); }
-  .afirmacion__titulo em { color: var(--live); }
-  .afirmacion__cuerpo { font-size: var(--t-lead); max-width: 42ch; }
-
-  @media (max-width: 52rem) {
-    .afirmacion { grid-template-columns: 1fr; gap: var(--s3); }
-  }
-
-  /* Los tres frentes: entradas de programa, como las prácticas de la Pista A. */
-  .frentes { margin-top: var(--s4); }
-  .frente {
-    display: grid;
-    grid-template-columns: 4.5rem minmax(0, 1fr);
-    gap: 0.35rem var(--s3);
-    padding-block: var(--s4);
-    border-top: 1px solid var(--rule);
-  }
-  .frente__n {
-    grid-row: span 2;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: var(--t-practica-n);
-    opacity: 0.55;
-    text-align: right;
-    color: var(--foil);
-    line-height: 1;
-    font-variation-settings: 'opsz' 18;
-  }
-  .frente__titulo {
-    font-size: var(--t-titulo);
-    line-height: 1.1;
-    font-variation-settings: 'opsz' 30;
-  }
-  .frente__titulo a { text-decoration: none; border-bottom: 1px solid var(--foil-dim); }
-  .frente__cuerpo { max-width: 52ch; }
-
-  /* Las nueve familias. El detalle va en versalitas de latón, en línea: es
-     nomenclatura de catálogo, no texto de lectura. */
-  .familias { margin-top: var(--s4); }
-  .familia {
-    display: grid;
-    grid-template-columns: 3rem minmax(0, 1fr);
-    gap: 0.3rem var(--s3);
-    padding-block: var(--s3);
-    border-top: 1px solid var(--rule);
-  }
-  .familia__n {
-    grid-row: span 3;
-    font-family: var(--display);
-    font-style: italic;
+  .obra__rotulo {
+    margin: var(--s3) 0 0;
     font-size: var(--t-sub);
-    color: var(--foil);
-    line-height: 1.2;
-    font-variation-settings: 'opsz' 15;
+    letter-spacing: 0.02em;
+    color: var(--ink-quiet);
   }
-  .familia__titulo {
-    font-size: var(--t-entrada);
-    line-height: 1.14;
-    font-variation-settings: 'opsz' 25;
-  }
-  .familia__cuerpo { max-width: 56ch; font-size: var(--t-chico); }
-  /* El detalle corre como una sola línea de texto, no como una rejilla de
-     etiquetas: en columna estrecha, siete nombres en caja alta y con prosa
-     ocupaban nueve renglones, uno por etiqueta. Como texto corrido se acomodan
-     solos y siguen leyéndose como nomenclatura de catálogo. */
-  .familia__detalle {
+  .obra__titular {
     margin-top: var(--s1);
-    font-size: var(--t-menudo);
-    letter-spacing: 0.14em;
-    line-height: 1.7;
-    text-transform: uppercase;
-    color: var(--foil);
+    font-size: var(--t-refran);
+    line-height: 1.02;
+    letter-spacing: -0.022em;
+    max-width: 16ch;
   }
-  .familia__detalle li { display: inline; }
-  .familia__detalle li + li::before { content: ' · '; color: var(--foil-dim); }
-
-  /* Los servicios: cadena de cinco, con el mismo hilo que la metodología.
-     Es un mantenimiento, y un mantenimiento es una secuencia. */
-  .servicios {
-    margin-top: var(--s4);
-    position: relative;
-    padding-left: var(--s4);
+  .obra__titular em { font-style: italic; color: var(--live); }
+  .obra__plomo {
+    margin-top: var(--s3);
+    max-width: var(--measure);
+    font-size: var(--t-lead);
+    line-height: 1.58;
+    color: var(--ink-body);
   }
-  .servicios::before {
-    content: '';
-    position: absolute;
-    left: 5px;
-    top: 0.9rem;
-    bottom: 1.1rem;
-    width: 1px;
-    background: linear-gradient(to bottom, var(--live), var(--foil-faint));
-  }
-  .servicio {
-    position: relative;
-    display: grid;
-    gap: 0.3rem;
-    padding-block: var(--s2) var(--s3);
-  }
-  .servicio::before {
-    content: '';
-    position: absolute;
-    left: calc(-1 * var(--s4) + 2px);
-    top: 1.15rem;
-    width: 7px;
-    height: 7px;
-    background: var(--stock);
-    border: 1px solid var(--live);
-    border-radius: 50%;
-  }
-  .servicio__n {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: var(--t-menudo);
-    letter-spacing: 0.12em;
-    color: var(--foil);
-  }
-  .servicio__titulo { font-size: var(--t-menor); line-height: 1.15; }
-  .servicio__cuerpo { max-width: 54ch; }
-
-  /* Las piezas a la medida: el anillo como viñeta, en dos columnas. */
-  .piezas {
-    margin-top: var(--s4);
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--s2) var(--s4);
-  }
-  .pieza {
-    display: grid;
-    grid-template-columns: 1rem minmax(0, 1fr);
-    align-items: baseline;
-    gap: var(--s2);
-    padding-block: var(--s2);
-    border-top: 1px solid var(--rule);
-    font-family: var(--display);
-    font-size: var(--t-menor);
-    line-height: 1.2;
-    color: var(--ink);
-    font-variation-settings: 'opsz' 18;
-  }
-  /* Envuelto: una clase suelta sobre `<Anillo />` no recibe el atributo de
-     ámbito de la página. */
-  .pieza__marca { display: block; width: 0.6rem; height: 0.6rem; color: var(--live); }
-  .pieza__marca :global(.anillo) { width: 100%; height: 100%; }
-
-  /* El par: software y demarcación, dos entradas cortas lado a lado. */
-  .par {
-    margin-top: var(--s4);
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--s4);
-  }
-  .par__entrada { padding-top: var(--s3); border-top: 1px solid var(--rule); }
-  .par__titulo {
-    font-size: var(--t-entrada);
-    line-height: 1.14;
-    margin-bottom: var(--s1);
-    font-variation-settings: 'opsz' 25;
-  }
-  .par__cuerpo { max-width: 46ch; }
-
-  /* Las ciudades: el alcance se lee de un vistazo, no en un párrafo. */
-  .ciudades {
+  .obra__contacto {
     margin-top: var(--s4);
     display: flex;
     flex-wrap: wrap;
-    gap: var(--s2) var(--s4);
+    gap: var(--s3);
   }
-  .ciudades li {
-    font-family: var(--display);
-    font-size: var(--t-menor);
-    line-height: 1.2;
-    color: var(--ink);
-    font-variation-settings: 'opsz' 18;
-  }
-  .ciudades__nota { margin-top: var(--s3); max-width: 54ch; }
-
-  .metodo {
-    margin-top: var(--s4);
-    position: relative;
-    padding-left: var(--s4);
-  }
-  .metodo::before {
-    content: '';
-    position: absolute;
-    left: 5px;
-    top: 0.7rem;
-    bottom: 0.9rem;
-    width: 1px;
-    background: linear-gradient(to bottom, var(--live), var(--foil-faint));
-  }
-  .paso { position: relative; display: grid; gap: 0.3rem; padding-block: var(--s2) var(--s3); }
-  .paso::before {
-    content: '';
-    position: absolute;
-    left: calc(-1 * var(--s4) + 2px);
-    top: 0.95rem;
-    width: 7px; height: 7px;
-    background: var(--stock);
-    border: 1px solid var(--live);
-    border-radius: 50%;
-  }
-  .paso__n { font-family: var(--display); font-style: italic; font-size: var(--t-menudo); letter-spacing: 0.12em; color: var(--foil); }
-  .paso__titulo { font-size: var(--t-menor); line-height: 1.15; }
-  .paso__cuerpo { max-width: 52ch; }
-
-  /* El cierre: el muro de clientes ya abre la pista, justo después del
-     hero — aquí sólo queda la conversación, sin repetir la prueba. */
-  .cierre { max-width: 40rem; margin-top: var(--s2); }
-
-  /* El corchete: el gesto que picklerobot.com repite para enmarcar una
-     afirmación (verde en su mundo; aquí, el rojo de pista). Es dos filetes
-     que se cruzan en una esquina — nada nuevo para un sistema que ya vive de
-     filetes hairline, sólo una forma distinta de cortarlos. */
-  .corchete {
-    position: relative;
-    padding-inline: var(--s4);
-  }
-  .corchete::before,
-  .corchete::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: var(--s3);
-    border-block: 1px solid var(--live);
-  }
-  .corchete::before { left: 0; border-left: 1px solid var(--live); }
-  .corchete::after { right: 0; border-right: 1px solid var(--live); }
-
-  @media (max-width: 40rem) {
-    .corchete { padding-inline: var(--s2); }
-  }
-
-  /* La prueba de clientes, subida a justo después del hero: mismo pie que
-     antes tenía el cierre, ahora abre la pista en vez de cerrarla. */
-  .prueba { margin-top: var(--s5); }
-  .prueba__pie {
-    font-family: var(--display);
-    font-size: var(--t-menor);
-    line-height: 1.2;
-    color: var(--ink);
-    margin-bottom: var(--s2);
-    max-width: 34ch;
-  }
-  .prueba__pie em { font-style: italic; color: var(--live); }
-
-  .contacto { margin-top: var(--s3); display: grid; gap: var(--s2); }
-  .contacto li { display: flex; align-items: baseline; gap: var(--s2); flex-wrap: wrap; }
-  .contacto__enlace {
+  .obra__contacto a {
     font-family: var(--display);
     font-size: var(--t-entrada);
     text-decoration: none;
     border-bottom: 1px solid var(--foil-dim);
     color: var(--ink);
-    font-variation-settings: 'opsz' 21;
   }
-  .contacto__enlace:hover { color: var(--live); border-bottom-color: var(--live); }
-  .contacto__rotulo {
-    font-style: normal;
+  .obra__contacto a:hover { color: var(--live); border-bottom-color: var(--live); }
+  .obra__volver {
+    margin-top: var(--s5);
     font-size: var(--t-rotulo);
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--foil);
+    color: var(--ink-quiet);
+    text-decoration: none;
   }
+  .obra__volver:hover { color: var(--live); }
 
-  h1.titular em { font-style: italic; color: var(--live); }
-  h2.subtitular em { font-style: italic; color: var(--ink); }
-
-  /* La afirmación grande y centrada: lo que en picklerobot.com abre cada
-     bloque técnico antes de la pestaña o la lista. Se usa en la primera
-     sesión del panel claro — no en cada título, que seguiría siendo un
-     alarde vacío si se repitiera diez veces. */
-  .subtitular--grande {
-    font-size: clamp(1.875rem, 4.4vw, 3.1rem);
-    line-height: 1.16;
-    text-align: center;
-    max-width: 40rem;
-    margin-inline: auto;
-  }
-
-  /* La cifra de tradición, bajada de titular a nota chica el 19/09/2026. */
-  .apertura__tradicion { margin-top: var(--s2); }
-
-  @media (max-width: 52rem) {
-    .frente { grid-template-columns: 3.25rem minmax(0, 1fr); }
-    .familia { grid-template-columns: 2.5rem minmax(0, 1fr); }
-    .familia__detalle { letter-spacing: 0.1em; font-size: var(--t-micro); }
-    .piezas, .par { grid-template-columns: 1fr; gap: var(--s2); }
+  @media (max-width: 40rem) {
+    .obra__anillo { display: none; }
+    .obra__titular { font-size: clamp(2.25rem, 11vw, 3.5rem); }
   }
 </style>

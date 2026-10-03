@@ -117,6 +117,22 @@ img, svg { display: block; max-width: 100%; }
 }
 .sesion:first-of-type::before { display: none; }
 
+/* La banda clara: una sesión entera invierte cartulina y tinta (ver
+   `.sesion--claro` en tokens.css) y necesita su propio papel a sangre
+   completa, con el mismo truco de 100vw que corta el filete de arriba. */
+.sesion--claro { position: relative; }
+.sesion--claro::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--stock);
+  z-index: -1;
+}
+
 .sesion__rail {
   grid-column: 1;
   font-size: var(--t-rotulo);
