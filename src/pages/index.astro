@@ -26,14 +26,9 @@ const pistas = [
   descripcion="Spot diseña decisiones que se recuerdan. Dos pistas: experiencias corporativas estratégicas y soluciones industriales. Cambridge · Bogotá · México."
 >
   <script is:inline>
-    /* La entrada se toca una sola vez por sesión: volver a la puerta desde un
-       mundo no vuelve a hacer esperar. Sin JS no hay animación y todo se ve. */
-    try {
-      if (!sessionStorage.getItem('spot:entrada')) {
-        document.documentElement.setAttribute('data-entrada', '');
-        sessionStorage.setItem('spot:entrada', '1');
-      }
-    } catch (e) {}
+    /* La entrada suena en cada carga, también al recargar. Sin JS no hay
+       animación y todo se ve. */
+    document.documentElement.setAttribute('data-entrada', '');
   </script>
 
   <main class="portada">
