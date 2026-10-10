@@ -7,6 +7,10 @@ html {
   scrollbar-color: var(--foil-dim) var(--stock-deep);
 }
 
+/* El iframe del widget de ConnectLoop es de esquema claro; con el `dark` de la
+   página el navegador le pinta un lienzo opaco. `normal` lo deja transparente. */
+#chat-widget-iframe { color-scheme: normal; }
+
 body {
   margin: 0;
   overflow-x: clip;   /* las bandas a sangre usan 100vw; nada se sale por el lado */
