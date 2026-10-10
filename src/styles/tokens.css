@@ -9,8 +9,6 @@
 :root {
   /* Cartulina */
   --stock:        #0A0A0A;
-  --placa:        #111010;  /* la placa del muro de clientes */
-  --placa-viva:   #151413;
   --stock-deep:   #060606;
 
   /* Tintas */
@@ -41,24 +39,13 @@
 
   /* Filetes */
   --rule:         #2A2724;
-  --hair:         1px;
-
 
   /* Escala tipográfica. Un papel por oficio; si un tamaño nuevo no tiene
      oficio, no entra. */
-  --t-refran:     clamp(2.25rem, 7.4vw, 6rem);   /* el refrán a sangre */
-  --t-display:    clamp(2rem, 5.2vw, 3.75rem);   /* titular de sesión */
   --t-portada:    clamp(2rem, 4.6vw, 3.4rem);    /* nombre de pista en la portada */
   --t-lema:       clamp(1.5rem, 3.2vw, 2.6rem);  /* lema y principio que manda */
   --t-rail-letra: clamp(1.75rem, 3.4vw, 2.75rem);/* letra de pista al margen */
-  --t-titulo:     clamp(1.5rem, 3.1vw, 2.25rem); /* subtitular y entrada mayor */
-  --t-entrada:    clamp(1.35rem, 2.5vw, 1.8rem); /* entrada de programa */
-  --t-menor:      clamp(1.15rem, 2.1vw, 1.5rem); /* estación y paso */
-  --t-marca:      1.5rem;      /* logotipo y numeral de raíl */
-  --t-practica-n: clamp(2rem, 4.2vw, 2.75rem); /* numeral de práctica/frente: grande y tenue, pedido en la reunión del 19/09/2026 */
-  --t-sub:        1.125rem;    /* rótulo de cinta, numeral de entrada */
   --t-nota:       1rem;        /* nota curatorial */
-  --t-lead:       1.1875rem;   /* entradilla */
   --t-cuerpo:     1.0625rem;   /* cuerpo */
   --t-chico:      0.9375rem;   /* cuerpo menor */
   --t-menudo:     0.875rem;    /* apoyo */
@@ -68,10 +55,6 @@
   /* Tipografía */
   --display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --text:    'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  /* Pila técnica: sólo para el rótulo de botón y de pestaña de la Pista B,
-     donde el brief (picklerobot.com) pide una caja de máquina, no de
-     imprenta. Ninguna familia nueva que autohospedar: system-ui monoespaciada. */
-  --mono:    ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
 
   /* Compás vertical: un solo ritmo en toda la obra */
   --step: 0.5rem;
@@ -79,19 +62,8 @@
   --s2:  calc(var(--step) * 2);    /* 16px */
   --s3:  calc(var(--step) * 3);    /* 24px */
   --s4:  calc(var(--step) * 5);    /* 40px */
-  --s5:  calc(var(--step) * 8);    /* 64px */
-  --s6:  calc(var(--step) * 13);   /* 104px */
 
-  /* Retícula del programa: raíl de sesión + columna de lectura + margen */
-  /* Alto de la cinta pegajosa, sus DOS filas: la de marca y el hilo de
-     capítulos. Todo lo que se pega debajo se mide desde aquí, para que no
-     vuelva a quedar nada escondido tras ella. */
-  --cinta:  6.25rem;
-
-  --rail:   9rem;
-  --measure: 34rem;      /* ~68ch en el cuerpo */
   --gutter: clamp(1.25rem, 4vw, 4.5rem);
-  --page:   78rem;
 
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -103,55 +75,4 @@
     transition-duration: 1ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-/* La Pista B se imprime con la otra luz: el rojo de Spot Industries.
-   Un mundo, una tinta — el sistema no cambia, cambia el color que vive. */
-[data-pista='b'] {
-  --live: var(--rojo);
-}
-
-/* El panel claro, historia completa: se probó el 24/09, se revirtió el
-   26/09/2026 por decisión del cliente (Industrial sin modo claro), y el
-   27/09 se pidió fidelidad literal de estructura a picklerobot.com sin
-   tocar el color. El 01/10/2026 el cliente pidió ir hasta el final: calcar
-   también la alternancia clara/oscura de la referencia. Esta regla la
-   reinstala, sólo para la Pista B.
-
-   `.claro` y `.sesion--claro` invierten cartulina y tinta dentro de su
-   propio alcance — el negro cartulina se vuelve el papel, la tinta hueso se
-   vuelve tinta real — remapeando los mismos tokens que ya usa cada
-   componente, igual que `[data-pista='b']` remapea `--live`. Ningún
-   componente aprende un color nuevo; lee los mismos nombres con otro valor.
-   Valores literales (no `var()` encadenado a los tokens que esta misma
-   regla sobreescribe, para no capturar el valor nuevo por error) medidos
-   sobre el papel `#EDE9E1`: tinta 16,35:1, cuerpo 15,25:1, queda 6,01:1,
-   latón 5,91:1 (mismo valor que latón-queda — ver nota del 01/10 más abajo,
-   un primer valor de latón pasaba el papel pero no `--placa`), vivo (rojo
-   oscurecido a `#B3261A`, el mismo rojo de marca bajado de luz en vez de
-   subido) 5,40:1. */
-.claro, .sesion--claro {
-  /* `color` se reafirma aquí a propósito: un texto sin color propio (un
-     `<span>`, un `<li>`) hereda el valor YA RESUELTO del `body` más cercano
-     que lo fija con `var()`, no la variable en sí — y ese `body` vive fuera
-     de este alcance, resuelto en cartulina. Sin esta línea, ese texto sale
-     tinta-sobre-tinta: invisible sobre el papel. */
-  color: var(--ink-body);
-  --stock:      #EDE9E1;
-  --stock-deep: #E2DCCC;
-  --ink:        #0A0A0A;
-  --ink-body:   #171310;
-  --ink-quiet:  #5C564A;
-  /* `--foil` se calibró primero contra el papel puro (#EDE9E1, 4,83:1) y se
-     pasó por alto `--placa` (#E2DCCC), el fondo que usa `.motor__pasos b`:
-     ahí caía a 4,27:1, bajo el piso AA. Encontrado en `/impeccable critique`
-     del 01/10/2026. Reutiliza el valor de `--foil-dim` en vez de uno nuevo —
-     5,23:1 sobre `--placa` y 5,91:1 sobre el papel, los dos papeles que el
-     latón toca dentro de una banda clara. */
-  --foil:       #6A5436;
-  --foil-dim:   #6A5436;
-  --foil-faint: #D9D3C6;
-  --placa:      #E2DCCC;
-  --rule:       #D9D3C6;
-  --live:       #B3261A;
 }

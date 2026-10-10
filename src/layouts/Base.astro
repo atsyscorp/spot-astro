@@ -6,13 +6,12 @@ import '../styles/base.css';
 interface Props {
   titulo: string;
   descripcion: string;
-  pista?: 'a' | 'b' | null;
 }
-const { titulo, descripcion, pista = null } = Astro.props;
+const { titulo, descripcion } = Astro.props;
 const url = new URL(Astro.url.pathname, Astro.site ?? 'https://spotlatam.com');
 ---
 <!doctype html>
-<html lang="es" data-pista={pista ?? undefined}>
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
