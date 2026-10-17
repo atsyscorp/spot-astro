@@ -16,7 +16,7 @@ const pistas = [
     letra: 'B',
     id: 'b',
     nombre: 'Industrial',
-    linea: 'Proyectos estratégicos para el sector industrial. Soluciones donde la estrategia es crítica.',
+    linea: 'Productos, fabricación a la medida y mantenimiento para la industria nacional.',
     href: 'https://industrias.spotlatam.com',
   },
 ];
@@ -190,9 +190,9 @@ const pistas = [
   .campo--a { background: var(--track-a-field); }
   .campo--b { background: var(--track-b-field); }
 
-  .portada:has(.pista[data-pista='a']:hover) .campo--a,
+  .portada:has(.pista[data-pista='a']:is(:hover, .activa)) .campo--a,
   .portada:has(.pista[data-pista='a']:focus-within) .campo--a,
-  .portada:has(.pista[data-pista='b']:hover) .campo--b,
+  .portada:has(.pista[data-pista='b']:is(:hover, .activa)) .campo--b,
   .portada:has(.pista[data-pista='b']:focus-within) .campo--b { opacity: 1; }
 
   /* El pliegue del programa: una lámina de latón por el centro exacto,
@@ -358,21 +358,21 @@ const pistas = [
   .pista[data-pista='b'] .pista__filete { transform-origin: left; }
   .pista[data-pista='a'] .pista__entrar { flex-direction: row-reverse; }
 
-  .pista:hover .pista__linea,
+  .pista:is(:hover, .activa) .pista__linea,
   .pista:focus-within .pista__linea { color: var(--ink-body); }
-  .pista[data-pista='a']:hover .pista__entrar,
+  .pista[data-pista='a']:is(:hover, .activa) .pista__entrar,
   .pista[data-pista='a']:focus-within .pista__entrar { color: var(--track-a); }
-  .pista[data-pista='b']:hover .pista__entrar,
+  .pista[data-pista='b']:is(:hover, .activa) .pista__entrar,
   .pista[data-pista='b']:focus-within .pista__entrar { color: var(--track-b); }
-  .pista[data-pista='a']:hover .pista__rail b,
+  .pista[data-pista='a']:is(:hover, .activa) .pista__rail b,
   .pista[data-pista='a']:focus-within .pista__rail b { color: var(--track-a); }
-  .pista[data-pista='b']:hover .pista__rail b,
+  .pista[data-pista='b']:is(:hover, .activa) .pista__rail b,
   .pista[data-pista='b']:focus-within .pista__rail b { color: var(--track-b); }
-  .pista:hover .pista__filete,
+  .pista:is(:hover, .activa) .pista__filete,
   .pista:focus-within .pista__filete { transform: scaleX(1); }
-  .pista[data-pista='a']:hover .pista__filete,
+  .pista[data-pista='a']:is(:hover, .activa) .pista__filete,
   .pista[data-pista='a']:focus-within .pista__filete { background: var(--track-a); }
-  .pista[data-pista='b']:hover .pista__filete,
+  .pista[data-pista='b']:is(:hover, .activa) .pista__filete,
   .pista[data-pista='b']:focus-within .pista__filete { background: var(--track-b); }
 
   .portada__pie {
@@ -403,9 +403,9 @@ const pistas = [
       background: linear-gradient(to bottom, transparent, var(--foil-dim) 12%, var(--foil-dim) 82%, transparent);
     }
     .campos { display: none; }
-    .pista[data-pista='a']:hover .pista__enlace,
+    .pista[data-pista='a']:is(:hover, .activa) .pista__enlace,
     .pista[data-pista='a']:focus-within .pista__enlace { background: var(--track-a-field); }
-    .pista[data-pista='b']:hover .pista__enlace,
+    .pista[data-pista='b']:is(:hover, .activa) .pista__enlace,
     .pista[data-pista='b']:focus-within .pista__enlace { background: var(--track-b-field); }
     .pista__filete { transform-origin: left; }
     .pista[data-pista='a'] .pista__filete { transform-origin: left; }
@@ -448,14 +448,33 @@ const pistas = [
       a: anillos.querySelector('.anillos__mitad--a') as HTMLElement | null,
       b: anillos.querySelector('.anillos__mitad--b') as HTMLElement | null,
     };
-    for (const pista of document.querySelectorAll<HTMLElement>('.pista')) {
-      const id = pista.dataset.pista as 'a' | 'b' | undefined;
-      if (!id || !mitades[id]) continue;
-      const encender = (on: boolean) => { mitades[id]!.style.opacity = on ? '1' : '0'; };
-      pista.addEventListener('pointerenter', () => encender(true));
-      pista.addEventListener('pointerleave', () => encender(false));
-      pista.addEventListener('focusin', () => encender(true));
-      pista.addEventListener('focusout', () => encender(false));
+    const pistas = {
+      a: document.querySelector<HTMLElement>('.pista[data-pista="a"]'),
+      b: document.querySelector<HTMLElement>('.pista[data-pista="b"]'),
+    };
+    const encender = (id: 'a' | 'b' | null) => {
+      for (const k of ['a', 'b'] as const) {
+        pistas[k]?.classList.toggle('activa', k === id);
+        if (mitades[k]) mitades[k]!.style.opacity = k === id ? '1' : '0';
+      }
+    };
+    /* La mitad de la página manda: izquierda = Estrategia, derecha = Industrial,
+       esté el cursor sobre el texto o sobre el vacío. En móvil las pistas van
+       apiladas y cada una responde a su propio toque. */
+    const escritorio = window.matchMedia('(min-width: 52.01rem)');
+    const portada = document.querySelector<HTMLElement>('.portada');
+    portada?.addEventListener('pointermove', (e) => {
+      if (!escritorio.matches || e.pointerType !== 'mouse') return;
+      encender(e.clientX < window.innerWidth / 2 ? 'a' : 'b');
+    });
+    portada?.addEventListener('pointerleave', () => encender(null));
+    for (const id of ['a', 'b'] as const) {
+      const pista = pistas[id];
+      if (!pista || !mitades[id]) continue;
+      pista.addEventListener('pointerenter', () => { if (!escritorio.matches) encender(id); });
+      pista.addEventListener('pointerleave', () => { if (!escritorio.matches) encender(null); });
+      pista.addEventListener('focusin', () => encender(id));
+      pista.addEventListener('focusout', () => encender(null));
     }
   }
 </script>
